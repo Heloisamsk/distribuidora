@@ -1,4 +1,5 @@
 package negocio;
 
-public class Fornecedor {
+public class Fornecedor extends Pessoa{
+
 }
