@@ -63,5 +63,4 @@ public class Pessoa {
     //public void setTipoPessoa(String tipoPessoa) {
       //  this.tipoPessoa = tipoPessoa;
     //}
-
 }
