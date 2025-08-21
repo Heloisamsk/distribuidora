@@ -73,6 +73,5 @@ public class NotaFiscal {
 
         return notaFiscal;
 
-
     }
 }
