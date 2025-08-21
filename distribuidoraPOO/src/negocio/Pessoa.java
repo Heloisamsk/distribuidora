@@ -6,7 +6,6 @@ public class Pessoa {
     private String telefone;
     private String endereco;
     private String email;
-    //private String tipoPessoa;
 
     public Pessoa(String nome, String cpf, String telefone, String endereco, String email) {
         this.nome = nome;
