@@ -66,10 +66,10 @@ public class Pedido {
                 ", status='" + status + '\'' +
                 '}';
     }
-    public void calcularTotal(ArrayList<Produto> produtos){
+    public double calcularTotal(ArrayList<Produto> produtos){
         double total = 0.0;
         for(Produto p : produtos){
-            total += produto.getPreco() * produto.getQuantidade();
+            total += p.getPreco() * p.getQuantidade();
         }
         return total;
 
