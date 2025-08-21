@@ -2,6 +2,7 @@ package negocio;
 
 public class Pessoa {
     private String nome;
+    private int idade;
     private String cpf;
     private String telefone;
     private String endereco;
@@ -62,4 +63,5 @@ public class Pessoa {
     //public void setTipoPessoa(String tipoPessoa) {
       //  this.tipoPessoa = tipoPessoa;
     //}
+
 }
