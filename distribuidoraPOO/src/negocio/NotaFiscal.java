@@ -56,16 +56,9 @@ public class NotaFiscal {
                 ", valorTotal=" + valorTotal +
                 '}';
     }
-    private static void calcularValorTotal(ArrayList<Produto> produtos){
-        double total = 0.0;
-        for(Produto p : produtos){
-            total += produto.getPreco() * produto.getQuantidade();
-        }
-        return total;
 
-    }
     public void gerarNota(int numero, ArrayList<Produto> produtos){
-        double valorTotal = calcularValorTotal(produtos);
+        double valorTotal = Pedido.calcularTotal(produtos);
         date dataAtual = new Date();
 
         NotaFiscal notaFiscal = new NotaFiscal(numero, dataAtual, valorTotal);
