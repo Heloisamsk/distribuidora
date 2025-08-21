@@ -44,7 +44,9 @@ public class Patio {
                 ", vagasDisponiveis=" + vagasDisponiveis +
                 '}';
     }
-    public void adicionarCaminhao();
-    public void removerCaminhao();
-    public void listarFila();
+    public void adicionarCaminhao(int vagasDisponiveis){
+        vagasDisponiveis = 4;
+    }
+    public void removerCaminhao(){};
+    public void listarFila(){};
 }
