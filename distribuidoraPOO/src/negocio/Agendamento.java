@@ -13,7 +13,7 @@ public class Agendamento {
         this.pedido = pedido;
         this.caminhao = caminhao;
         this.dataHoraPrevista = dataHoraPrevista;
-        this.status = "Pendente";
+        this.status = "Pendente.";
     }
 
     public void confirmarAgendamento() {
