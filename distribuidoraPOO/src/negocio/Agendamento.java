@@ -3,12 +3,11 @@ package negocio;
 import java.util.Date;
 
 public class Agendamento {
-    private Pedido pedido; // Agora Agendamento está ligado a um Pedido
+    private Pedido pedido;
     private Caminhao caminhao;
     private Date dataHoraPrevista;
     private String status;
 
-    // O construtor agora recebe um Pedido em vez de um ID e um Cliente
     public Agendamento(Pedido pedido, Caminhao caminhao, Date dataHoraPrevista) {
         this.pedido = pedido;
         this.caminhao = caminhao;

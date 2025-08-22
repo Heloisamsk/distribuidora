@@ -28,7 +28,6 @@ public class AuxiliarAdm extends Funcionario {
         System.out.println("AuxiliarAdm " + this.getNome() + " permitiu a entrada do caminhão da placa " + c.getPlaca());
     }
 
-    // Getters e Setters
     public String getLogin() {
         return login;
     }
