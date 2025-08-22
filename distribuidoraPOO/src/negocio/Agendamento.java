@@ -22,7 +22,7 @@ public class Agendamento {
 
     public void cancelarAgendamento() {
         this.status = "Cancelado";
-        System.out.println("Agendamento " + this.id + " do caminhão " + this.caminhao.getPlaca() + " cancelado.");
+        System.out.println("Agendamento " + this.id + " do caminhão " + this.caminhao.getPlaca() + " cancelado");
     }
 
 
