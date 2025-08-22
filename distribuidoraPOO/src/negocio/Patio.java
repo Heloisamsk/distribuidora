@@ -1,3 +1,52 @@
 package negocio;
+import java.util.ArrayList;
+
 public class Patio {
+    private ArrayList<Caminhao> filaEntrada;
+    private ArrayList<Caminhao> filaSaida;
+    private int vagasDisponiveis;
+
+    public Patio(ArrayList<Caminhao> filaEntrada, ArrayList<Caminhao> filaSaida, int vagasDisponiveis) {
+        this.filaEntrada = filaEntrada;
+        this.filaSaida = filaSaida;
+        this.vagasDisponiveis = vagasDisponiveis;
+    }
+
+    public ArrayList<Caminhao> getFilaEntrada() {
+        return filaEntrada;
+    }
+
+    public void setFilaEntrada(ArrayList<Caminhao> filaEntrada) {
+        this.filaEntrada = filaEntrada;
+    }
+
+    public ArrayList<Caminhao> getFilaSaida() {
+        return filaSaida;
+    }
+
+    public void setFilaSaida(ArrayList<Caminhao> filaSaida) {
+        this.filaSaida = filaSaida;
+    }
+
+    public int getVagasDisponiveis() {
+        return vagasDisponiveis;
+    }
+
+    public void setVagasDisponiveis(int vagasDisponiveis) {
+        this.vagasDisponiveis = vagasDisponiveis;
+    }
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "Patio{" +
+                "filaEntrada=" + filaEntrada +
+                ", filaSaida=" + filaSaida +
+                ", vagasDisponiveis=" + vagasDisponiveis +
+                '}';
+    }
+    public void adicionarCaminhao(int vagasDisponiveis){
+        vagasDisponiveis = 4;
+    }
+    public void removerCaminhao(){};
+    public void listarFila(){};
 }
