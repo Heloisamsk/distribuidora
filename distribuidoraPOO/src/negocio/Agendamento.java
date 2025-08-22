@@ -3,13 +3,14 @@ package negocio;
 import java.util.Date;
 
 public class Agendamento {
-    private int id;
+    private Pedido pedido; // Agora Agendamento está ligado a um Pedido
     private Caminhao caminhao;
     private Date dataHoraPrevista;
     private String status;
 
-    public Agendamento(int id, Caminhao caminhao, Date dataHoraPrevista) {
-        this.id = id;
+    // O construtor agora recebe um Pedido em vez de um ID e um Cliente
+    public Agendamento(Pedido pedido, Caminhao caminhao, Date dataHoraPrevista) {
+        this.pedido = pedido;
         this.caminhao = caminhao;
         this.dataHoraPrevista = dataHoraPrevista;
         this.status = "Pendente";
@@ -17,25 +18,23 @@ public class Agendamento {
 
     public void confirmarAgendamento() {
         this.status = "Confirmado";
-        System.out.println("Agendamento " + this.id + " do caminhão " + this.caminhao.getPlaca() + " confirmado.");
+        System.out.println("Agendamento do pedido " + this.pedido.getNumero() + " do cliente " + this.pedido.getCliente().getNome() + " para o caminhão " + this.caminhao.getPlaca() + " confirmado.");
     }
 
     public void cancelarAgendamento() {
         this.status = "Cancelado";
-        System.out.println("Agendamento " + this.id + " do caminhão " + this.caminhao.getPlaca() + " cancelado");
+        System.out.println("Agendamento do pedido " + this.pedido.getNumero() + " do cliente " + this.pedido.getCliente().getNome() + " para o caminhão " + this.caminhao.getPlaca() + " cancelado.");
     }
 
-
-    // gett sett id
-    public int getId() {
-        return id;
+    // getters e setters
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
-    //gett sett caminhao
     public Caminhao getCaminhao() {
         return caminhao;
     }
@@ -44,7 +43,6 @@ public class Agendamento {
         this.caminhao = caminhao;
     }
 
-    //gett e sett hora
     public Date getDataHoraPrevista() {
         return dataHoraPrevista;
     }
@@ -53,7 +51,6 @@ public class Agendamento {
         this.dataHoraPrevista = dataHoraPrevista;
     }
 
-    //gett sett status
     public String getStatus() {
         return status;
     }
