@@ -36,12 +36,12 @@ public class Venda {
     }
 
     public void finalizarPedido(){
-        if (pedido,getProdutos().isEmpty()){
-            System.out.println("Não é possível finalizar o pedido sem produtos!")
+        if (pedido.getProdutos().isEmpty()){
+            System.out.println("Não é possível finalizar o pedido sem produtos!");
             return;
         }
 
         pedido.alterarStatus("Finalizado!");
-        System.out.println("Valor total: R$ "+ pedido.getValorTotal())
+        System.out.println("Valor total: R$ "+ pedido.getValorTotal());
     }
 }

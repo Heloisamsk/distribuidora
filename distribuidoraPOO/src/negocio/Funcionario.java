@@ -2,9 +2,10 @@ package negocio;
 
 public class Funcionario extends Pessoa {
     private String cargo;
-    private Double salario;
+    private double salario;
 
-    public Funcionario(String cargo, double salario) {
+    public Funcionario(String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email) {
+        super(nome, idade, cpf, telefone, endereco, email);
         this.cargo = cargo;
         this.salario = salario;
     }
@@ -17,13 +18,9 @@ public class Funcionario extends Pessoa {
         return salario;
     }
 
-    }
-    public boolean baterPonto(){
-
-    }
-    public void receberAumento(Double aumento) {
-        this.salario += aumento;
-    }
-}
-
+    /*public boolean baterPonto(int entrada, int saida) {
+        // 8 e 18
+       double horas = saida - entrada - 2;
+        return true;
+    }*/
 }
