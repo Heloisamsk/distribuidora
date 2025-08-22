@@ -4,7 +4,8 @@ public class Motorista extends Funcionario{
     private String CNH;
     private Caminhao caminhaoResponsavel;
 
-    public Motorista(String CNH, Caminhao caminhaoResponsavel){
+    public Motorista(String CNH, Caminhao caminhaoResponsavel, String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email){
+        super(cargo, salario, nome, idade, cpf, telefone, endereco, email);
         this.CNH = CNH;
         this.caminhaoResponsavel = caminhaoResponsavel;
     }
@@ -20,7 +21,9 @@ public class Motorista extends Funcionario{
     public String getCNH() {
         return CNH;
     }
-    public void dirigirCaminhao(){
+    public void dirigirCaminhao(Caminhao caminhaoResponsavel){
+        this.caminhaoResponsavel.status()= "ocupado";
 
     }
 }
+

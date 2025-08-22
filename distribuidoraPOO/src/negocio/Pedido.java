@@ -44,10 +44,6 @@ public class Pedido {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public ArrayList<Produto> getProdutos() {
         return produtos;
     }
@@ -77,7 +73,8 @@ public class Pedido {
     public void adicionarProduto(){
 
     }
-    public void status(){
+    public void alterarStatus(String status){
+        this.status = status;
 
     }
 }
