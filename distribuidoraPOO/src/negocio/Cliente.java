@@ -1,30 +1,29 @@
 package negocio;
 
-public class Cliente {
+public class Cliente extends Pessoa {
+    private String tipo;
 
-    public Cliente(String nome, String cpf, String telefone, String endereco, String email, String tipo) {
-        super(nome, cpf, telefone, endereco, email);
+    public Cliente(String nome, int idade, String cpf, String telefone, String endereco, String email, String tipo) {
+        super(nome, idade, cpf, telefone, endereco, email);
         this.tipo = tipo;
     }
 
     public void realizarPedido(Pedido pedido) {
-        System.out.println("Cliente " + this.getNome() + " fez o pedido " + pedido.getId() + ".");
-        // Lógica para processar o pedido.
+        System.out.println("Cliente " + getNome() + " fez o pedido " + pedido.getNumero());
     }
 
     public void realizarPagamento(double valor, String metodo) {
-        System.out.println("Cliente " + this.getNome() + " pagou R$:" + valor + " usando:" + metodo);
-        // Lógica para processar o pagamento.
+        System.out.println("Cliente " + getNome() + " pagou R$ " + valor + " usando: " + metodo);
     }
 
     public void status() {
         System.out.println("Status do cliente:");
-        System.out.println("Nome: " + this.getNome());
-        System.out.println("CPF: " + this.getCpf());
-        System.out.println("Tipo: " + this.getTipo());
+        System.out.println("Nome: " + getNome());
+        System.out.println("Idade: " + getIdade());
+        System.out.println("CPF: " + getCpf());
+        System.out.println("Tipo: " + tipo);
     }
 
-    // gett e sett tipo
     public String getTipo() {
         return tipo;
     }
