@@ -11,19 +11,30 @@ public class Motorista extends Funcionario{
     }
 
     public Caminhao getCaminhaoResponsavel() {
+
         return caminhaoResponsavel;
     }
 
     public void setCaminhaoResponsavel(Caminhao caminhaoResponsavel) {
+
         this.caminhaoResponsavel = caminhaoResponsavel;
     }
 
     public String getCNH() {
+
         return CNH;
     }
+
     public void dirigirCaminhao(Caminhao caminhaoResponsavel){
-        this.caminhaoResponsavel.status()= "ocupado";
+        this.caminhaoResponsavel.setStatus("Em viagem");
 
     }
+    public void finalizarViagem(Caminhao caminhaoResponsavel){
+        this.caminhaoResponsavel.setStatus("Disponível");
+    }
+    public void mandarConsertarCaminhao(Caminhao caminhaoResponsavel){
+        this.caminhaoResponsavel.setStatus("Em conserto");
+    }
+
 }
 
