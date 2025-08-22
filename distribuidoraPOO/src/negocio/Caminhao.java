@@ -37,6 +37,24 @@ public class Caminhao {
     public void setStatus(String status) {
         this.status = status;
     }
+    //Metodos entrar e sair do patio
+    public void entrarPatio(Patio patio) {
+        if (patio.getVagasDisponiveis() > 0) {
+            patio.setVagasDisponiveis(patio.getVagasDisponiveis() - 1);
+            this.status = "No pátio";
+            System.out.println("Caminhão da placa: " + this.placa + " entrou no pátio");
+        } else {
+            System.out.println("Pátio está cheio, caminhão " + this.placa + " não pode entrar");
+        }
+    }
+
+
+    public void sairPatio(Patio patio) {
+        patio.setVagasDisponiveis(patio.getVagasDisponiveis() + 1);
+        this.status = "Fora do pátio";
+        System.out.println("Caminhão da placa: " + this.placa + " saiu do pátio");
+    }
+
 
     @Override
     public String toString() {
