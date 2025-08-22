@@ -9,7 +9,7 @@ public class Cliente extends Pessoa {
     }
 
     public void realizarPedido(Pedido pedido) {
-        System.out.println("Cliente " + getNome() + " fez o pedido " + pedido.getNumero());
+        System.out.println("Cliente " + getNome() + " fez o pedido: " + pedido.getNumero());
     }
 
     public void realizarPagamento(double valor, String metodo) {
