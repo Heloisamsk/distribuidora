@@ -1,4 +1,7 @@
 package negocio;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Patio {
 }
