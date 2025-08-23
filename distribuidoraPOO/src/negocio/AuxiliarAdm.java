@@ -8,10 +8,12 @@ public class AuxiliarAdm extends Funcionario {
     private ArrayList<Funcionario> funcionariosLista;
     private ArrayList<Caminhao> caminhoesLista;
     private ArrayList<Produto> produtosLista;
+    private Patio patio;
 
-    public AuxiliarAdm(String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String login) {
+    public AuxiliarAdm(Patio patio, String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String login) {
         super(cargo, salario, nome, idade, cpf, telefone, endereco, email);
         this.login = login;
+        this.patio = patio;
     }
 
     public void cadastrarFuncionario(Funcionario funcionario) {
@@ -34,8 +36,8 @@ public class AuxiliarAdm extends Funcionario {
         System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o produto: " + produto.getNome());
     }
 
-    public void permitirEntrada(Caminhao c) {
-        System.out.println("AuxiliarAdm " + this.getNome() + " permitiu a entrada do caminhão da placa " + c.getPlaca());
+    public void permitirEntrada(Caminhao caminhao) {
+        patio.adicionarCaminhao(caminhao);
     }
 
     public String getLogin() {
