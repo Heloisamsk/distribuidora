@@ -47,8 +47,7 @@ public class Patio {
                 ", filaSaida=" + filaSaida +
                 ", vagasDisponiveis=" + vagasDisponiveis +
                 '}';
-    }
-    public void adicionarCaminhao(Caminhao caminhao){
+    }public void adicionarCaminhao(Caminhao caminhao){
         if(caminhoesPatioLista.size() < qtdVagas){
             caminhoesPatioLista.add(caminhao);
         }else{
@@ -57,6 +56,7 @@ public class Patio {
         }
 
     }
+
     public void removerCaminhao(){};
     public void listarFila(){};
 }
