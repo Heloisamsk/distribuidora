@@ -47,12 +47,14 @@ public class Patio {
                 ", filaSaida=" + filaSaida +
                 ", vagasDisponiveis=" + vagasDisponiveis +
                 '}';
-    }public void adicionarCaminhao(Caminhao caminhao){
+    }public boolean adicionarCaminhao(Caminhao caminhao){
         if(caminhoesPatioLista.size() < qtdVagas){
             caminhoesPatioLista.add(caminhao);
+            return true;
         }else{
             System.out.println("O patio esta cheio aguarde na fila: ");
             filaEntrada.add(caminhao);
+            return false;
         }
 
     }
