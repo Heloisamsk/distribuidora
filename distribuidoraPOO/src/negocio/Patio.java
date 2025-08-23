@@ -2,9 +2,11 @@ package negocio;
 import java.util.ArrayList;
 
 public class Patio {
+    private ArrayList<Caminhao> caminhoesPatioLista;
     private ArrayList<Caminhao> filaEntrada;
     private ArrayList<Caminhao> filaSaida;
     private int vagasDisponiveis;
+    private int qtdVagas = 5;
 
     public Patio(ArrayList<Caminhao> filaEntrada, ArrayList<Caminhao> filaSaida, int vagasDisponiveis) {
         this.filaEntrada = filaEntrada;
