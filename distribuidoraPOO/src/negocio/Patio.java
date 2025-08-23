@@ -8,10 +8,12 @@ public class Patio {
     private int vagasDisponiveis;
     private int qtdVagas = 5;
 
-    public Patio(ArrayList<Caminhao> filaEntrada, ArrayList<Caminhao> filaSaida, int vagasDisponiveis) {
-        this.filaEntrada = filaEntrada;
-        this.filaSaida = filaSaida;
+    public Patio(ArrayList<Caminhao> filaEntrada, ArrayList<Caminhao> filaSaida, int vagasDisponiveis, ArrayList<Caminhao> caminhoesPatioLista, int qtdVagas) {
+        this.filaEntrada = new ArrayList<>(filaEntrada);
+        this.filaSaida = new ArrayList<>(filaSaida);
         this.vagasDisponiveis = vagasDisponiveis;
+        this.caminhoesPatioLista = new ArrayList<>(caminhoesPatioLista);
+        this.qtdVagas = 5;
     }
 
     public ArrayList<Caminhao> getFilaEntrada() {
