@@ -5,11 +5,14 @@ public class Caminhao {
     private int capacidade;
     private Motorista motorista;
     private String status;
+    private Patio patio;
 
-    public Caminhao(String placa, String modelo, int capacidadeCarga, String status) {
+    public Caminhao(String placa, String modelo, int capacidadeCarga, String status, Patio patio, Motorista motorista) {
         this.placa = placa;
         this.capacidade = capacidade;
         this.status = status;
+        this.patio = patio;
+        this.motorista = motorista;
     }
 
     public String getPlaca() {
@@ -38,14 +41,15 @@ public class Caminhao {
         this.status = status;
     }
     //Metodos entrar e sair do patio
-    public void entrarPatio(Patio patio) {
-        if (patio.getVagasDisponiveis() > 0) {
-            patio.setVagasDisponiveis(patio.getVagasDisponiveis() - 1);
-            this.status = "No pátio";
-            System.out.println("Caminhão da placa: " + this.placa + " entrou no pátio");
-        } else {
-            System.out.println("Pátio está cheio, caminhão " + this.placa + " não pode entrar");
+    public void entrarPatio(Patio patio, Caminhao caminhao) {
+        boolean adicionado = patio.adicionarCaminhao(caminhao);
+        if(adicionado){
+            caminhao.setStatus("NO PATIO");
+        }else{
+            caminhao.setStatus("NA FILA");
         }
+
+
     }
 
 

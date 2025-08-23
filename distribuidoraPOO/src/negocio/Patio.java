@@ -2,14 +2,18 @@ package negocio;
 import java.util.ArrayList;
 
 public class Patio {
+    private ArrayList<Caminhao> caminhoesPatioLista;
     private ArrayList<Caminhao> filaEntrada;
     private ArrayList<Caminhao> filaSaida;
     private int vagasDisponiveis;
+    private int qtdVagas;
 
-    public Patio(ArrayList<Caminhao> filaEntrada, ArrayList<Caminhao> filaSaida, int vagasDisponiveis) {
-        this.filaEntrada = filaEntrada;
-        this.filaSaida = filaSaida;
+    public Patio(ArrayList<Caminhao> filaEntrada, ArrayList<Caminhao> filaSaida, int vagasDisponiveis, ArrayList<Caminhao> caminhoesPatioLista, int qtdVagas) {
+        this.filaEntrada = new ArrayList<>(filaEntrada);
+        this.filaSaida = new ArrayList<>(filaSaida);
         this.vagasDisponiveis = vagasDisponiveis;
+        this.caminhoesPatioLista = new ArrayList<>(caminhoesPatioLista);
+        this.qtdVagas = qtdVagas;
     }
 
     public ArrayList<Caminhao> getFilaEntrada() {
@@ -43,10 +47,18 @@ public class Patio {
                 ", filaSaida=" + filaSaida +
                 ", vagasDisponiveis=" + vagasDisponiveis +
                 '}';
+    }public boolean adicionarCaminhao(Caminhao caminhao){
+        if(caminhoesPatioLista.size() < qtdVagas){
+            caminhoesPatioLista.add(caminhao);
+            return true;
+        }else{
+            System.out.println("O patio esta cheio aguarde na fila: ");
+            filaEntrada.add(caminhao);
+            return false;
+        }
+
     }
-    public void adicionarCaminhao(int vagasDisponiveis){
-        vagasDisponiveis = 4;
-    }
+
     public void removerCaminhao(){};
     public void listarFila(){};
 }
