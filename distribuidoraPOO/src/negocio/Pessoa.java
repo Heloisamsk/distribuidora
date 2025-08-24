@@ -43,12 +43,4 @@ public class Pessoa {
         return email;
     }
 
-
-    //public String getTipoPessoa() {
-      //  return tipoPessoa;
-    //}
-
-    //public void setTipoPessoa(String tipoPessoa) {
-      //  this.tipoPessoa = tipoPessoa;
-    //}
 }
