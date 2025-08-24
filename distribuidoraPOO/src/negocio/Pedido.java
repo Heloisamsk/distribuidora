@@ -63,11 +63,12 @@ public class Pedido {
                 '}';
     }
 
-    public double calcularTotal(ArrayList<Produto> produtos){
+    public double calcularTotal(){
         double total = 0.0;
-        for(Produto p : produtos){
-            total += p.getPreco() * p.getQuantidade();
+        for(Produto produto : this.produtos){
+            total += produto.getPreco() * produto.getQuantidade();
         }
+        this.valorTotal = total;
         System.out.println("Total: " + total);
         return total;
 
