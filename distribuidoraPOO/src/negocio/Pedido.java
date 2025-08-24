@@ -52,17 +52,6 @@ public class Pedido {
         this.produtos = produtos;
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
-        return "Pedido{" +
-                "numero=" + numero +
-                ", cliente=" + cliente +
-                ", produtos=" + produtos +
-                ", valorTotal=" + valorTotal +
-                ", status='" + status + '\'' +
-                '}';
-    }
-
     public double calcularTotal(){
         double total = 0.0;
         for(Produto produto : this.produtos){
@@ -88,4 +77,20 @@ public class Pedido {
             System.out.println("Status inválido!");
         }
     }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Pedido número: ").append(numero).append("\n");
+        sb.append("Cliente: ").append(cliente.getNome()).append("\n");
+        sb.append("Produtos:\n");
+        for (Produto p : produtos) {
+            sb.append(" - ").append(p.getNome())
+                    .append(" x").append(p.getQuantidade())
+                    .append(" R$").append(p.getPreco()).append("\n");
+        }
+        sb.append("Valor total: R$").append(valorTotal).append("\n");
+        sb.append("Status: ").append(status);
+        return sb.toString();
+    }
+
 }
