@@ -5,7 +5,7 @@ public class Motorista extends Funcionario{
     private Caminhao caminhaoResponsavel;
 
     public Motorista(String CNH, Caminhao caminhaoResponsavel, String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email){
-        super(cargo, salario, nome, idade, cpf, telefone, endereco, email);
+        super(matricula, cargo, salario, nome, idade, cpf, telefone, endereco, email);
         this.CNH = CNH;
         this.caminhaoResponsavel = caminhaoResponsavel;
     }
