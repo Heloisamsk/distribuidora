@@ -1,4 +1,5 @@
 package negocio;
+import java.util.ArrayList;
 
 public class Cliente extends Pessoa {
     private String tipo;
@@ -8,12 +9,28 @@ public class Cliente extends Pessoa {
         this.tipo = tipo;
     }
 
-    public void realizarPedido(Pedido pedido) {
-        System.out.println("Cliente " + getNome() + " fez o pedido: " + pedido.getNumero());
+    public void realizarPedido(Pedido pedido, ArrayList<Produto> produtosSolicitados) {
+        System.out.println("Cliente " + getNome() + " iniciou o pedido de número: " + pedido.getNumero());
+
+        for (Produto produto : produtosSolicitados) {
+            pedido.adicionarProduto();
+        }
+
+        pedido.alterarStatus("Pendente");
+
+        System.out.println("Pedido criado com sucesso! Status: " + pedido.getStatus());
+        System.out.println("Valor total do pedido: R$ " + pedido.getValorTotal());
     }
 
-    public void realizarPagamento(double valor, String metodo) {
-        System.out.println("Cliente " + getNome() + " pagou R$ " + valor + " usando: " + metodo);
+    public void realizarPagamento(Pedido pedido, double valor, String metodo) {
+        System.out.println("Cliente " + getNome() + " realizou o pagamento de R$ " + valor + " usando: " + metodo);
+
+        if (valor >= pedido.getValorTotal()) {
+            pedido.alterarStatus("Pago");
+            System.out.println("Pagamento processado com sucesso! Status do pedido: " + pedido.getStatus());
+        } else {
+            System.out.println("Valor do pagamento insuficiente.");
+        }
     }
 
     public void status() {
