@@ -52,29 +52,45 @@ public class Pedido {
         this.produtos = produtos;
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
-        return "Pedido{" +
-                "numero=" + numero +
-                ", cliente=" + cliente +
-                ", produtos=" + produtos +
-                ", valorTotal=" + valorTotal +
-                ", status='" + status + '\'' +
-                '}';
-    }
-    public double calcularTotal(ArrayList<Produto> produtos){
+    public double calcularTotal(){
         double total = 0.0;
-        for(Produto p : produtos){
-            total += p.getPreco() * p.getQuantidade();
+        for(Produto produto : this.produtos){
+            total += produto.getPreco() * produto.getQuantidade();
         }
+        this.valorTotal = total;
+        System.out.println("Total: " + total);
         return total;
 
     }
-    public void adicionarProduto(){
-
+    public boolean adicionarProduto(Produto produto){
+        return produtos.add(produto);
     }
-    public void alterarStatus(String status){
-        this.status = status;
-
+    public boolean removerProduto(Produto produto){
+        return produtos.remove(produto);
     }
+    public void alterarStatus(String status) {
+        if (status.equalsIgnoreCase("Em andamento") ||
+                status.equalsIgnoreCase("Concluído") ||
+                status.equalsIgnoreCase("Cancelado")) {
+            this.status = status;
+        } else {
+            System.out.println("Status inválido!");
+        }
+    }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Pedido número: ").append(numero).append("\n");
+        sb.append("Cliente: ").append(cliente.getNome()).append("\n");
+        sb.append("Produtos:\n");
+        for (Produto p : produtos) {
+            sb.append(" - ").append(p.getNome())
+                    .append(" x").append(p.getQuantidade())
+                    .append(" R$").append(p.getPreco()).append("\n");
+        }
+        sb.append("Valor total: R$").append(valorTotal).append("\n");
+        sb.append("Status: ").append(status);
+        return sb.toString();
+    }
+
 }

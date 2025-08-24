@@ -59,6 +59,39 @@ public class Patio {
 
     }
 
-    public void removerCaminhao(){};
-    public void listarFila(){};
+    public boolean removerCaminhao(Caminhao caminhao){
+        if(caminhoesPatioLista.contains(caminhao)){
+            caminhoesPatioLista.remove(caminhao);
+            filaSaida.add(caminhao);
+            vagasDisponiveis++;
+            System.out.println("Caminhao placa: " + caminhao.getPlaca() + "esta na fila de saida do patio ou saiu do patio");
+            return true;
+        }
+        else{
+            System.out.println("O caminhao placa:" + caminhao.getPlaca() + "nao esta no patio");
+            return false;
+        }
+    }
+    public void listarFila(){
+        System.out.println("Fila de entrada: ");
+        if(filaEntrada.isEmpty()){
+            System.out.println("Fila de entrada vazia");
+        }
+        else{
+            for(Caminhao caminhao : filaEntrada){
+                System.out.println("-" + caminhao);
+            }
+        }
+
+        System.out.println("Fila de saida: ");
+        if(filaSaida.isEmpty()){
+            System.out.println("A lista esta vazia");
+        } else{
+            for(Caminhao caminhao : filaSaida){
+                System.out.println("-" + caminhao);
+
+            }
+        }
+    }
+
 }
