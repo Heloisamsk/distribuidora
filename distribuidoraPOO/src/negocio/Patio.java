@@ -72,5 +72,26 @@ public class Patio {
             return false;
         }
     }
-    public void listarFila(){};
+    public void listarFila(){
+        System.out.println("Fila de entrada: ");
+        if(filaEntrada.isEmpty()){
+            System.out.println("Fila de entrada vazia");
+        }
+        else{
+            for(Caminhao caminhao : filaEntrada){
+                System.out.println("-" + caminhao);
+            }
+        }
+
+        System.out.println("Fila de saida: ");
+        if(filaSaida.isEmpty()){
+            System.out.println("A lista esta vazia");
+        } else{
+            for(Caminhao caminhao : filaSaida){
+                System.out.println("-" + caminhao);
+
+            }
+        }
+    }
+
 }
