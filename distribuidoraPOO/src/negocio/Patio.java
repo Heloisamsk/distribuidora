@@ -59,6 +59,18 @@ public class Patio {
 
     }
 
-    public void removerCaminhao(){};
+    public boolean removerCaminhao(Caminhao caminhao){
+        if(caminhoesPatioLista.contains(caminhao)){
+            caminhoesPatioLista.remove(caminhao);
+            filaSaida.add(caminhao);
+            vagasDisponiveis++;
+            System.out.println("Caminhao placa: " + caminhao.getPlaca() + "esta na fila de saida do patio ou saiu do patio");
+            return true;
+        }
+        else{
+            System.out.println("O caminhao placa:" + caminhao.getPlaca() + "nao esta no patio");
+            return false;
+        }
+    }
     public void listarFila(){};
 }
