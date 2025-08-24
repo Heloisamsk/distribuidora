@@ -13,7 +13,7 @@ public class Cliente extends Pessoa {
         System.out.println("Cliente " + getNome() + " iniciou o pedido de número: " + pedido.getNumero());
 
         for (Produto produto : produtosSolicitados) {
-            pedido.adicionarProduto();
+            pedido.adicionarProduto(produto);
         }
 
         pedido.alterarStatus("Pendente");
