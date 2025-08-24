@@ -54,6 +54,7 @@ public class Produto {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
+
     public void atualizarPreco(double novoPreco){
         if(novoPreco >= 0){
             this.preco = novoPreco;
