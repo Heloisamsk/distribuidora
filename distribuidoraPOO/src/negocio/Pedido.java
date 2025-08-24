@@ -62,19 +62,20 @@ public class Pedido {
                 ", status='" + status + '\'' +
                 '}';
     }
+
     public double calcularTotal(ArrayList<Produto> produtos){
         double total = 0.0;
         for(Produto p : produtos){
             total += p.getPreco() * p.getQuantidade();
         }
+        System.out.println("Total: " + total);
         return total;
 
     }
-    public void adicionarProduto(){
-
+    public boolean adicionarProduto(Produto produto){
+        return produtos.add(produto);
     }
     public void alterarStatus(String status){
         this.status = status;
-
     }
 }
