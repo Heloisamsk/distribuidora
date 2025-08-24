@@ -75,6 +75,9 @@ public class Pedido {
     public boolean adicionarProduto(Produto produto){
         return produtos.add(produto);
     }
+    public boolean removerProduto(Produto produto){
+        return produtos.remove(produto);
+    }
     public void alterarStatus(String status){
         this.status = status;
     }
