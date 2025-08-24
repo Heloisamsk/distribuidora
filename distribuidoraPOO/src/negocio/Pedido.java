@@ -79,7 +79,13 @@ public class Pedido {
     public boolean removerProduto(Produto produto){
         return produtos.remove(produto);
     }
-    public void alterarStatus(String status){
-        this.status = status;
+    public void alterarStatus(String status) {
+        if (status.equalsIgnoreCase("Em andamento") ||
+                status.equalsIgnoreCase("Concluído") ||
+                status.equalsIgnoreCase("Cancelado")) {
+            this.status = status;
+        } else {
+            System.out.println("Status inválido!");
+        }
     }
 }
