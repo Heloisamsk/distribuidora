@@ -3,12 +3,10 @@ package negocio;
 public class Venda {
     private Pedido pedido;
     private NotaFiscal notaFiscal;
-    private Pagamento pagamento;
 
-    public Venda(Pedido pedido, NotaFiscal notaFiscal, Pagamento pagamento) {
+    public Venda(Pedido pedido, NotaFiscal notaFiscal) {
         this.pedido = pedido;
         this.notaFiscal = notaFiscal;
-        this.pagamento = pagamento;
     }
 
     public Pedido getPedido() {
@@ -27,21 +25,13 @@ public class Venda {
         this.notaFiscal = notaFiscal;
     }
 
-    public Pagamento getPagamento() {
-        return pagamento;
-    }
-
-    public void setPagamento(Pagamento pagamento) {
-        this.pagamento = pagamento;
-    }
-
     public void finalizarPedido(){
         if (pedido.getProdutos().isEmpty()){
             System.out.println("Não é possível finalizar o pedido sem produtos!");
             return;
         }
-
+        double total = pedido.calcularTotal();
         pedido.alterarStatus("Finalizado!");
-        System.out.println("Valor total: R$ "+ pedido.getValorTotal());
+        System.out.println("Valor total: R$ "+ total);
     }
 }
