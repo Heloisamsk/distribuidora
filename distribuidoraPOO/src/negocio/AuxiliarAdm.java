@@ -10,8 +10,8 @@ public class AuxiliarAdm extends Funcionario {
     private ArrayList<Produto> produtosLista;
     private Patio patio;
 
-    public AuxiliarAdm(Patio patio, String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String login) {
-        super(cargo, salario, nome, idade, cpf, telefone, endereco, email);
+    public AuxiliarAdm(Patio patio, String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String login, String matricula) {
+        super(cargo, salario, nome, idade, cpf, telefone, endereco, email, matricula);
         this.login = login;
         this.patio = patio;
     }
