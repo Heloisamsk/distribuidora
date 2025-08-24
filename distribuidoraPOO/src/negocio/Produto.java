@@ -55,12 +55,14 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public void atualizarPreco(double novoPreco){
-        if(novoPreco >= 0){
+    public boolean atualizarPreco(double novoPreco){
+        if(novoPreco > 0){
             this.preco = novoPreco;
             System.out.println("Preco atualizado para: " + novoPreco);
+            return true;
         }else{
             System.out.println("Preco nao atualizado, preco nao pode ser negativo");
+            return false;
 
         }
     }
