@@ -27,8 +27,7 @@ public class Venda {
 
     public void finalizarPedido(){
         if (pedido.getProdutos().isEmpty()){
-            System.out.println("Não é possível finalizar o pedido sem produtos!");
-            return;
+            throw new IllegalArgumentException("Não é possivel finalizar um pedido vazio.");
         }
         double total = pedido.calcularTotal();
         pedido.alterarStatus("Finalizado!");

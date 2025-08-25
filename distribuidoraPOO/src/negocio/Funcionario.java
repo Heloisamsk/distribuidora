@@ -58,7 +58,7 @@ public class Funcionario extends Pessoa {
 
     public boolean baterPontoSaida(String matricula)throws PontoException{
         if(ultimaEntrada == null){
-            throw new PontoException("Nao eh possivel bater a saida sem uma entrada");
+            throw new PontoException("Não é possivel bater a saida sem uma entrada");
         }
         ultimaSaida = LocalDateTime.now();
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
