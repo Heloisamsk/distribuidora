@@ -22,6 +22,9 @@ public class Patio {
     }
     public Patio(int qtdVagas){
         this.qtdVagas = qtdVagas;
+        this.filaEntrada = new ArrayList<>();
+        this.filaSaida = new ArrayList<>();
+        this.caminhoesPatioLista = new ArrayList<>();
     }
 
     public ArrayList<Caminhao> getFilaEntrada() {
