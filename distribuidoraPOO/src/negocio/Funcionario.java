@@ -1,4 +1,6 @@
 package negocio;
+import negocio.exceptions.PontoException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.Duration;
@@ -44,21 +46,19 @@ public class Funcionario extends Pessoa {
         return ultimaSaida;
     }
 
-
-    public boolean baterEntrada(String matricula){
+    public boolean baterEntrada(String matricula) throws PontoException {
         if(ultimaEntrada != null && ultimaSaida == null){
-            System.out.println("Uma entrada ja foi registrada, sem saida!");
-            return false;
+            throw new PontoException("Ja existe uma ENTRADA registrada sem SAIDA");
         }
         ultimaEntrada = LocalDateTime.now();
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         System.out.println(matricula + "bateu o ponto de entrada as: " + ultimaEntrada.format(fmt));
         return true;
     }
-    public boolean baterPontoSaida(String matricula){
+
+    public boolean baterPontoSaida(String matricula)throws PontoException{
         if(ultimaEntrada == null){
-            System.out.println("Nao eh possivel bater saida, sem uma entrada");
-            return false;
+            throw new PontoException("Nao eh possivel bater a saida sem uma entrada");
         }
         ultimaSaida = LocalDateTime.now();
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
@@ -70,16 +70,16 @@ public class Funcionario extends Pessoa {
 
         System.out.println("Tempo trabalhado hoje: " + horas + "h " + minutos + "min");
 
-        // Resetar entrada para permitir novo ciclo no próximo dia
         ultimaEntrada = null;
         ultimaSaida = null;
         return true;
     }
-    public boolean baterPonto(String matricula){
-       if(ultimaEntrada == null){
-           return baterEntrada(matricula);
-       }else{
-           return baterPontoSaida(matricula);
-       }
-    }
+    public boolean baterPonto(String matricula) throws PontoException{
+        if(ultimaEntrada == null){
+            return baterEntrada(matricula);
+        }
+        else{
+            return baterPontoSaida(matricula);
+ }
+}
 }
