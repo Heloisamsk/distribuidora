@@ -1,10 +1,11 @@
 package negocio;
 
+import negocio.exceptions.ClienteInvalidoException;
+import negocio.exceptions.PagamentoException;
+import negocio.exceptions.StatusInvalidoException;
+
 import java.util.ArrayList;
 import java.util.Objects;
-
-//try tentar -> tenta executar
-//catch -> capturar pega os erros
 
 public class Cliente extends Pessoa {
     private String tipo;
@@ -12,32 +13,30 @@ public class Cliente extends Pessoa {
     public Cliente(String nome, int idade, String cpf, String telefone, String endereco, String email, String tipo) {
         super(nome, idade, cpf, telefone, endereco, email);
 
-        if (nome == null || nome.trim().isEmpty()) { //isso de .trim é pra remover os espaços vazios da string
-            throw new IllegalArgumentException("O cliente não pode ser alguém misterioso sem nome");
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new ClienteInvalidoException("O nome do cliente não pode ser vazio.");
         }
         if (idade <= 0) {
-            throw new IllegalArgumentException("Não tem como ter idade negativa/voltar no tempo");
+            throw new ClienteInvalidoException("A idade do cliente deve ser maior que zero.");
         }
         if (cpf == null || cpf.trim().isEmpty()) {
-            throw new IllegalArgumentException("CPF não é brincadeira não é mesmo");
+            throw new ClienteInvalidoException("O CPF do cliente não pode ser vazio.");
         }
-
         if (tipo == null || tipo.trim().isEmpty()) {
-            throw new IllegalArgumentException("Faltou o tipo do cliente");
+            throw new ClienteInvalidoException("O tipo do cliente não pode ser vazio.");
         }
         this.tipo = tipo;
     }
 
     public void realizarPedido(Pedido pedido, ArrayList<Produto> produtosSolicitados) {
-        if (pedido == null) {
-            throw new IllegalArgumentException("Faltou o pedido");
-        }
+        Objects.requireNonNull(pedido, "O pedido não pode ser nulo.");
+
         if (produtosSolicitados == null || produtosSolicitados.isEmpty()) {
-            throw new IllegalArgumentException("Nao tem como comprar lista de produtos vazios");
+            throw new IllegalArgumentException("A lista de produtos solicitados não pode ser vazia.");
         }
 
-        if (!"Aberto".equals(pedido.getStatus()) && !"Pendente".equals(pedido.getStatus())) {
-            throw new IllegalStateException("Não da pra adicionar produtos a um pedido com status: " + pedido.getStatus());
+        if (!"Aberto".equalsIgnoreCase(pedido.getStatus()) && !"Pendente".equalsIgnoreCase(pedido.getStatus())) {
+            throw new StatusInvalidoException("Não é possível adicionar produtos a um pedido com o status: " + pedido.getStatus());
         }
 
         System.out.println("Cliente " + getNome() + " iniciou o pedido de número: " + pedido.getNumero());
@@ -53,19 +52,20 @@ public class Cliente extends Pessoa {
     }
 
     public void realizarPagamento(Pedido pedido, double valor, String metodo) {
-        Objects.requireNonNull(pedido, "Nao da pra pedir objeto inexistente");
+        Objects.requireNonNull(pedido, "O pedido não pode ser nulo.");
+
         if (valor <= 0) {
-            throw new IllegalArgumentException("Nao da pra pagar com dinheiro negativo");
+            throw new PagamentoException("O valor do pagamento deve ser maior que zero.");
         }
         if (metodo == null || metodo.trim().isEmpty()) {
-            throw new IllegalArgumentException("Faltou falar se vai pagar usando pix/dinheir/cartao");
+            throw new PagamentoException("O método de pagamento não pode ser vazio.");
         }
 
-        if ("Pago".equals(pedido.getStatus())) {
-            throw new IllegalStateException("Já foi pago.");
+        if ("Pago".equalsIgnoreCase(pedido.getStatus())) {
+            throw new StatusInvalidoException("O pedido já foi pago.");
         }
-        if ("Cancelado".equals(pedido.getStatus())) {
-            throw new IllegalStateException("Não da pra pagar um pedido cancelado.");
+        if ("Cancelado".equalsIgnoreCase(pedido.getStatus())) {
+            throw new StatusInvalidoException("Não é possível pagar um pedido cancelado.");
         }
 
         System.out.println("Cliente " + getNome() + " fez o pagamento de R$ " + valor + " usando: " + metodo);
@@ -74,12 +74,11 @@ public class Cliente extends Pessoa {
             pedido.alterarStatus("Pago");
             System.out.println("Pagamento processado! Status do pedido: " + pedido.getStatus());
         } else {
-            throw new IllegalArgumentException("Valor do pagamento (R$ " + valor + ") é insuficiente para quitar o pedido (R$ " + pedido.getValorTotal() + ").");
+            throw new PagamentoException("Valor do pagamento (R$ " + valor + ") é insuficiente para quitar o pedido (R$ " + pedido.getValorTotal() + ").");
         }
     }
 
     public void status() {
-        System.out.println("Status do cliente:");
         System.out.println("Nome: " + getNome());
         System.out.println("Idade: " + getIdade());
         System.out.println("CPF: " + getCpf());
@@ -92,7 +91,7 @@ public class Cliente extends Pessoa {
 
     public void setTipo(String tipo) {
         if (tipo == null || tipo.trim().isEmpty()) {
-            throw new IllegalArgumentException("Faltou o tipo do cliente");
+            throw new ClienteInvalidoException("O tipo do cliente não pode ser vazio.");
         }
         this.tipo = tipo;
     }
