@@ -25,12 +25,14 @@ public class Motorista extends Funcionario{
         return CNH;
     }
 
-
-
     public void dirigirCaminhao(Caminhao caminhaoResponsavel){
-        this.caminhaoResponsavel.setStatus("Em viagem");
-
+        if (this.caminhaoResponsavel != null){
+            this.caminhaoResponsavel.setStatus("Em viagem");
+        }else {
+            System.out.println("Erro: motorista sem caminhão não pode dirigir");
+        }
     }
+
     public void finalizarViagem(Caminhao caminhaoResponsavel){
         this.caminhaoResponsavel.setStatus("Disponivel");
     }
