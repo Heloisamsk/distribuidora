@@ -10,14 +10,16 @@ public class Pedido {
     private double valorTotal;
     private String status;
 
-    public Pedido(int numero, Cliente cliente, ArrayList<Produto> produtos, double valorTotal, String status) {
+    public Pedido(int numero, Cliente cliente, double valorTotal, String status) {
         this.numero = numero;
         this.cliente = cliente;
-        this.produtos = produtos;
+        this.produtos = new ArrayList<>();
         this.valorTotal = valorTotal;
         this.status = status;
     }
-
+    public Pedido(){
+        this.produtos = new ArrayList<>();
+    }
     public int getNumero() {
         return numero;
     }
@@ -66,11 +68,11 @@ public class Pedido {
     }
 
     public boolean adicionarProduto(Produto produto) {
-        if (this.produtos.contains(produto)) {
-
+        if (this.produtos.add(produto)) {
+            System.out.println("add");
             return produtos.add(produto);
         } else {
-            throw new ProdutoNaoEncontradoException("Produto não encontrado.");
+            throw new ProdutoNaoEncontradoException("Produto nao encontrado.");
         }
     }
 
