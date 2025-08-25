@@ -32,6 +32,12 @@ public class Motorista extends Funcionario{
     public void consertarCaminhao(Caminhao caminhaoResponsavel){
         this.caminhaoResponsavel.setStatus("Em conserto");
     }
+    public void entrada(String matricula){
+        baterPonto(matricula);
+    }
+    public void saida(String matricula){
+        baterPonto(matricula);
+    }
 
 }
 
