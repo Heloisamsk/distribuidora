@@ -2,7 +2,7 @@ package negocio;
 import java.util.ArrayList;
 
 public class Patio {
-    private ArrayList<Caminhao> caminhoesPatioLista;
+    protected ArrayList<Caminhao> caminhoesPatioLista;
     private ArrayList<Caminhao> filaEntrada;
     private ArrayList<Caminhao> filaSaida;
     private int vagasDisponiveis;
@@ -47,7 +47,8 @@ public class Patio {
                 ", filaSaida=" + filaSaida +
                 ", vagasDisponiveis=" + vagasDisponiveis +
                 '}';
-    }public boolean adicionarCaminhao(Caminhao caminhao){
+    }
+    public boolean adicionarCaminhao(Caminhao caminhao){
         if(caminhoesPatioLista.size() < qtdVagas){
             caminhoesPatioLista.add(caminhao);
             return true;
