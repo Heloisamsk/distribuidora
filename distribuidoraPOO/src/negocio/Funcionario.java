@@ -16,6 +16,9 @@ public class Funcionario extends Pessoa {
         this.salario = salario;
         this.matricula = matricula;
     }
+    public Funcionario(){
+
+    }
 
     public String getCargo() {
         return cargo;
@@ -29,6 +32,10 @@ public class Funcionario extends Pessoa {
         return matricula;
     }
 
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
     public LocalDateTime getUltimaEntrada() {
         return ultimaEntrada;
     }
@@ -36,6 +43,7 @@ public class Funcionario extends Pessoa {
     public LocalDateTime getUltimaSaida() {
         return ultimaSaida;
     }
+
 
     public boolean baterEntrada(String matricula){
         if(ultimaEntrada != null && ultimaSaida == null){
@@ -66,5 +74,12 @@ public class Funcionario extends Pessoa {
         ultimaEntrada = null;
         ultimaSaida = null;
         return true;
+    }
+    public boolean baterPonto(String matricula){
+       if(ultimaEntrada == null){
+           return baterEntrada(matricula);
+       }else{
+           return baterPontoSaida(matricula);
+       }
     }
 }
