@@ -49,16 +49,13 @@ public class Caminhao {
             caminhao.setStatus("NA FILA");
         }
 
-
     }
-
 
     public void sairPatio(Patio patio) {
         patio.setVagasDisponiveis(patio.getVagasDisponiveis() + 1);
         this.status = "Fora do pátio";
         System.out.println("Caminhão da placa: " + this.placa + " saiu do pátio");
     }
-
 
     @Override
     public String toString() {
