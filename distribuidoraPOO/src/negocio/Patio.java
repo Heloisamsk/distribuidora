@@ -59,7 +59,11 @@ public class Patio {
                 ", vagasDisponiveis=" + vagasDisponiveis +
                 '}';
     }
+
     public boolean adicionarCaminhao(Caminhao caminhao){
+        if(caminhao == null){
+            throw new IllegalArgumentException("O caminhao informado eh nulo");
+        }
         vagasDisponiveis = qtdVagas;
         if(caminhoesPatioLista.size() < vagasDisponiveis){
             caminhoesPatioLista.add(caminhao);
