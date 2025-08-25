@@ -1,6 +1,7 @@
 package ui;
 import negocio.Funcionario;
 import negocio.Motorista;
+import negocio.exceptions.PontoException;
 
 
 public class TelaPrincipal {
@@ -9,9 +10,19 @@ public class TelaPrincipal {
         System.out.println("=== Sistema da Distribuidora ===");
         Motorista motorista = new Motorista();
         motorista.setMatricula("7856");
-        motorista.ponto(motorista.getMatricula());
-        motorista.ponto(motorista.getMatricula());
+      try {
+          motorista.ponto(motorista.getMatricula());
+          motorista.ponto(motorista.getMatricula());
 
+          motorista.ponto(motorista.getMatricula());
+          motorista.baterEntrada(motorista.getMatricula());
+      }catch (PontoException e) {
+          System.out.println("Erro ao registrar ponto: " + e.getMessage());
+      }
+
+
+
+        System.out.println("continua rodando");
 
     }
 }
