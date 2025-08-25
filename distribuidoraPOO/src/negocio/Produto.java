@@ -19,31 +19,22 @@ public class Produto {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 
     public double getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(double preco){
         this.preco = preco;
     }
 
@@ -51,19 +42,13 @@ public class Produto {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
 
-    public boolean atualizarPreco(double novoPreco){
-        if(novoPreco > 0){
-            this.preco = novoPreco;
-            System.out.println("Preco atualizado para: " + novoPreco);
-            return true;
-        }else{
-            System.out.println("Preco nao atualizado, preco nao pode ser negativo");
-            return false;
-
+    public void atualizarPreco(double novoPreco){
+        if(novoPreco<0){
+            throw new IllegalArgumentException("O preço não pode ser negativo.");
+        } else if (novoPreco==0){
+            throw new IllegalArgumentException("O produto não pode custar 0");
         }
+        this.setPreco(novoPreco);
     }
 }
