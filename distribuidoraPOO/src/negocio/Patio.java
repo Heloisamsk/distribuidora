@@ -6,14 +6,25 @@ public class Patio {
     private ArrayList<Caminhao> filaEntrada;
     private ArrayList<Caminhao> filaSaida;
     private int vagasDisponiveis;
-    private int qtdVagas;
+    private int qtdVagas ;
 
-    public Patio(ArrayList<Caminhao> filaEntrada, ArrayList<Caminhao> filaSaida, int vagasDisponiveis, ArrayList<Caminhao> caminhoesPatioLista, int qtdVagas) {
-        this.filaEntrada = new ArrayList<>(filaEntrada);
-        this.filaSaida = new ArrayList<>(filaSaida);
+    public Patio( int vagasDisponiveis, int qtdVagas) {
+        this.filaEntrada = new ArrayList<>();
+        this.filaSaida = new ArrayList<>();
         this.vagasDisponiveis = vagasDisponiveis;
-        this.caminhoesPatioLista = new ArrayList<>(caminhoesPatioLista);
+        this.caminhoesPatioLista = new ArrayList<>();
         this.qtdVagas = qtdVagas;
+    }
+    public Patio(){
+        this.filaEntrada = new ArrayList<>();
+        this.filaSaida = new ArrayList<>();
+        this.caminhoesPatioLista = new ArrayList<>();
+    }
+    public Patio(int qtdVagas){
+        this.qtdVagas = qtdVagas;
+        this.filaEntrada = new ArrayList<>();
+        this.filaSaida = new ArrayList<>();
+        this.caminhoesPatioLista = new ArrayList<>();
     }
 
     public ArrayList<Caminhao> getFilaEntrada() {
@@ -47,12 +58,20 @@ public class Patio {
                 ", filaSaida=" + filaSaida +
                 ", vagasDisponiveis=" + vagasDisponiveis +
                 '}';
-    }public boolean adicionarCaminhao(Caminhao caminhao){
-        if(caminhoesPatioLista.size() < qtdVagas){
+    }
+
+    public boolean adicionarCaminhao(Caminhao caminhao){
+        if(caminhao == null){
+            throw new IllegalArgumentException("O caminhao informado eh nulo");
+        }
+        vagasDisponiveis = qtdVagas;
+        if(caminhoesPatioLista.size() < vagasDisponiveis){
             caminhoesPatioLista.add(caminhao);
+            System.out.println("Caminhao adicionado - " + caminhao.getPlaca());
+            vagasDisponiveis--;
             return true;
         }else{
-            System.out.println("O patio esta cheio aguarde na fila: ");
+            System.out.println("O patio esta cheio aguarde na fila.");
             filaEntrada.add(caminhao);
             return false;
         }
@@ -60,6 +79,9 @@ public class Patio {
     }
 
     public boolean removerCaminhao(Caminhao caminhao){
+        if(caminhao == null){
+            throw new IllegalArgumentException("Caminhao informado eh nulo");
+        }
         if(caminhoesPatioLista.contains(caminhao)){
             caminhoesPatioLista.remove(caminhao);
             filaSaida.add(caminhao);
@@ -68,11 +90,18 @@ public class Patio {
             return true;
         }
         else{
-            System.out.println("O caminhao placa:" + caminhao.getPlaca() + "nao esta no patio");
-            return false;
+            throw new IllegalArgumentException("O caminhao placa:" + caminhao.getPlaca() + "nao esta no patio");
         }
     }
-    public void listarFila(){
+
+    public void listarCaminhoes(){
+        System.out.println("caminhoes no patio: ");
+        for(Caminhao caminhao : caminhoesPatioLista){
+            System.out.println("-" + caminhao);
+        }
+
+    }
+    public void listarFilas(){
         System.out.println("Fila de entrada: ");
         if(filaEntrada.isEmpty()){
             System.out.println("Fila de entrada vazia");
