@@ -10,7 +10,22 @@ public class TelaPrincipal {
         Motorista motorista = new Motorista();
         motorista.setMatricula("7856");
 
-        AuxiliarAdm auxiliar = new AuxiliarAdm();
+
+
+        Produto biscoito = new Produto("012","bisoito", "chocolat", 2.50, 3);
+        Pedido pedido = new Pedido();
+        pedido.adicionarProduto(biscoito);
+
+        Estoque estoque = new Estoque();
+        estoque.adicionarProduto(biscoito);
+        estoque.listarProdutos();
+        System.out.println("\n");
+        estoque.consultarProduto("012");
+
+
+
+
+        /* AuxiliarAdm auxiliar = new AuxiliarAdm();
         auxiliar.setMatricula("0123");
 
         Caminhao caminhao1 = new Caminhao("ab12");
@@ -21,6 +36,9 @@ public class TelaPrincipal {
         Caminhao caminhao6 = new Caminhao("ab17");
 
         Patio patio2 = new Patio(5);
+
+
+
         patio2.adicionarCaminhao(caminhao1);
         patio2.adicionarCaminhao(caminhao2);
         patio2.adicionarCaminhao(caminhao3);
@@ -30,6 +48,7 @@ public class TelaPrincipal {
 
         patio2.listarCaminhoes();
         patio2.listarFilas();
+
 
 
       try {
@@ -51,6 +70,6 @@ public class TelaPrincipal {
       }
 
         System.out.println("continua rodando");
-
+*/
     }
 }

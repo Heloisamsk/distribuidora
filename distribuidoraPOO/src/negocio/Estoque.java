@@ -10,8 +10,11 @@ public class Estoque {
     private ArrayList<Produto> produtos;
     private Pedido pedido;
 
-    public Estoque(Pedido pedido, ArrayList<Produto> produtos) {
+    public Estoque(Pedido pedido) {
         this.pedido = pedido;
+        this.produtos = new ArrayList<>();
+    }
+    public Estoque() {
         this.produtos = new ArrayList<>();
     }
 
@@ -28,6 +31,8 @@ public class Estoque {
         this.pedido = pedido;
     }
 
+
+
     public void adicionarProduto(Produto produto) {
         produtos.add(produto);
     }
@@ -36,23 +41,29 @@ public class Estoque {
         produtos.remove(produto);
     }
 
-    public Produto consultarProduto(String codigo) {
+    public void consultarProduto(String codigo) throws ProdutoNaoEncontradoException {
         for (Produto produto : produtos) {
             if (produto.getCodigo().equals(codigo)) {
-                return produto;
+                System.out.println("Produto encontrado: " + produto.getNome());
+                return; // sai do método
             }
         }
         throw new ProdutoNaoEncontradoException("Produto não encontrado.");
     }
 
-    public ArrayList<Produto> listarProdutos() {
+
+    public ArrayList<Produto> listarDados() {
         if (produtos.isEmpty()) {
             throw new ProdutoNaoEncontradoException("Nenhum produto encontrado");
         }
         return produtos;
     }
 
-    public void statusProdutos() {
+    public void listarProdutos() throws ErrosGeralEstoque {
+        if (produtos == null) {
+            throw new ErrosGeralEstoque("Lista de produtos não inicializada.");
+        }
+
         System.out.println("=== STATUS DOS PRODUTOS ===");
         for (Produto p : produtos) {
             String status;
@@ -69,10 +80,9 @@ public class Estoque {
                     " | Nome: " + p.getNome() +
                     " | Quantidade: " + p.getQuantidade() +
                     " | Status: " + status);
-
         }
-        throw new ErrosGeralEstoque("Erro em exibir status.");
     }
+
     public void atualizarEstoquePedido(Pedido pedido)
             throws EstoqueInsuficienteException, ProdutoNaoEncontradoException { // Adiciona a cláusula throws
 
