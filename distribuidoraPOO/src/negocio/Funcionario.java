@@ -16,6 +16,9 @@ public class Funcionario extends Pessoa {
         this.salario = salario;
         this.matricula = matricula;
     }
+    public Funcionario(){
+
+    }
 
     public String getCargo() {
         return cargo;
