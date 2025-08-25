@@ -1,4 +1,6 @@
 package negocio;
+import negocio.exceptions.ProdutoNaoEncontradoException;
+
 import java.util.ArrayList;
 
 public class Pedido {
@@ -52,9 +54,9 @@ public class Pedido {
         this.produtos = produtos;
     }
 
-    public double calcularTotal(){
+    public double calcularTotal() {
         double total = 0.0;
-        for(Produto produto : this.produtos){
+        for (Produto produto : this.produtos) {
             total += produto.getPreco() * produto.getQuantidade();
         }
         this.valorTotal = total;
@@ -62,38 +64,47 @@ public class Pedido {
         return total;
 
     }
-    public boolean adicionarProduto(Produto produto){
 
-        return produtos.add(produto);
-    }
-    public boolean removerProduto(Produto produto){
+    public boolean adicionarProduto(Produto produto) {
+        if (this.produtos.contains(produto)) {
 
-        return produtos.remove(produto);
-    }
-
-    public void alterarStatus(String status) {
-        if (status.equalsIgnoreCase("Em andamento") ||
-                status.equalsIgnoreCase("Concluído") ||
-                status.equalsIgnoreCase("Cancelado")) {
-            this.status = status;
+            return produtos.add(produto);
         } else {
-            System.out.println("Status inválido!");
+            throw new ProdutoNaoEncontradoException("Produto não encontrado.");
         }
-    }
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Pedido número: ").append(numero).append("\n");
-        sb.append("Cliente: ").append(cliente.getNome()).append("\n");
-        sb.append("Produtos:\n");
-        for (Produto p : produtos) {
-            sb.append(" - ").append(p.getNome())
-                    .append(" x").append(p.getQuantidade())
-                    .append(" R$").append(p.getPreco()).append("\n");
-        }
-        sb.append("Valor total: R$").append(valorTotal).append("\n");
-        sb.append("Status: ").append(status);
-        return sb.toString();
     }
 
-}
+    public boolean removerProduto(Produto produto) {
+        if (this.produtos.contains(produto)) {
+            return produtos.remove(produto);
+        } else {
+            throw new ProdutoNaoEncontradoException("Produto não encontrado.");
+        }
+    }
+
+        public void alterarStatus (String status){
+            if (status.equalsIgnoreCase("Em andamento") ||
+                    status.equalsIgnoreCase("Concluído") ||
+                    status.equalsIgnoreCase("Cancelado")) {
+                this.status = status;
+            } else {
+                throw new IllegalArgumentException("Status inválido!");
+            }
+        }
+        @Override
+        public String toString () {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Pedido número: ").append(numero).append("\n");
+            sb.append("Cliente: ").append(cliente.getNome()).append("\n");
+            sb.append("Produtos:\n");
+            for (Produto p : produtos) {
+                sb.append(" - ").append(p.getNome())
+                        .append(" x").append(p.getQuantidade())
+                        .append(" R$").append(p.getPreco()).append("\n");
+            }
+            sb.append("Valor total: R$").append(valorTotal).append("\n");
+            sb.append("Status: ").append(status);
+            return sb.toString();
+        }
+    }
+
