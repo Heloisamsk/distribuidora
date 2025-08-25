@@ -67,4 +67,11 @@ public class Funcionario extends Pessoa {
         ultimaSaida = null;
         return true;
     }
+    public boolean baterPonto(String matricula){
+       if(ultimaEntrada == null){
+           return baterEntrada(matricula);
+       }else{
+           return baterPontoSaida(matricula);
+       }
+    }
 }
