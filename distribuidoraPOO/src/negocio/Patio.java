@@ -6,17 +6,22 @@ public class Patio {
     private ArrayList<Caminhao> filaEntrada;
     private ArrayList<Caminhao> filaSaida;
     private int vagasDisponiveis;
-    private int qtdVagas;
+    private int qtdVagas ;
 
-    public Patio(ArrayList<Caminhao> filaEntrada, ArrayList<Caminhao> filaSaida, int vagasDisponiveis, ArrayList<Caminhao> caminhoesPatioLista, int qtdVagas) {
-        this.filaEntrada = new ArrayList<>(filaEntrada);
-        this.filaSaida = new ArrayList<>(filaSaida);
+    public Patio( int vagasDisponiveis, int qtdVagas) {
+        this.filaEntrada = new ArrayList<>();
+        this.filaSaida = new ArrayList<>();
         this.vagasDisponiveis = vagasDisponiveis;
-        this.caminhoesPatioLista = new ArrayList<>(caminhoesPatioLista);
+        this.caminhoesPatioLista = new ArrayList<>();
         this.qtdVagas = qtdVagas;
     }
     public Patio(){
-
+        this.filaEntrada = new ArrayList<>();
+        this.filaSaida = new ArrayList<>();
+        this.caminhoesPatioLista = new ArrayList<>();
+    }
+    public Patio(int qtdVagas){
+        this.qtdVagas = qtdVagas;
     }
 
     public ArrayList<Caminhao> getFilaEntrada() {
@@ -51,8 +56,11 @@ public class Patio {
                 ", vagasDisponiveis=" + vagasDisponiveis +
                 '}';
     }public boolean adicionarCaminhao(Caminhao caminhao){
-        if(caminhoesPatioLista.size() < qtdVagas){
+        vagasDisponiveis = qtdVagas;
+        if(caminhoesPatioLista.size() < vagasDisponiveis){
             caminhoesPatioLista.add(caminhao);
+            System.out.println("add");
+            vagasDisponiveis--;
             return true;
         }else{
             System.out.println("O patio esta cheio aguarde na fila: ");
