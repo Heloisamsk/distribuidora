@@ -29,6 +29,10 @@ public class Funcionario extends Pessoa {
         return matricula;
     }
 
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
     public LocalDateTime getUltimaEntrada() {
         return ultimaEntrada;
     }
@@ -36,6 +40,7 @@ public class Funcionario extends Pessoa {
     public LocalDateTime getUltimaSaida() {
         return ultimaSaida;
     }
+
 
     public boolean baterEntrada(String matricula){
         if(ultimaEntrada != null && ultimaSaida == null){
