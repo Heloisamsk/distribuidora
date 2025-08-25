@@ -18,6 +18,11 @@ public class AuxiliarAdm extends Funcionario {
         super(cargo, salario, nome, idade, cpf, telefone, endereco, email, matricula);
         this.login = login;
         this.patio = patio;
+
+        this.clientesLista = new ArrayList<>();
+        this.funcionariosLista = new ArrayList<>();
+        this.caminhoesLista = new ArrayList<>();
+        this.produtosLista = new ArrayList<>();
     }
     public AuxiliarAdm(){
 

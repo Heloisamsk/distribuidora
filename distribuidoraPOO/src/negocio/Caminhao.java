@@ -7,12 +7,18 @@ public class Caminhao {
     private String status;
     private Patio patio;
 
-    public Caminhao(String placa, String modelo, int capacidadeCarga, String status, Patio patio, Motorista motorista) {
+    public Caminhao(String placa, String modelo, int capacidade, String status, Patio patio, Motorista motorista) {
         this.placa = placa;
         this.capacidade = capacidade;
         this.status = status;
         this.patio = patio;
         this.motorista = motorista;
+    }
+    public Caminhao(String placa){
+        this.placa = placa;
+    }
+    public Caminhao(){
+
     }
 
     public String getPlaca() {
