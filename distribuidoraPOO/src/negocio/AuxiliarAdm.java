@@ -15,6 +15,17 @@ public class AuxiliarAdm extends Funcionario {
         this.login = login;
         this.patio = patio;
     }
+    public AuxiliarAdm(){
+
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
     public void cadastrarFuncionario(Funcionario funcionario) {
         funcionariosLista.add(funcionario);
@@ -39,12 +50,8 @@ public class AuxiliarAdm extends Funcionario {
     public void permitirEntrada(Caminhao caminhao) {
         patio.adicionarCaminhao(caminhao);
     }
-
-    public String getLogin() {
-        return login;
+    public void ponto(String matricula){
+        baterPonto(matricula);
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
 }
