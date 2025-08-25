@@ -57,7 +57,21 @@ public class NotaFiscal {
                 '}';
     }
 
-    public void gerarNota(){
+    public void gerarNota() {
+        System.out.println("=================================");
+        System.out.println("          NOTA FISCAL            ");
+        System.out.println("=================================");
+        System.out.println("Número: " + numero);
+        System.out.println("Data:   " + data);
+        System.out.println("---------------------------------");
+        System.out.println("Produtos:");
 
+        for (Produto p : produtos) {
+            System.out.println(" - " + p);
+        }
+
+        System.out.println("---------------------------------");
+        System.out.println("Valor Total: R$ " + valorTotal);
+        System.out.println("=================================");
     }
 }
