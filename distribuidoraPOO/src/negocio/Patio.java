@@ -15,6 +15,9 @@ public class Patio {
         this.caminhoesPatioLista = new ArrayList<>(caminhoesPatioLista);
         this.qtdVagas = qtdVagas;
     }
+    public Patio(){
+
+    }
 
     public ArrayList<Caminhao> getFilaEntrada() {
         return filaEntrada;
