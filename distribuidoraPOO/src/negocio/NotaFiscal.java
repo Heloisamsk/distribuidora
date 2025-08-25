@@ -1,4 +1,6 @@
 package negocio;
+import negocio.exceptions.NotaFiscalException;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -57,7 +59,13 @@ public class NotaFiscal {
                 '}';
     }
 
-    public void gerarNota() {
+    public void gerarNota() throws NotaFiscalException {
+        if(produtos == null){
+            throw new NotaFiscalException("A lista de produtos esta vazia.");
+        }
+        if(valorTotal <= 0){
+            throw new NotaFiscalException("Valor total invalido para nota fiscal.");
+        }
         System.out.println("=================================");
         System.out.println("          NOTA FISCAL            ");
         System.out.println("=================================");
