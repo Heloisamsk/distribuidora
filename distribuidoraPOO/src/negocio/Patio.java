@@ -60,6 +60,9 @@ public class Patio {
     }
 
     public boolean removerCaminhao(Caminhao caminhao){
+        if(caminhao == null){
+            throw new IllegalArgumentException("Caminhao informado eh nulo");
+        }
         if(caminhoesPatioLista.contains(caminhao)){
             caminhoesPatioLista.remove(caminhao);
             filaSaida.add(caminhao);
@@ -68,8 +71,7 @@ public class Patio {
             return true;
         }
         else{
-            System.out.println("O caminhao placa:" + caminhao.getPlaca() + "nao esta no patio");
-            return false;
+            throw new IllegalArgumentException("O caminhao placa:" + caminhao.getPlaca() + "nao esta no patio");
         }
     }
     public void listarFila(){
