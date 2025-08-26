@@ -36,7 +36,7 @@ public class AuxiliarAdm extends Funcionario {
         this.login = login;
     }
 
-    public void cadastrarFuncionario(Funcionario funcionario) {
+    public void cadastrarFuncionario(String login, Funcionario funcionario) {
         if (funcionario == null) {
             throw new IllegalArgumentException("O funcionário a ser cadastrado não pode ser nulo.");
         }
