@@ -71,11 +71,11 @@ public class Patio {
         vagasDisponiveis = qtdVagas;
         if(caminhoesPatioLista.size() < vagasDisponiveis){
             caminhoesPatioLista.add(caminhao);
-            System.out.println("Caminhao adicionado - " + caminhao.getPlaca());
+            //System.out.println("Caminhao adicionado - " + caminhao.getPlaca());
             vagasDisponiveis--;
             return true;
         }else{
-            System.out.println("O patio esta cheio aguarde na fila.");
+            //System.out.println("O patio esta cheio aguarde na fila.");
             filaEntrada.add(caminhao);
             return false;
         }
