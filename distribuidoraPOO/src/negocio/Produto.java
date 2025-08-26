@@ -46,12 +46,4 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public void atualizarPreco(double novoPreco){
-        if(novoPreco<0){
-            throw new IllegalArgumentException("O preço não pode ser negativo.");
-        } else if (novoPreco==0){
-            throw new IllegalArgumentException("O produto não pode custar 0");
-        }
-        this.setPreco(novoPreco);
-    }
 }
