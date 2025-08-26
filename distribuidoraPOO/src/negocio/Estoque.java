@@ -2,6 +2,7 @@ package negocio;
 
 import negocio.exceptions.ErrosGeralEstoque;
 import negocio.exceptions.EstoqueInsuficienteException;
+import negocio.exceptions.PedidoNaoPagoException;
 import negocio.exceptions.ProdutoNaoEncontradoException;
 
 import java.util.ArrayList;
@@ -43,11 +44,11 @@ public class Estoque {
 
     // se o produto estiver com menos de 50 unidades, está em estoque baixo!!!
 
-    public void consultarProduto(String codigo) throws ProdutoNaoEncontradoException {
+    public Produto consultarProduto(String codigo) throws ProdutoNaoEncontradoException {
         for (Produto produto : produtos) {
             if (produto.getCodigo().equals(codigo)) {
                 System.out.println("Produto encontrado: " + produto.getNome());
-                return; // sai do método
+                return produto;
             }
         }
         throw new ProdutoNaoEncontradoException("Produto não encontrado.");
@@ -86,33 +87,28 @@ public class Estoque {
     }
 
     public void atualizarEstoquePedido(Pedido pedido)
-            throws EstoqueInsuficienteException, ProdutoNaoEncontradoException { // Adiciona a cláusula throws
+            throws EstoqueInsuficienteException, ProdutoNaoEncontradoException, PedidoNaoPagoException {
+
         if (pedido == null || pedido.getProdutos() == null) {
             throw new IllegalArgumentException("O pedido e sua lista de produtos não podem ser nulos.");
+        }
+
+        if (!pedido.getStatus().equals("PAGO")) {
+            throw new PedidoNaoPagoException("O pedido " + pedido.getNumero() + " não pode ser processado pois não está pago.");
         }
 
         for (Produto produtoPedido : pedido.getProdutos()) {
             if(produtoPedido.getQuantidade() < 0){
                 throw new IllegalArgumentException("A quantidade de produto não pode ser negativa.");
             }
-            boolean produtoEncontrado = false;
-            for (Produto p : produtos) {
-                if (p.getCodigo().equals(produtoPedido.getCodigo())) {
-                    produtoEncontrado = true; // Marca que o produto foi encontrado
 
-                    if (p.getQuantidade() >= produtoPedido.getQuantidade()) {
-                        p.setQuantidade(p.getQuantidade() - produtoPedido.getQuantidade());
-                        System.out.println("Estoque atualizado: " + p.getNome());
-                    } else {
-                        throw new ErrosGeralEstoque("Erro ao atualizar estoque");
-                    }
-                    break;
-                }
-            }
+            Produto p = this.consultarProduto(produtoPedido.getCodigo());
 
-            if (!produtoEncontrado) {
-                throw new ProdutoNaoEncontradoException("Produto com código '" + produtoPedido.getCodigo() + "' não foi encontrado no estoque.");
+            if (p.getQuantidade() < produtoPedido.getQuantidade()) {
+                throw new EstoqueInsuficienteException("Estoque insuficiente.");
             }
+            p.setQuantidade(p.getQuantidade() - produtoPedido.getQuantidade());
+            System.out.println("Estoque atualizado: " + p.getNome());
         }
     }
 }
