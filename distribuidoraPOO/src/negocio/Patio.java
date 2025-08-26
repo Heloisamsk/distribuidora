@@ -125,4 +125,9 @@ public class Patio {
         }
     }
 
+    public ArrayList<Caminhao> getCaminhoesPatioLista() {
+        return caminhoesPatioLista;
+    }
+
+
 }
