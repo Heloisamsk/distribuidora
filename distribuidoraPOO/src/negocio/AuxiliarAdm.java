@@ -13,6 +13,7 @@ public class AuxiliarAdm extends Funcionario {
     private ArrayList<Caminhao> caminhoesLista;
     private ArrayList<Produto> produtosLista;
     private Patio patio;
+    private static final String loginCadastro = "adm2025";
 
     public AuxiliarAdm(Patio patio, String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String login, String matricula) {
         super(cargo, salario, nome, idade, cpf, telefone, endereco, email, matricula);
@@ -37,6 +38,9 @@ public class AuxiliarAdm extends Funcionario {
     }
 
     public void cadastrarFuncionario(String login, Funcionario funcionario) {
+        if(!loginCadastro.equals(login)){
+            throw new SecurityException("Apenas o adminitrador com permissao pode cadastrar funcionarios");
+        }
         if (funcionario == null) {
             throw new IllegalArgumentException("O funcionário a ser cadastrado não pode ser nulo.");
         }
@@ -49,8 +53,14 @@ public class AuxiliarAdm extends Funcionario {
             System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o funcionário: " + funcionario.getNome());
 
     }
-
     public void cadastrarCaminhao(Caminhao caminhao) {
+        if(!loginCadastro.equals(login)){
+            throw new SecurityException("Apenas o adminitrador com permissao pode cadastrar caminhoes");
+        }
+        if(caminhao == null){
+            throw new IllegalArgumentException("O funcionario a ser cadastrado nao pode ser null");
+        }
+
         caminhoesLista.add(caminhao);
         System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão da placa: " + caminhao.getPlaca());
     }
