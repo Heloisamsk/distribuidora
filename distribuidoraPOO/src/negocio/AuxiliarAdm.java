@@ -14,6 +14,7 @@ public class AuxiliarAdm extends Funcionario {
     private ArrayList<Produto> produtosLista;
     private Patio patio;
     private static final String loginCadastro = "adm2025";
+    private Produto produto;
 
     public AuxiliarAdm(Patio patio, String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String login, String matricula) {
         super(cargo, salario, nome, idade, cpf, telefone, endereco, email, matricula);
@@ -117,6 +118,15 @@ public class AuxiliarAdm extends Funcionario {
         }else{
             System.out.println("o caminhao foi pra fila de espera de entrada no patio");
         }
+    }
+
+    public void atualizarPreco(Produto produto, double novoPreco){
+        if(novoPreco<0){
+            throw new IllegalArgumentException("O preço não pode ser negativo.");
+        } else if (novoPreco==0){
+            throw new IllegalArgumentException("O produto não pode custar 0");
+        }
+        produto.setPreco(novoPreco);
     }
 
     public void ponto(String matricula){
