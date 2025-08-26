@@ -69,9 +69,12 @@ public class AuxiliarAdm extends Funcionario {
         System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão com placa: " + caminhao.getPlaca());
     }
 
-    public void cadastrarCliente(Cliente cliente) {
+    public void cadastrarCliente(String login, Cliente cliente) {
+        if(!loginCadastro.equals(login)){
+            throw new SecurityException("Apenas o administrador pode cadastrar novos clientes");
+        }
         if (cliente == null){
-            throw new IllegalArgumentException("Cliente inválido");
+            throw new IllegalArgumentException("Cliente invalido.");
         }
         for (Cliente c : clientesLista){
             if (c.getCpf().equals(cliente.getCpf())){
@@ -82,7 +85,10 @@ public class AuxiliarAdm extends Funcionario {
         System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o cliente: " + cliente.getNome());
     }
 
-    public void cadastrarProduto(Produto produto) throws ProdutoJaExistenteException {
+    public void cadastrarProduto(String login,Produto produto) throws ProdutoJaExistenteException {
+        if(!loginCadastro.equals(login)){
+            throw new SecurityException("Apenas administrades com permissao podem cadastrar um produto");
+        }
         if (produto== null){
             throw new IllegalArgumentException("Produto inváido");
         }
