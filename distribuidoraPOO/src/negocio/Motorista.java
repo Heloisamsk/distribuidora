@@ -25,13 +25,19 @@ public class Motorista extends Funcionario{
         return CNH;
     }
 
-    public void dirigirCaminhao(Caminhao caminhaoResponsavel){
-        if (this.caminhaoResponsavel != null){
-            this.caminhaoResponsavel.setStatus("Em viagem");
-        }else {
-            System.out.println("Erro: motorista sem caminhão não pode dirigir");
+    public void dirigirCaminhao(Caminhao caminhaoResponsavel) {
+        if (caminhaoResponsavel == null) {
+            throw new IllegalArgumentException("Erro: motorista sem caminhão não pode dirigir");
+        }
+
+        try {
+            caminhaoResponsavel.setStatus("Em viagem");
+            System.out.println("O caminhão da placa " + caminhaoResponsavel.getPlaca() + " está agora em viagem.");
+        } catch (Exception e) {
+            System.out.println("Erro ao tentar colocar o caminhão em viagem: " + e.getMessage());
         }
     }
+
 
     public void finalizarViagem(Caminhao caminhaoResponsavel){
         this.caminhaoResponsavel.setStatus("Disponivel");
