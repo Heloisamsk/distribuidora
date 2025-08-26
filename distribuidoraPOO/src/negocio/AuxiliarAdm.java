@@ -119,6 +119,37 @@ public class AuxiliarAdm extends Funcionario {
             System.out.println("o caminhao foi pra fila de espera de entrada no patio");
         }
     }
+    // primeiro tem que add na fila de saida e depois permitir a saida
+    public void adicionarNaFilaSaida(String login, Caminhao caminhao, Patio patio){
+        if(!loginCadastro.equals(login)){
+            throw new SecurityException("Apenas administradores com autorizacao podem permitir a saida de caminhoes");
+        }
+        if (caminhao == null){
+            throw new IllegalArgumentException("Caminhão inválido.");
+        }
+        if(patio == null){
+            throw new IllegalArgumentException("Patio inválido.");
+        }
+        boolean filaSaida = patio.adicionarFilaSaida(caminhao);
+        if(filaSaida){
+            System.out.println("caminhao esta na fila de saida");
+        }
+
+    }
+    public void permitirSaida(String login, Caminhao caminhao, Patio patio){
+        if(!loginCadastro.equals(login)){
+            throw new SecurityException("Apenas administradores com autorizacao podem permitir a saida de caminhoes");
+        }
+        if (caminhao == null){
+            throw new IllegalArgumentException("Caminhão inválido.");
+       }
+        if(patio == null){
+            throw new IllegalArgumentException("Patio inválido.");
+        }
+        if(patio.liberarSaida(caminhao)){
+            System.out.println("caminhao saiu do patio.");
+        }
+    }
 
     public void atualizarPreco(Produto produto, double novoPreco){
         if(novoPreco<0){

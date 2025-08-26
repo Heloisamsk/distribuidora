@@ -22,6 +22,7 @@ public class Patio {
     }
     public Patio(int qtdVagas){
         this.qtdVagas = qtdVagas;
+        this.vagasDisponiveis = qtdVagas;
         this.filaEntrada = new ArrayList<>();
         this.filaSaida = new ArrayList<>();
         this.caminhoesPatioLista = new ArrayList<>();
@@ -64,11 +65,10 @@ public class Patio {
                 '}';
     }
 
-    public boolean adicionarCaminhao(Caminhao caminhao){
+    protected boolean adicionarCaminhao(Caminhao caminhao){
         if(caminhao == null){
             throw new IllegalArgumentException("O caminhao informado eh nulo");
         }
-        vagasDisponiveis = qtdVagas;
         if(caminhoesPatioLista.size() < vagasDisponiveis){
             caminhoesPatioLista.add(caminhao);
             //System.out.println("Caminhao adicionado - " + caminhao.getPlaca());
@@ -79,23 +79,37 @@ public class Patio {
             filaEntrada.add(caminhao);
             return false;
         }
-
     }
 
-    public boolean removerCaminhao(Caminhao caminhao){
-        if(caminhao == null){
+    protected boolean adicionarFilaSaida(Caminhao caminhao){
+        if (caminhao == null){
+            throw new IllegalArgumentException("caminhao nulo");
+        }
+        boolean estavaNoPatio = caminhoesPatioLista.remove(caminhao);
+        if(!estavaNoPatio){
+            return false;
+        }
+        filaSaida.add(caminhao);
+        return true;
+    }
+
+    protected boolean liberarSaida(Caminhao caminhao) {
+        if (caminhao == null) {
             throw new IllegalArgumentException("Caminhao informado eh nulo");
         }
-        if(caminhoesPatioLista.contains(caminhao)){
-            caminhoesPatioLista.remove(caminhao);
-            filaSaida.add(caminhao);
+        boolean removido = filaSaida.remove(caminhao);
+        if (!removido) {
+            throw new IllegalArgumentException("O caminhão placa: " + caminhao.getPlaca() + " não está na fila");
+        }
+        if(removido){
             vagasDisponiveis++;
-            System.out.println("Caminhao placa: " + caminhao.getPlaca() + "esta na fila de saida do patio ou saiu do patio");
-            return true;
         }
-        else{
-            throw new IllegalArgumentException("O caminhao placa:" + caminhao.getPlaca() + "nao esta no patio");
+        if(!filaEntrada.isEmpty()){
+            Caminhao proximo = filaEntrada.remove(0);
+            caminhoesPatioLista.add(proximo);
+            vagasDisponiveis--;
         }
+        return true;
     }
 
     public void listarCaminhoes(){
