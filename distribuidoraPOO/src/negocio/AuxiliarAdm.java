@@ -2,7 +2,7 @@ package negocio;
 import negocio.exceptions.CpfJaExistenteException;
 import negocio.exceptions.EntradaImpossibilitadaException;
 import negocio.exceptions.ProdutoJaExistenteException;
-
+import negocio.exceptions.CaminhaoJaExisteException;
 import java.util.ArrayList;
 
 
@@ -62,7 +62,7 @@ public class AuxiliarAdm extends Funcionario {
         }
         for(Caminhao c : caminhoesLista){
             if(c.getPlaca().equals(caminhao.getPlaca())){
-                throw new CpfJaExistenteException("Caminhao com essa placa ja cadastrado");
+                throw new CaminhaoJaExisteException("Caminhao com essa placa ja cadastrado");
             }
         }
         caminhoesLista.add(caminhao);
