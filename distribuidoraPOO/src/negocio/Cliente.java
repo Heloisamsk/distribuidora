@@ -61,18 +61,15 @@ public class Cliente extends Pessoa {
             throw new PagamentoException("O método de pagamento não pode ser vazio.");
         }
 
-        if ("Pago".equalsIgnoreCase(pedido.getStatus())) {
+        if ("PAGO".equalsIgnoreCase(pedido.getStatus())) {
             throw new StatusInvalidoException("O pedido já foi pago.");
         }
-        if ("Cancelado".equalsIgnoreCase(pedido.getStatus())) {
+        if ("CANCELADO".equalsIgnoreCase(pedido.getStatus())) {
             throw new StatusInvalidoException("Não é possível pagar um pedido cancelado.");
         }
 
-        System.out.println("Cliente " + getNome() + " fez o pagamento de R$ " + valor + " usando: " + metodo);
-
-        if (valor >= pedido.getValorTotal()) {
+        if (valor == pedido.getValorTotal()) {
             pedido.alterarStatus("Pago");
-            System.out.println("Pagamento processado! Status do pedido: " + pedido.getStatus());
         } else {
             throw new PagamentoException("Valor do pagamento (R$ " + valor + ") é insuficiente para quitar o pedido (R$ " + pedido.getValorTotal() + ").");
         }
@@ -82,7 +79,7 @@ public class Cliente extends Pessoa {
         System.out.println("Nome: " + getNome());
         System.out.println("Idade: " + getIdade());
         System.out.println("CPF: " + getCpf());
-        System.out.println("Tipo: " + tipo);
+        System.out.println("Tipo: " + getTipo());
     }
 
     public String getTipo() {
