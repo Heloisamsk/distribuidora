@@ -6,23 +6,28 @@ public class Agendamento {
     private Pedido pedido;
     private Caminhao caminhao;
     private Date dataHoraPrevista;
-    private String status;
+    private StatusAgendamento status;
 
     public Agendamento(Pedido pedido, Caminhao caminhao, Date dataHoraPrevista) {
         this.pedido = pedido;
         this.caminhao = caminhao;
         this.dataHoraPrevista = dataHoraPrevista;
-        this.status = "Pendente.";
+        this.status = StatusAgendamento.PENDENTE;
     }
 
     public void confirmarAgendamento() {
-        this.status = "Confirmado";
-        System.out.println("Agendamento do pedido " + this.pedido.getNumero() + " do cliente " + this.pedido.getCliente().getNome() + " para o caminhão " + this.caminhao.getPlaca() + " confirmado.");
-    }
+        if (this.status != StatusAgendamento.PENDENTE){
+            throw new IllegalArgumentException("O agendamento não pode ser confirmado, pois seu status atual é: " + this.status);
+        }
+        this.status = StatusAgendamento.CONFIRMADO;
+        }
 
     public void cancelarAgendamento() {
-        this.status = "Cancelado";
-        System.out.println("Agendamento do pedido " + this.pedido.getNumero() + " do cliente " + this.pedido.getCliente().getNome() + " para o caminhão " + this.caminhao.getPlaca() + " cancelado.");
+        if (this.status != StatusAgendamento.CONFIRMADO){
+            throw new IllegalArgumentException("O agendamento não pode ser confirmado, pois seu status atual é: " + this.status);
+        }
+        this.status = StatusAgendamento.CANCELADO;
+
     }
 
     // getters e setters
@@ -50,11 +55,11 @@ public class Agendamento {
         this.dataHoraPrevista = dataHoraPrevista;
     }
 
-    public String getStatus() {
+    public StatusAgendamento getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusAgendamento status) {
         this.status = status;
     }
 }
