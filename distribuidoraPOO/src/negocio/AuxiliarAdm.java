@@ -53,7 +53,7 @@ public class AuxiliarAdm extends Funcionario {
             System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o funcionário: " + funcionario.getNome());
 
     }
-    public void cadastrarCaminhao(Caminhao caminhao) {
+    public void cadastrarCaminhao(String login, Caminhao caminhao) {
         if(!loginCadastro.equals(login)){
             throw new SecurityException("Apenas o adminitrador com permissao pode cadastrar caminhoes");
         }
@@ -101,14 +101,21 @@ public class AuxiliarAdm extends Funcionario {
         System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o produto: " + produto.getNome());
     }
 
-    public void permitirEntrada(Caminhao caminhao, Patio patio) {
+    public void permitirEntrada(String login, Caminhao caminhao, Patio patio) {
+        if(!loginCadastro.equals(login)){
+            throw new SecurityException("Apenas administradores com autorizacao podem permitir a entrada de caminhoes");
+        }
         if (caminhao == null){
             throw new IllegalArgumentException("Caminhão inválido.");
         }
-        if(patio.getVagasDisponiveis() < 1){
-            throw new EntradaImpossibilitadaException("Pátio está cheio, não é possivel permitir entrada.");
+        if(patio == null){
+            throw new IllegalArgumentException("Patio inválido.");
         }
-        patio.adicionarCaminhao(caminhao);
+        if(patio.adicionarCaminhao(caminhao)){
+            System.out.println("caminhao entrou no patio.");
+        }else{
+            System.out.println("o caminhao foi pra fila de espera de entrada no patio");
+        }
     }
 
     public void ponto(String matricula){
