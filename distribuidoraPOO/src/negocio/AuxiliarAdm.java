@@ -113,6 +113,7 @@ public class AuxiliarAdm extends Funcionario {
         }
         if(patio.adicionarCaminhao(caminhao)){
             System.out.println("caminhao entrou no patio.");
+
         }else{
             System.out.println("o caminhao foi pra fila de espera de entrada no patio");
         }
