@@ -60,9 +60,13 @@ public class AuxiliarAdm extends Funcionario {
         if(caminhao == null){
             throw new IllegalArgumentException("O funcionario a ser cadastrado nao pode ser null");
         }
-
+        for(Caminhao c : caminhoesLista){
+            if(c.getPlaca().equals(caminhao.getPlaca())){
+                throw new CpfJaExistenteException("Caminhao com essa placa ja cadastrado");
+            }
+        }
         caminhoesLista.add(caminhao);
-        System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão da placa: " + caminhao.getPlaca());
+        System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão com placa: " + caminhao.getPlaca());
     }
 
     public void cadastrarCliente(Cliente cliente) {
