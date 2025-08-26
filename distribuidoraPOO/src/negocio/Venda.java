@@ -29,8 +29,10 @@ public class Venda {
         if (pedido.getProdutos().isEmpty()){
             throw new IllegalArgumentException("Não é possivel finalizar um pedido vazio.");
         }
-        double total = pedido.calcularTotal();
+        /*double total = pedido.calcularTotal();
         pedido.alterarStatus("Finalizado!");
         System.out.println("Valor total: R$ "+ total);
+
+         */
     }
 }

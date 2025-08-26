@@ -1,4 +1,4 @@
-package dados;
+/*package dados;
 
 import negocio.Produto;
 import java.io.*;
@@ -94,3 +94,5 @@ public class RepositorioProduto implements IRepositorioProduto {
         }
     }
 }
+
+ */

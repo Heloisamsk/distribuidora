@@ -1,4 +1,4 @@
-package dados;
+/*package dados;
 
 import negocio.Caminhao;
 import java.util.ArrayList;
@@ -63,3 +63,6 @@ public class RepositorioCaminhao {
         }
     }
 }
+
+
+ */

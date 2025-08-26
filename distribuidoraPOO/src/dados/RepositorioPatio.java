@@ -1,4 +1,4 @@
-package dados;
+/*package dados;
 
 import negocio.Patio;
 import negocio.Caminhao;
@@ -61,3 +61,4 @@ public class RepositorioPatio {
         patio.setVagasDisponiveis(vagas);
     }
 }
+*/

@@ -1,10 +1,8 @@
 package negocio;
 import negocio.exceptions.CpfJaExistenteException;
-import negocio.exceptions.EntradaImpossibilitadaException;
 import negocio.exceptions.ProdutoJaExistenteException;
 import negocio.exceptions.CaminhaoJaExisteException;
 import java.util.ArrayList;
-
 
 public class AuxiliarAdm extends Funcionario {
     private String login;
@@ -26,8 +24,13 @@ public class AuxiliarAdm extends Funcionario {
         this.caminhoesLista = new ArrayList<>();
         this.produtosLista = new ArrayList<>();
     }
-    public AuxiliarAdm(){
-
+    public AuxiliarAdm(String nome, String login){
+        this.clientesLista = new ArrayList<>();
+        this.funcionariosLista = new ArrayList<>();
+        this.caminhoesLista = new ArrayList<>();
+        this.produtosLista = new ArrayList<>();
+        this.nome = nome;
+        this.login = login;
     }
 
     public String getLogin() {
@@ -70,7 +73,7 @@ public class AuxiliarAdm extends Funcionario {
         System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão com placa: " + caminhao.getPlaca());
     }
 
-    public void cadastrarCliente(String login, Cliente cliente) {
+    public void cadastrarCliente(Cliente cliente) {
         if(!loginCadastro.equals(login)){
             throw new SecurityException("Apenas o administrador pode cadastrar novos clientes");
         }

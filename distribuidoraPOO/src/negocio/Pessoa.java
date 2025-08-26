@@ -1,9 +1,10 @@
 package negocio;
 
 public abstract class Pessoa {
-    private String nome;
+
+    protected String nome;
     private int idade;
-    private String cpf;
+    protected String cpf;
     private String telefone;
     private String endereco;
     private String email;

@@ -29,7 +29,10 @@ public class Cliente extends Pessoa {
         }
         this.tipo = tipo;
     }
-
+    public Cliente(String nome, String cpf){
+        this.nome = nome;
+        this.cpf = cpf;
+    }
     public boolean isCadastrado() {
         return cadastrado;
     }
@@ -38,27 +41,26 @@ public class Cliente extends Pessoa {
         this.cadastrado = cadastrado;
     }
 
-    public void realizarPedido(Pedido pedido, ArrayList<Produto> produtosSolicitados) {
+    public void realizarPedido(Pedido pedido) {
         Objects.requireNonNull(pedido, "O pedido não pode ser nulo.");
         if(!cadastrado){
             throw new ClienteNaoExisteException("Cliente nao cadastrado.");
         }
-
-        if (produtosSolicitados == null || produtosSolicitados.isEmpty()) {
+        /*if (produtosSolicitados == null || produtosSolicitados.isEmpty()) {
             throw new IllegalArgumentException("A lista de produtos solicitados não pode ser vazia.");
-        }
+        }*/
 
-        if (!"Aberto".equalsIgnoreCase(pedido.getStatus()) && !"Pendente".equalsIgnoreCase(pedido.getStatus())) {
+        /*if (!"Aberto".equalsIgnoreCase(pedido.getStatus()) && !"Pendente".equalsIgnoreCase(pedido.getStatus())) {
             throw new StatusInvalidoException("Não é possível adicionar produtos a um pedido com o status: " + pedido.getStatus());
-        }
+        } */
 
         System.out.println("Cliente " + getNome() + " iniciou o pedido de número: " + pedido.getNumero());
 
-        for (Produto produto : produtosSolicitados) {
+        /*for (Produto produto : produtosSolicitados) {
             pedido.adicionarProduto(produto);
-        }
+        }*/
 
-        pedido.alterarStatus("Pendente");
+       /* pedido.alterarStatus("Pendente"); */
 
         System.out.println("Pedido criado! Status: " + pedido.getStatus());
         System.out.println("Valor total do pedido: R$ " + pedido.getValorTotal());
@@ -81,11 +83,13 @@ public class Cliente extends Pessoa {
             throw new StatusInvalidoException("Não é possível pagar um pedido cancelado.");
         }
 
-        if (valor == pedido.getValorTotal()) {
+        /*if (valor == pedido.getValorTotal()) {
             pedido.alterarStatus("Pago");
         } else {
             throw new PagamentoException("Valor do pagamento (R$ " + valor + ") é insuficiente para quitar o pedido (R$ " + pedido.getValorTotal() + ").");
         }
+
+         */
     }
 
     public void status() {

@@ -1,4 +1,4 @@
-package dados;
+/*ackage dados;
 
 import negocio.Produto;
 import java.util.ArrayList;
@@ -10,3 +10,5 @@ public interface IRepositorioProduto {
     void remover(String codigo);
     void atualizar(Produto produto);
 }
+
+ */

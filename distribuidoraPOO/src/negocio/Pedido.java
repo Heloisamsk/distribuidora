@@ -84,7 +84,7 @@ public class Pedido {
         }
     }
 
-        public void alterarStatus (String status){
+       /* public void alterarStatus (String status){
             if (status.equalsIgnoreCase("Em andamento") ||
                     status.equalsIgnoreCase("Concluído") ||
                     status.equalsIgnoreCase("Cancelado")) {
@@ -92,7 +92,8 @@ public class Pedido {
             } else {
                 throw new IllegalArgumentException("Status inválido!");
             }
-        }
+        } */
+
         @Override
         public String toString () {
             StringBuilder sb = new StringBuilder();

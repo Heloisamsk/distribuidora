@@ -1,4 +1,4 @@
-package dados;
+/*package dados;
 
 import negocio.Cliente;
 import java.util.ArrayList;
@@ -44,3 +44,5 @@ public class RepositorioCliente {
         clientes.remove(cliente);
     }
 }
+
+ */

@@ -1,4 +1,4 @@
-package dados;
+/*package dados;
 
 import negocio.Funcionario;
 import java.util.ArrayList;
@@ -39,3 +39,4 @@ public class RepositorioFuncionario {
         funcionarios.remove(f);
     }
 }
+*/

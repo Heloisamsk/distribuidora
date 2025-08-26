@@ -22,6 +22,12 @@ public class TelaPrincipal {
         System.out.println("\n");
         estoque.consultarProduto("012");
 
+        AuxiliarAdm adm = new AuxiliarAdm("albqq", "adm2025");
+        Cliente cliente = new Cliente("helo", "7589");
+        Cliente cliente1 = new Cliente("ola", "789556");
+        adm.cadastrarCliente(cliente);
+        cliente.realizarPedido(pedido);
+
 
 
 
