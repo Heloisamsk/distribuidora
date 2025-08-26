@@ -1,5 +1,7 @@
 package negocio;
 
+import negocio.exceptions.VagaInsuficienteException;
+
 public class Caminhao {
     private String placa;
     private int capacidade;
@@ -47,41 +49,35 @@ public class Caminhao {
         this.status = status;
     }
 
-    public void entrarPatio(Patio patio, Caminhao caminhao) {
+    public void entrarPatio(Patio patio, Caminhao caminhao) throws VagaInsuficienteException {
         if (patio == null) {
-            throw new IllegalArgumentException("O pátio nao pode ser nulo");
+            throw new IllegalArgumentException("O pátio não pode ser nulo.");
         }
         if (caminhao == null) {
-            throw new IllegalArgumentException("O caminhao não pode ser nulo");
+            throw new IllegalArgumentException("O caminhão não pode ser nulo.");
         }
-
-        try {
-            boolean adicionado = patio.adicionarCaminhao(caminhao);
-            if (adicionado) {
-                caminhao.setStatus("NO PATIO");
-                System.out.println("Caminhao " + caminhao.getPlaca() + " entrou no patio com sucesso.");
-            } else {
-                caminhao.setStatus("NA FILA");
-                System.out.println("Caminhao " + caminhao.getPlaca() + " aguarda na fila do patio.");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Erro ao tentar adicionar caminhao: " + e.getMessage());
+        if (patio.getVagasDisponiveis() > 0) {
+            patio.setVagasDisponiveis(patio.getVagasDisponiveis() - 1);
+            caminhao.setStatus("NO PATIO");
+        } else {
+            throw new VagaInsuficienteException("Não há vagas disponíveis no pátio. O caminhão não pode entrar.");
         }
     }
 
 
     public void sairPatio(Patio patio) {
         if (patio == null) {
-            throw new IllegalArgumentException("O patio nao pode ser nulo");
-        }
-        if (patio.getVagasDisponiveis() >= patio.getQtdVagas()) {
-            System.out.println("Atenção: O pátio já está com todas as vagas disponíveis!");
-        } else {
-            patio.setVagasDisponiveis(patio.getVagasDisponiveis() + 1);
+            throw new IllegalArgumentException("O pátio não pode ser nulo.");
         }
 
+        if (patio.getVagasDisponiveis() >= patio.getQtdVagas()) {
+            throw new IllegalStateException("O pátio já está com a capacidade máxima de vagas disponíveis.");
+        }
+
+        patio.setVagasDisponiveis(patio.getVagasDisponiveis() + 1);
         this.status = "Fora do pátio";
-        System.out.println("Caminhão da placa: " + this.placa + " saiu do pátio");
+
+
     }
 
 

@@ -6,7 +6,7 @@ public class Patio {
     private ArrayList<Caminhao> filaEntrada;
     private ArrayList<Caminhao> filaSaida;
     private int vagasDisponiveis;
-    private int qtdVagas ;
+    private int qtdVagas = 20;
 
     public Patio( int vagasDisponiveis, int qtdVagas) {
         this.filaEntrada = new ArrayList<>();
