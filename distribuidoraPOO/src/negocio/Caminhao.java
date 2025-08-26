@@ -46,35 +46,44 @@ public class Caminhao {
     public void setStatus(String status) {
         this.status = status;
     }
-    //Metodos entrar e sair do patio
+
     public void entrarPatio(Patio patio, Caminhao caminhao) {
         if (patio == null) {
-            throw new IllegalArgumentException("O pátio não pode ser nulo");
+            throw new IllegalArgumentException("O pátio nao pode ser nulo");
         }
         if (caminhao == null) {
-            throw new IllegalArgumentException("O caminhão não pode ser nulo");
+            throw new IllegalArgumentException("O caminhao não pode ser nulo");
         }
 
         try {
             boolean adicionado = patio.adicionarCaminhao(caminhao);
             if (adicionado) {
                 caminhao.setStatus("NO PATIO");
-                System.out.println("Caminhão " + caminhao.getPlaca() + " entrou no pátio com sucesso.");
+                System.out.println("Caminhao " + caminhao.getPlaca() + " entrou no patio com sucesso.");
             } else {
                 caminhao.setStatus("NA FILA");
-                System.out.println("Caminhão " + caminhao.getPlaca() + " aguarda na fila do pátio.");
+                System.out.println("Caminhao " + caminhao.getPlaca() + " aguarda na fila do patio.");
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Erro ao tentar adicionar caminhão: " + e.getMessage());
+            System.out.println("Erro ao tentar adicionar caminhao: " + e.getMessage());
         }
     }
 
 
     public void sairPatio(Patio patio) {
-        patio.setVagasDisponiveis(patio.getVagasDisponiveis() + 1);
+        if (patio == null) {
+            throw new IllegalArgumentException("O patio nao pode ser nulo");
+        }
+        if (patio.getVagasDisponiveis() >= patio.getQtdVagas()) {
+            System.out.println("Atenção: O pátio já está com todas as vagas disponíveis!");
+        } else {
+            patio.setVagasDisponiveis(patio.getVagasDisponiveis() + 1);
+        }
+
         this.status = "Fora do pátio";
         System.out.println("Caminhão da placa: " + this.placa + " saiu do pátio");
     }
+
 
     @Override
     public String toString() {
