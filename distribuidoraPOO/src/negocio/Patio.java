@@ -64,7 +64,7 @@ public class Patio {
                 '}';
     }
 
-    public boolean adicionarCaminhao(Caminhao caminhao){
+    protected boolean adicionarCaminhao(Caminhao caminhao){
         if(caminhao == null){
             throw new IllegalArgumentException("O caminhao informado eh nulo");
         }
@@ -82,7 +82,7 @@ public class Patio {
 
     }
 
-    public boolean removerCaminhao(Caminhao caminhao){
+    protected boolean removerCaminhao(Caminhao caminhao){
         if(caminhao == null){
             throw new IllegalArgumentException("Caminhao informado eh nulo");
         }
