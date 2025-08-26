@@ -22,6 +22,7 @@ public class RepositorioProduto implements IRepositorioProduto {
         }
     }
 
+    @Override
     public ArrayList<Produto> listarTodos() {
         ArrayList<Produto> produtos = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(ARQUIVO))) {
@@ -41,7 +42,7 @@ public class RepositorioProduto implements IRepositorioProduto {
         }
         return produtos;
     }
-
+    @Override
     public Produto buscarPorCodigo(String codigo) {
         for (Produto p : listarTodos()) {
             if (p.getCodigo().equalsIgnoreCase(codigo)) {
@@ -50,7 +51,7 @@ public class RepositorioProduto implements IRepositorioProduto {
         }
         return null;
     }
-
+    @Override
     public void remover(String codigo) {
         List<Produto> produtos = listarTodos();
         produtos.removeIf(p -> p.getCodigo().equalsIgnoreCase(codigo));
@@ -68,7 +69,7 @@ public class RepositorioProduto implements IRepositorioProduto {
             e.printStackTrace();
         }
     }
-
+    @Override
     public void atualizar(Produto produtoAtualizado) {
         List<Produto> produtos = listarTodos();
 
