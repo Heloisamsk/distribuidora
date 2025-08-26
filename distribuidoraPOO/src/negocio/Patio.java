@@ -81,13 +81,12 @@ public class Patio {
         }
     }
 
-    protected boolean adiconarFilaSaida(Caminhao caminhao){
+    protected boolean adicionarFilaSaida(Caminhao caminhao){
         if (caminhao == null){
             throw new IllegalArgumentException("caminhao nulo");
         }
         boolean estavaNoPatio = caminhoesPatioLista.remove(caminhao);
         if(!estavaNoPatio){
-            System.out.println("caminhao nao esta no patio");
             return false;
         }
         filaSaida.add(caminhao);
