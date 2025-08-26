@@ -1,6 +1,7 @@
 package negocio;
 
 import negocio.exceptions.ClienteInvalidoException;
+import negocio.exceptions.ClienteNaoExisteException;
 import negocio.exceptions.PagamentoException;
 import negocio.exceptions.StatusInvalidoException;
 
@@ -9,6 +10,7 @@ import java.util.Objects;
 
 public class Cliente extends Pessoa {
     private String tipo;
+    private boolean cadastrado = false;
 
     public Cliente(String nome, int idade, String cpf, String telefone, String endereco, String email, String tipo) {
         super(nome, idade, cpf, telefone, endereco, email);
@@ -28,8 +30,19 @@ public class Cliente extends Pessoa {
         this.tipo = tipo;
     }
 
+    public boolean isCadastrado() {
+        return cadastrado;
+    }
+
+    public void setCadastrado(boolean cadastrado) {
+        this.cadastrado = cadastrado;
+    }
+
     public void realizarPedido(Pedido pedido, ArrayList<Produto> produtosSolicitados) {
         Objects.requireNonNull(pedido, "O pedido não pode ser nulo.");
+        if(!cadastrado){
+            throw new ClienteNaoExisteException("Cliente nao cadastrado.");
+        }
 
         if (produtosSolicitados == null || produtosSolicitados.isEmpty()) {
             throw new IllegalArgumentException("A lista de produtos solicitados não pode ser vazia.");
