@@ -81,17 +81,30 @@ public class Patio {
         }
     }
 
-    protected boolean removerCaminhao(Caminhao caminhao) {
+    protected boolean adiconarFilaSaida(Caminhao caminhao){
+        if (caminhao == null){
+            throw new IllegalArgumentException("caminhao nulo");
+        }
+        boolean estavaNoPatio = caminhoesPatioLista.remove(caminhao);
+        if(!estavaNoPatio){
+            System.out.println("caminhao nao esta no patio");
+            return false;
+        }
+        filaSaida.add(caminhao);
+        return true;
+    }
+
+    protected boolean liberarSaida(Caminhao caminhao) {
         if (caminhao == null) {
             throw new IllegalArgumentException("Caminhao informado eh nulo");
         }
-        boolean removido = caminhoesPatioLista.remove(caminhao);
+        boolean removido = filaSaida.remove(caminhao);
         if (!removido) {
-            throw new IllegalArgumentException("O caminhão placa: " + caminhao.getPlaca() + " não está no pátio");
+            throw new IllegalArgumentException("O caminhão placa: " + caminhao.getPlaca() + " não está na fila");
         }
-        filaSaida.add(caminhao);
-        vagasDisponiveis++;
-
+        if(removido){
+            vagasDisponiveis++;
+        }
         if(!filaEntrada.isEmpty()){
             Caminhao proximo = filaEntrada.remove(0);
             caminhoesPatioLista.add(proximo);
