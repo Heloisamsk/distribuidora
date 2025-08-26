@@ -41,6 +41,8 @@ public class Estoque {
         produtos.remove(produto);
     }
 
+    // se o produto estiver com menos de 50 unidades, está em estoque baixo!!!
+
     public void consultarProduto(String codigo) throws ProdutoNaoEncontradoException {
         for (Produto produto : produtos) {
             if (produto.getCodigo().equals(codigo)) {
@@ -85,14 +87,15 @@ public class Estoque {
 
     public void atualizarEstoquePedido(Pedido pedido)
             throws EstoqueInsuficienteException, ProdutoNaoEncontradoException { // Adiciona a cláusula throws
-
         if (pedido == null || pedido.getProdutos() == null) {
             throw new IllegalArgumentException("O pedido e sua lista de produtos não podem ser nulos.");
         }
 
         for (Produto produtoPedido : pedido.getProdutos()) {
+            if(produtoPedido.getQuantidade() < 0){
+                throw new IllegalArgumentException("A quantidade de produto não pode ser negativa.");
+            }
             boolean produtoEncontrado = false;
-
             for (Produto p : produtos) {
                 if (p.getCodigo().equals(produtoPedido.getCodigo())) {
                     produtoEncontrado = true; // Marca que o produto foi encontrado
