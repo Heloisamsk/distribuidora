@@ -48,14 +48,27 @@ public class Caminhao {
     }
     //Metodos entrar e sair do patio
     public void entrarPatio(Patio patio, Caminhao caminhao) {
-        boolean adicionado = patio.adicionarCaminhao(caminhao);
-        if(adicionado){
-            caminhao.setStatus("NO PATIO");
-        }else{
-            caminhao.setStatus("NA FILA");
+        if (patio == null) {
+            throw new IllegalArgumentException("O pátio não pode ser nulo");
+        }
+        if (caminhao == null) {
+            throw new IllegalArgumentException("O caminhão não pode ser nulo");
         }
 
+        try {
+            boolean adicionado = patio.adicionarCaminhao(caminhao);
+            if (adicionado) {
+                caminhao.setStatus("NO PATIO");
+                System.out.println("Caminhão " + caminhao.getPlaca() + " entrou no pátio com sucesso.");
+            } else {
+                caminhao.setStatus("NA FILA");
+                System.out.println("Caminhão " + caminhao.getPlaca() + " aguarda na fila do pátio.");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro ao tentar adicionar caminhão: " + e.getMessage());
+        }
     }
+
 
     public void sairPatio(Patio patio) {
         patio.setVagasDisponiveis(patio.getVagasDisponiveis() + 1);
