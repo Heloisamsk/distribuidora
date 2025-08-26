@@ -2,7 +2,7 @@ package negocio;
 import negocio.exceptions.CpfJaExistenteException;
 import negocio.exceptions.EntradaImpossibilitadaException;
 import negocio.exceptions.ProdutoJaExistenteException;
-
+import negocio.exceptions.CaminhaoJaExisteException;
 import java.util.ArrayList;
 
 
@@ -13,6 +13,7 @@ public class AuxiliarAdm extends Funcionario {
     private ArrayList<Caminhao> caminhoesLista;
     private ArrayList<Produto> produtosLista;
     private Patio patio;
+    private static final String loginCadastro = "adm2025";
 
     public AuxiliarAdm(Patio patio, String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String login, String matricula) {
         super(cargo, salario, nome, idade, cpf, telefone, endereco, email, matricula);
@@ -37,6 +38,9 @@ public class AuxiliarAdm extends Funcionario {
     }
 
     public void cadastrarFuncionario(String login, Funcionario funcionario) {
+        if(!loginCadastro.equals(login)){
+            throw new SecurityException("Apenas o adminitrador com permissao pode cadastrar funcionarios");
+        }
         if (funcionario == null) {
             throw new IllegalArgumentException("O funcionário a ser cadastrado não pode ser nulo.");
         }
@@ -49,15 +53,28 @@ public class AuxiliarAdm extends Funcionario {
             System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o funcionário: " + funcionario.getNome());
 
     }
-
-    public void cadastrarCaminhao(Caminhao caminhao) {
+    public void cadastrarCaminhao(String login, Caminhao caminhao) {
+        if(!loginCadastro.equals(login)){
+            throw new SecurityException("Apenas o adminitrador com permissao pode cadastrar caminhoes");
+        }
+        if(caminhao == null){
+            throw new IllegalArgumentException("O funcionario a ser cadastrado nao pode ser null");
+        }
+        for(Caminhao c : caminhoesLista){
+            if(c.getPlaca().equals(caminhao.getPlaca())){
+                throw new CaminhaoJaExisteException("Caminhao com essa placa ja cadastrado");
+            }
+        }
         caminhoesLista.add(caminhao);
-        System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão da placa: " + caminhao.getPlaca());
+        System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão com placa: " + caminhao.getPlaca());
     }
 
-    public void cadastrarCliente(Cliente cliente) {
+    public void cadastrarCliente(String login, Cliente cliente) {
+        if(!loginCadastro.equals(login)){
+            throw new SecurityException("Apenas o administrador pode cadastrar novos clientes");
+        }
         if (cliente == null){
-            throw new IllegalArgumentException("Cliente inválido");
+            throw new IllegalArgumentException("Cliente invalido.");
         }
         for (Cliente c : clientesLista){
             if (c.getCpf().equals(cliente.getCpf())){
@@ -68,7 +85,10 @@ public class AuxiliarAdm extends Funcionario {
         System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o cliente: " + cliente.getNome());
     }
 
-    public void cadastrarProduto(Produto produto) throws ProdutoJaExistenteException {
+    public void cadastrarProduto(String login,Produto produto) throws ProdutoJaExistenteException {
+        if(!loginCadastro.equals(login)){
+            throw new SecurityException("Apenas administrades com permissao podem cadastrar um produto");
+        }
         if (produto== null){
             throw new IllegalArgumentException("Produto inváido");
         }
@@ -81,14 +101,22 @@ public class AuxiliarAdm extends Funcionario {
         System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o produto: " + produto.getNome());
     }
 
-    public void permitirEntrada(Caminhao caminhao, Patio patio) {
+    public void permitirEntrada(String login, Caminhao caminhao, Patio patio) {
+        if(!loginCadastro.equals(login)){
+            throw new SecurityException("Apenas administradores com autorizacao podem permitir a entrada de caminhoes");
+        }
         if (caminhao == null){
             throw new IllegalArgumentException("Caminhão inválido.");
         }
-        if(patio.getVagasDisponiveis() < 1){
-            throw new EntradaImpossibilitadaException("Pátio está cheio, não é possivel permitir entrada.");
+        if(patio == null){
+            throw new IllegalArgumentException("Patio inválido.");
         }
-        patio.adicionarCaminhao(caminhao);
+        if(patio.adicionarCaminhao(caminhao)){
+            System.out.println("caminhao entrou no patio.");
+
+        }else{
+            System.out.println("o caminhao foi pra fila de espera de entrada no patio");
+        }
     }
 
     public void ponto(String matricula){
