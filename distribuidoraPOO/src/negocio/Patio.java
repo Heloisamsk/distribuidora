@@ -22,6 +22,7 @@ public class Patio {
     }
     public Patio(int qtdVagas){
         this.qtdVagas = qtdVagas;
+        this.vagasDisponiveis = qtdVagas;
         this.filaEntrada = new ArrayList<>();
         this.filaSaida = new ArrayList<>();
         this.caminhoesPatioLista = new ArrayList<>();
@@ -68,7 +69,6 @@ public class Patio {
         if(caminhao == null){
             throw new IllegalArgumentException("O caminhao informado eh nulo");
         }
-        vagasDisponiveis = qtdVagas;
         if(caminhoesPatioLista.size() < vagasDisponiveis){
             caminhoesPatioLista.add(caminhao);
             //System.out.println("Caminhao adicionado - " + caminhao.getPlaca());
@@ -79,23 +79,25 @@ public class Patio {
             filaEntrada.add(caminhao);
             return false;
         }
-
     }
 
-    protected boolean removerCaminhao(Caminhao caminhao){
-        if(caminhao == null){
+    protected boolean removerCaminhao(Caminhao caminhao) {
+        if (caminhao == null) {
             throw new IllegalArgumentException("Caminhao informado eh nulo");
         }
-        if(caminhoesPatioLista.contains(caminhao)){
-            caminhoesPatioLista.remove(caminhao);
-            filaSaida.add(caminhao);
-            vagasDisponiveis++;
-            System.out.println("Caminhao placa: " + caminhao.getPlaca() + "esta na fila de saida do patio ou saiu do patio");
-            return true;
+        boolean removido = caminhoesPatioLista.remove(caminhao);
+        if (!removido) {
+            throw new IllegalArgumentException("O caminhão placa: " + caminhao.getPlaca() + " não está no pátio");
         }
-        else{
-            throw new IllegalArgumentException("O caminhao placa:" + caminhao.getPlaca() + "nao esta no patio");
+        filaSaida.add(caminhao);
+        vagasDisponiveis++;
+
+        if(!filaEntrada.isEmpty()){
+            Caminhao proximo = filaEntrada.remove(0);
+            caminhoesPatioLista.add(proximo);
+            vagasDisponiveis--;
         }
+        return true;
     }
 
     public void listarCaminhoes(){

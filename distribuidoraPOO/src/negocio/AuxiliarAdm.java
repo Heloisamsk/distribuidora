@@ -119,6 +119,7 @@ public class AuxiliarAdm extends Funcionario {
             System.out.println("o caminhao foi pra fila de espera de entrada no patio");
         }
     }
+
     public void permitirSaida(String login, Caminhao caminhao, Patio patio){
         if(!loginCadastro.equals(login)){
             throw new SecurityException("Apenas administradores com autorizacao podem permitir a saida de caminhoes");
