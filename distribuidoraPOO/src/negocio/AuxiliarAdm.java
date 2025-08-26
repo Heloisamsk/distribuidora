@@ -83,6 +83,7 @@ public class AuxiliarAdm extends Funcionario {
             }
         }
         clientesLista.add(cliente);
+        cliente.setCadastrado(true);
         System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o cliente: " + cliente.getNome());
     }
 
