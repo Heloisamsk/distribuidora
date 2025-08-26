@@ -106,20 +106,18 @@ public class Patio {
 
     }
     public void listarFilas(){
-        System.out.println("Fila de entrada: ");
-        if(filaEntrada.isEmpty()){
-            System.out.println("Fila de entrada vazia");
-        }
-        else{
+        if (filaEntrada == null || filaEntrada.isEmpty()){
+            System.out.println("A fila de entrada do patio esta vazia.");
+        }else{
+            System.out.println("FILA DE ENTRADA DE CAMINHOES: ");
             for(Caminhao caminhao : filaEntrada){
                 System.out.println("-" + caminhao);
             }
         }
-
-        System.out.println("Fila de saida: ");
-        if(filaSaida.isEmpty()){
-            System.out.println("A lista esta vazia");
-        } else{
+        if(filaSaida == null || filaSaida.isEmpty()){
+            System.out.println("A fila de saida do patio esta vazia.");
+        }else{
+            System.out.println("FILA DE SAIDA DE CAMINHOES");
             for(Caminhao caminhao : filaSaida){
                 System.out.println("-" + caminhao);
 
