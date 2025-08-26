@@ -2,12 +2,14 @@ package dados;
 
 import negocio.Produto;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
-public class RepositorioProduto {
+public class RepositorioProduto implements IRepositorioProduto {
     private static final String ARQUIVO = "produtos.csv";
 
-    public void salvar(Produto produto) {
+    @Override
+    public void cadastrarProduto(Produto produto) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO, true))) {
             bw.write(produto.getCodigo() + "," +
                     produto.getNome() + "," +
@@ -20,8 +22,9 @@ public class RepositorioProduto {
         }
     }
 
-    public List<Produto> listarTodos() {
-        List<Produto> produtos = new ArrayList<>();
+    @Override
+    public ArrayList<Produto> listarTodos() {
+        ArrayList<Produto> produtos = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(ARQUIVO))) {
             String linha;
             while ((linha = br.readLine()) != null) {
@@ -39,7 +42,7 @@ public class RepositorioProduto {
         }
         return produtos;
     }
-
+    @Override
     public Produto buscarPorCodigo(String codigo) {
         for (Produto p : listarTodos()) {
             if (p.getCodigo().equalsIgnoreCase(codigo)) {
@@ -48,7 +51,7 @@ public class RepositorioProduto {
         }
         return null;
     }
-
+    @Override
     public void remover(String codigo) {
         List<Produto> produtos = listarTodos();
         produtos.removeIf(p -> p.getCodigo().equalsIgnoreCase(codigo));
@@ -66,7 +69,7 @@ public class RepositorioProduto {
             e.printStackTrace();
         }
     }
-
+    @Override
     public void atualizar(Produto produtoAtualizado) {
         List<Produto> produtos = listarTodos();
 
