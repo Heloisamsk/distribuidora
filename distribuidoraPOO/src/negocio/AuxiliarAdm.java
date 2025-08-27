@@ -38,8 +38,8 @@ public class AuxiliarAdm extends Funcionario {
         this.login = login;
     }
 
-    public void cadastrarFuncionario(String login, Funcionario funcionario) {
-        if(!loginCadastro.equals(login)){
+    public void cadastrarFuncionario(Funcionario funcionario) {
+        if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas o adminitrador com permissao pode cadastrar funcionarios");
         }
         if (funcionario == null) {
@@ -51,11 +51,13 @@ public class AuxiliarAdm extends Funcionario {
             }
         }
             funcionariosLista.add(funcionario);
+           // criar um atributo pra marcar funcionario como cadastrado
+        // set.cadastro(cadastrado)
             //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o funcionário: " + funcionario.getNome());
             //print na ui
     }
-    public void cadastrarCaminhao(String login, Caminhao caminhao) {
-        if(!loginCadastro.equals(login)){
+    public void cadastrarCaminhao(Caminhao caminhao) {
+        if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas o adminitrador com permissao pode cadastrar caminhoes");
         }
         if(caminhao == null){
