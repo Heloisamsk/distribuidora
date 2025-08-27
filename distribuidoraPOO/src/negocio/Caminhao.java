@@ -64,7 +64,6 @@ public class Caminhao {
         }
     }
 
-
     public void sairPatio(Patio patio) {
         if (patio == null) {
             throw new IllegalArgumentException("O pátio não pode ser nulo.");

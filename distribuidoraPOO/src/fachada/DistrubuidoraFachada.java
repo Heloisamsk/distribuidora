@@ -1,10 +1,11 @@
 package fachada;
+import negocio.Cliente;
 
 public class DistrubuidoraFachada {
 /* Pacote : fachada
 Responsabilidade: Servir de intermediário entre UI e as camadas internas.
 
-Classe principal:
+
 
 DistribuidoraFachada
 

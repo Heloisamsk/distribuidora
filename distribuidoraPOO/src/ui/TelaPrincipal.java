@@ -1,6 +1,9 @@
 package ui;
 import negocio.*;
+import negocio.exceptions.ClienteNaoExisteException;
 import negocio.exceptions.PontoException;
+
+import java.util.ArrayList;
 
 
 public class TelaPrincipal {
@@ -10,28 +13,50 @@ public class TelaPrincipal {
         Motorista motorista = new Motorista();
         motorista.setMatricula("7856");
 
+        Produto biscoito = new Produto("001", "Biscoito", "Chocolate", 2.50, 3);
+        Produto arroz = new Produto("002", "Arroz", "Tipo 1", 5.00, 2);
 
+        ArrayList<Produto> listaProdutos = new ArrayList<>();
+        listaProdutos.add(biscoito);
+        listaProdutos.add(arroz);
 
-        Produto biscoito = new Produto("012","bisoito", "chocolat", 2.50, 3);
-        Pedido pedido = new Pedido();
-        pedido.adicionarProduto(biscoito);
 
         Estoque estoque = new Estoque();
-        estoque.adicionarProduto(biscoito);
+
+        AuxiliarAdm adm = new AuxiliarAdm("adm", 800.00, "Luicas", 35, "789549", "879985664",
+                "Rua F", "licas@gmail.com", "adm2025", "1234");
+        adm.cadastrarProduto(biscoito, estoque);
+        adm.cadastrarProduto(arroz, estoque);
+
+        System.out.println("\nEstoque inicial:");
         estoque.listarProdutos();
-        System.out.println("\n");
-        estoque.consultarProduto("012");
 
-        AuxiliarAdm adm = new AuxiliarAdm("albqq", "adm2025");
-        Cliente cliente = new Cliente("helo", "7589");
-        Cliente cliente1 = new Cliente("ola", "789556");
+        Cliente cliente = new Cliente("Helo", 25, "87895", "7854699", "Rua 2", "helo@", "CPF");
         adm.cadastrarCliente(cliente);
-        cliente.realizarPedido(pedido);
 
 
+        // Cliente realiza pedido
+        cliente.realizarPedido(listaProdutos, estoque);
+
+        // Obter o último pedido realizado
+        Pedido ultimoPedido = cliente.getPedidos().get(cliente.getPedidos().size() - 1);
+
+        // Cliente realiza pagamento
+        try {
+            cliente.realizarPagamento(ultimoPedido, ultimoPedido.getValorTotal(), estoque);
+        } catch (ClienteNaoExisteException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+
+        // Listar estoque após pagamento
+        System.out.println("\nEstoque após pagamento:");
+        estoque.listarProdutos();
+
+        System.out.println("\nSistema finalizado.");
+    }
 
 
-        /* AuxiliarAdm auxiliar = new AuxiliarAdm();
+        /*AuxiliarAdm auxiliar = new AuxiliarAdm();
         auxiliar.setMatricula("0123");
 
         Caminhao caminhao1 = new Caminhao("ab12");
@@ -74,8 +99,5 @@ public class TelaPrincipal {
           System.out.println("Erro ao registrar ponto: " + e.getMessage());
 
       }
-
-        System.out.println("continua rodando");
-*/
-    }
+      */
 }

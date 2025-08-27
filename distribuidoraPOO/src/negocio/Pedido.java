@@ -5,18 +5,28 @@ import java.util.ArrayList;
 
 public class Pedido {
     private int numero;
-    private Cliente cliente;
+    private static int contador = 0;
     private ArrayList<Produto> produtos;
     private double valorTotal;
     private String status;
 
-    public Pedido(int numero, Cliente cliente, double valorTotal, String status) {
-        this.numero = numero;
-        this.cliente = cliente;
+    public Pedido(int numero,double valorTotal, String status, ArrayList<Produto> produtos) {
+        this.numero = ++contador;
         this.produtos = new ArrayList<>();
-        this.valorTotal = valorTotal;
+        this.valorTotal = calcularTotal();
         this.status = status;
     }
+    public Pedido(ArrayList<Produto> produtos) {
+        if (produtos == null) {
+            this.produtos = new ArrayList<>();
+        } else {
+            this.produtos = new ArrayList<>(produtos); // copia os produtos
+        }
+        this.valorTotal = calcularTotal();
+        this.status = "Pendente"; // status inicial
+        this.numero = ++contador;
+    }
+
     public Pedido(){
         this.produtos = new ArrayList<>();
     }
@@ -26,14 +36,6 @@ public class Pedido {
 
     public void setNumero(int numero) {
         this.numero = numero;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     public double getValorTotal() {
@@ -48,6 +50,10 @@ public class Pedido {
         return status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public ArrayList<Produto> getProdutos() {
         return produtos;
     }
@@ -58,13 +64,11 @@ public class Pedido {
 
     public double calcularTotal() {
         double total = 0.0;
-        for (Produto produto : this.produtos) {
+        for (Produto produto : produtos) {
             total += produto.getPreco() * produto.getQuantidade();
         }
-        this.valorTotal = total;
-        //System.out.println("Total: " + total);  - pode so remover esse print, pq a logica do metodo continua a mesma
+        this.valorTotal = total; // garante que o atributo valorTotal seja atualizado
         return total;
-
     }
 
     public boolean adicionarProduto(Produto produto) {
@@ -75,7 +79,7 @@ public class Pedido {
             throw new ProdutoNaoEncontradoException("Produto nao encontrado.");
         }
     }
-
+    // nao testei
     public boolean removerProduto(Produto produto) {
         if (this.produtos.contains(produto)) {
             return produtos.remove(produto);
@@ -84,17 +88,7 @@ public class Pedido {
         }
     }
 
-       /* public void alterarStatus (String status){
-            if (status.equalsIgnoreCase("Em andamento") ||
-                    status.equalsIgnoreCase("Concluído") ||
-                    status.equalsIgnoreCase("Cancelado")) {
-                this.status = status;
-            } else {
-                throw new IllegalArgumentException("Status inválido!");
-            }
-        } */
-
-        @Override
+        /*@Override
         public String toString () {
             StringBuilder sb = new StringBuilder();
             sb.append("Pedido número: ").append(numero).append("\n");
@@ -108,6 +102,10 @@ public class Pedido {
             sb.append("Valor total: R$").append(valorTotal).append("\n");
             sb.append("Status: ").append(status);
             return sb.toString();
+
         }
+
+         */
+
     }
 

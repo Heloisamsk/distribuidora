@@ -10,27 +10,24 @@ public class AuxiliarAdm extends Funcionario {
     private ArrayList<Funcionario> funcionariosLista;
     private ArrayList<Caminhao> caminhoesLista;
     private ArrayList<Produto> produtosLista;
-    private Patio patio;
+    //private Patio patio;
     private static final String loginCadastro = "adm2025";
     private Produto produto;
 
-    public AuxiliarAdm(Patio patio, String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String login, String matricula) {
+    public AuxiliarAdm(String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String login, String matricula){
         super(cargo, salario, nome, idade, cpf, telefone, endereco, email, matricula);
         this.login = login;
-        this.patio = patio;
-
+        //this.patio = patio;
         this.clientesLista = new ArrayList<>();
         this.funcionariosLista = new ArrayList<>();
         this.caminhoesLista = new ArrayList<>();
         this.produtosLista = new ArrayList<>();
     }
-    public AuxiliarAdm(String nome, String login){
+    public AuxiliarAdm(){
         this.clientesLista = new ArrayList<>();
         this.funcionariosLista = new ArrayList<>();
         this.caminhoesLista = new ArrayList<>();
         this.produtosLista = new ArrayList<>();
-        this.nome = nome;
-        this.login = login;
     }
 
     public String getLogin() {
@@ -41,8 +38,8 @@ public class AuxiliarAdm extends Funcionario {
         this.login = login;
     }
 
-    public void cadastrarFuncionario(String login, Funcionario funcionario) {
-        if(!loginCadastro.equals(login)){
+    public void cadastrarFuncionario(Funcionario funcionario) {
+        if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas o adminitrador com permissao pode cadastrar funcionarios");
         }
         if (funcionario == null) {
@@ -54,11 +51,13 @@ public class AuxiliarAdm extends Funcionario {
             }
         }
             funcionariosLista.add(funcionario);
+           // criar um atributo pra marcar funcionario como cadastrado
+        // set.cadastro(cadastrado)
             //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o funcionário: " + funcionario.getNome());
             //print na ui
     }
-    public void cadastrarCaminhao(String login, Caminhao caminhao) {
-        if(!loginCadastro.equals(login)){
+    public void cadastrarCaminhao(Caminhao caminhao) {
+        if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas o adminitrador com permissao pode cadastrar caminhoes");
         }
         if(caminhao == null){
@@ -73,9 +72,9 @@ public class AuxiliarAdm extends Funcionario {
         //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão com placa: " + caminhao.getPlaca());
         //print na ui
     }
-
+    // funcionando
     public void cadastrarCliente(Cliente cliente) {
-        if(!loginCadastro.equals(login)){
+        if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas o administrador pode cadastrar novos clientes");
         }
         if (cliente == null){
@@ -86,25 +85,21 @@ public class AuxiliarAdm extends Funcionario {
                 throw new CpfJaExistenteException("Cliente já cadastrado");
             }
         }
-        clientesLista.add(cliente);
-        cliente.setCadastrado(true);
-        //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o cliente: " + cliente.getNome());
+        if(clientesLista.add(cliente)){
+            System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o cliente: " + cliente.getNome());
         //esse print eh na ui
+        }
+        cliente.setCadastrado(true);
     }
 
-    public void cadastrarProduto(String login,Produto produto) throws ProdutoJaExistenteException {
-        if(!loginCadastro.equals(login)){
+    public void cadastrarProduto(Produto produto, Estoque estoque){
+        if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas administrades com permissao podem cadastrar um produto");
         }
         if (produto== null){
             throw new IllegalArgumentException("Produto inváido");
         }
-        for (Produto prod : produtosLista){
-            if (prod.getCodigo().equals(produto.getCodigo())){
-                throw new ProdutoJaExistenteException("O produto já está cadastrado.");
-            }
-        }
-        produtosLista.add(produto);
+        estoque.cadastrarProduto(produto);
         //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o produto: " + produto.getNome());
         //esse print é só p mostrar e ele coloca na ui
     }
@@ -129,6 +124,7 @@ public class AuxiliarAdm extends Funcionario {
             System.out.println("o caminhao foi pra fila de espera de entrada no patio");
         }
     }
+    //funcionando
     // primeiro tem que add na fila de saida e depois permitir a saida
     public void adicionarNaFilaSaida(String login, Caminhao caminhao, Patio patio){
         if(!loginCadastro.equals(login)){
@@ -151,6 +147,7 @@ public class AuxiliarAdm extends Funcionario {
         }*/
 
     }
+    // funcionando
     public void permitirSaida(String login, Caminhao caminhao, Patio patio){
         if(!loginCadastro.equals(login)){
             throw new SecurityException("Apenas administradores com autorizacao podem permitir a saida de caminhoes");

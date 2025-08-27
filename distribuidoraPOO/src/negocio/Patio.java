@@ -117,6 +117,7 @@ public class Patio {
         return new ArrayList<>(caminhoesPatioLista);
     }
 
+    // ajeitar isso
 
     public void listarCaminhoes(){
         System.out.println("caminhoes no patio: ");
