@@ -2,6 +2,8 @@ package ui;
 import negocio.*;
 import negocio.exceptions.PontoException;
 
+import java.util.ArrayList;
+
 
 public class TelaPrincipal {
     // Essas classes chamam métodos da Fachada para executar ações, sem lógica de negócio.
@@ -13,25 +15,31 @@ public class TelaPrincipal {
 
 
         Produto biscoito = new Produto("012","bisoito", "chocolat", 2.50, 3);
-        Pedido pedido = new Pedido();
-        pedido.adicionarProduto(biscoito);
+        Produto arroz = new Produto("012","bisoito", "chocolat", 2.50, 3);
+        ArrayList<Produto> listaProdutos = new ArrayList<>();
+        listaProdutos.add(biscoito);
+        listaProdutos.add(arroz);
+        //Pedido pedido = new Pedido();
+        //pedido.adicionarProduto(biscoito);
 
-        Estoque estoque = new Estoque();
-        estoque.adicionarProduto(biscoito);
-        estoque.listarProdutos();
+        //Estoque estoque = new Estoque();
+        //estoque.adicionarProduto(biscoito);
+        //estoque.listarProdutos();
         System.out.println("\n");
-        estoque.consultarProduto("012");
-
-        AuxiliarAdm adm = new AuxiliarAdm("albqq", "adm2025");
-        Cliente cliente = new Cliente("helo", "7589");
-        Cliente cliente1 = new Cliente("ola", "789556");
+        //estoque.consultarProduto("012");
+        Pedido pedido = new Pedido(listaProdutos);
+        System.out.println("Total do pedido: R$ " + pedido.getValorTotal());
+        AuxiliarAdm adm = new AuxiliarAdm("adm", 800.00, "luicas", 35, "789549", "879985664", "rua f", "licas@gmail", "adm2025", "1234");
+        Cliente cliente = new Cliente("helo", 25, "87895", "7854699", "rua 2", "helo@", "cpf");
+        //Cliente cliente1 = new Cliente("ola", "789556");
         adm.cadastrarCliente(cliente);
-        cliente.realizarPedido(pedido);
+        cliente.realizarPedido(listaProdutos);
+        cliente.realizarPedido(listaProdutos);
 
 
 
 
-        /* AuxiliarAdm auxiliar = new AuxiliarAdm();
+        /*AuxiliarAdm auxiliar = new AuxiliarAdm();
         auxiliar.setMatricula("0123");
 
         Caminhao caminhao1 = new Caminhao("ab12");
@@ -74,8 +82,10 @@ public class TelaPrincipal {
           System.out.println("Erro ao registrar ponto: " + e.getMessage());
 
       }
+      */
+
 
         System.out.println("continua rodando");
-*/
+
     }
 }

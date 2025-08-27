@@ -70,7 +70,7 @@ public class AuxiliarAdm extends Funcionario {
         //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão com placa: " + caminhao.getPlaca());
         //print na ui
     }
-
+    // funcionando
     public void cadastrarCliente(Cliente cliente) {
         if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas o administrador pode cadastrar novos clientes");
@@ -127,6 +127,7 @@ public class AuxiliarAdm extends Funcionario {
             System.out.println("o caminhao foi pra fila de espera de entrada no patio");
         }
     }
+    //funcionando
     // primeiro tem que add na fila de saida e depois permitir a saida
     public void adicionarNaFilaSaida(String login, Caminhao caminhao, Patio patio){
         if(!loginCadastro.equals(login)){
@@ -149,6 +150,7 @@ public class AuxiliarAdm extends Funcionario {
         }*/
 
     }
+    // funcionando
     public void permitirSaida(String login, Caminhao caminhao, Patio patio){
         if(!loginCadastro.equals(login)){
             throw new SecurityException("Apenas administradores com autorizacao podem permitir a saida de caminhoes");

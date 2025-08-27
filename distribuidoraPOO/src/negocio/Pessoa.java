@@ -2,9 +2,9 @@ package negocio;
 
 public abstract class Pessoa {
 
-    protected String nome;
+    private String nome;
     private int idade;
-    protected String cpf;
+    private String cpf;
     private String telefone;
     private String endereco;
     private String email;
@@ -25,7 +25,7 @@ public abstract class Pessoa {
         return nome;
     }
 
-    public int getIdade(){
+   public int getIdade(){
         return idade;
     }
 

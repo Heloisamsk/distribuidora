@@ -5,12 +5,14 @@ import negocio.exceptions.ClienteNaoExisteException;
 import negocio.exceptions.PagamentoException;
 import negocio.exceptions.StatusInvalidoException;
 
+
 import java.util.ArrayList;
 import java.util.Objects;
-
+import java.util.List;
 public class Cliente extends Pessoa {
     private String tipo;
     private boolean cadastrado = false;
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente(String nome, int idade, String cpf, String telefone, String endereco, String email, String tipo) {
         super(nome, idade, cpf, telefone, endereco, email);
@@ -29,10 +31,11 @@ public class Cliente extends Pessoa {
         }
         this.tipo = tipo;
     }
-    public Cliente(String nome, String cpf){
+    /*public Cliente(String nome, String cpf){
         this.nome = nome;
         this.cpf = cpf;
-    }
+    }*/
+
     public boolean isCadastrado() {
         return cadastrado;
     }
@@ -41,29 +44,17 @@ public class Cliente extends Pessoa {
         this.cadastrado = cadastrado;
     }
 
-    public void realizarPedido(Pedido pedido) {
-        Objects.requireNonNull(pedido, "O pedido não pode ser nulo.");
-        if(!cadastrado){
-            throw new ClienteNaoExisteException("Cliente nao cadastrado.");
+    public void realizarPedido(ArrayList<Produto> produtos) {
+        if (!cadastrado) {
+            throw new ClienteNaoExisteException("Cliente não cadastrado.");
         }
-        /*if (produtosSolicitados == null || produtosSolicitados.isEmpty()) {
-            throw new IllegalArgumentException("A lista de produtos solicitados não pode ser vazia.");
-        }*/
-
-        /*if (!"Aberto".equalsIgnoreCase(pedido.getStatus()) && !"Pendente".equalsIgnoreCase(pedido.getStatus())) {
-            throw new StatusInvalidoException("Não é possível adicionar produtos a um pedido com o status: " + pedido.getStatus());
-        } */
-
-        System.out.println("Cliente " + getNome() + " iniciou o pedido de número: " + pedido.getNumero());
-
-        /*for (Produto produto : produtosSolicitados) {
-            pedido.adicionarProduto(produto);
-        }*/
-
-       /* pedido.alterarStatus("Pendente"); */
-
-        System.out.println("Pedido criado! Status: " + pedido.getStatus());
-        System.out.println("Valor total do pedido: R$ " + pedido.getValorTotal());
+        if (produtos == null || produtos.isEmpty()) {
+            throw new IllegalArgumentException("A lista de produtos não pode ser vazia.");
+        }
+        Pedido novoPedido = new Pedido(produtos);
+        pedidos.add(novoPedido);
+        System.out.println("Cliente " + getNome() + " iniciou o pedido de número: " + novoPedido.getNumero());
+        System.out.println("Total: R$ " + novoPedido.getValorTotal());
     }
 
     public void realizarPagamento(Pedido pedido, double valor, String metodo) {
