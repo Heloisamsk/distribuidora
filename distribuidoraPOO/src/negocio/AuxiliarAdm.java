@@ -90,19 +90,14 @@ public class AuxiliarAdm extends Funcionario {
         cliente.setCadastrado(true);
     }
 
-    public void cadastrarProduto(String login,Produto produto) throws ProdutoJaExistenteException {
-        if(!loginCadastro.equals(login)){
+    public void cadastrarProduto(Produto produto, Estoque estoque){
+        if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas administrades com permissao podem cadastrar um produto");
         }
         if (produto== null){
             throw new IllegalArgumentException("Produto inváido");
         }
-        for (Produto prod : produtosLista){
-            if (prod.getCodigo().equals(produto.getCodigo())){
-                throw new ProdutoJaExistenteException("O produto já está cadastrado.");
-            }
-        }
-        produtosLista.add(produto);
+        estoque.cadastrarProduto(produto);
         //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o produto: " + produto.getNome());
         //esse print é só p mostrar e ele coloca na ui
     }
