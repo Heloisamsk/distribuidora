@@ -50,11 +50,10 @@ public class AuxiliarAdm extends Funcionario {
                 throw new CpfJaExistenteException("O CPF já está cadastrado.");
             }
         }
-            funcionariosLista.add(motorista);
-           // criar um atributo pra marcar funcionario como cadastrado
-        // set.cadastro(cadastrado)
-            //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o funcionário: " + funcionario.getNome());
-            //print na ui
+            if(funcionariosLista.add(motorista)){
+                System.out.println("func cadastrado");
+                motorista.setCadastrado(true);
+            }
     }
     public void cadastrarCaminhao(Caminhao caminhao) {
         if(!loginCadastro.equals(this.login)){
@@ -68,9 +67,11 @@ public class AuxiliarAdm extends Funcionario {
                 throw new CaminhaoJaExisteException("Caminhao com essa placa ja cadastrado");
             }
         }
-        caminhoesLista.add(caminhao);
-        //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão com placa: " + caminhao.getPlaca());
-        //print na ui
+        if(caminhoesLista.add(caminhao)){
+            caminhao.setCadastrado(true);
+            //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão com placa: " + caminhao.getPlaca());
+             //print na ui
+        }
     }
     // funcionando
     public void cadastrarCliente(Cliente cliente) {
@@ -87,9 +88,8 @@ public class AuxiliarAdm extends Funcionario {
         }
         if(clientesLista.add(cliente)){
             System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o cliente: " + cliente.getNome());
-        //esse print eh na ui
+            cliente.setCadastrado(true);
         }
-        cliente.setCadastrado(true);
     }
 
     public void cadastrarProduto(Produto produto, Estoque estoque){
