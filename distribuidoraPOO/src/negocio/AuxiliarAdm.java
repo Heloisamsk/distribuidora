@@ -38,19 +38,19 @@ public class AuxiliarAdm extends Funcionario {
         this.login = login;
     }
 
-    public void cadastrarFuncionario(Funcionario funcionario) {
+    public void cadastrarMotorista(Motorista motorista) {
         if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas o adminitrador com permissao pode cadastrar funcionarios");
         }
-        if (funcionario == null) {
+        if (motorista == null) {
             throw new IllegalArgumentException("O funcionário a ser cadastrado não pode ser nulo.");
         }
         for (Funcionario f : funcionariosLista){
-            if (f.getCpf().equals(funcionario.getCpf())){
+            if (f.getCpf().equals(motorista.getCpf())){
                 throw new CpfJaExistenteException("O CPF já está cadastrado.");
             }
         }
-            funcionariosLista.add(funcionario);
+            funcionariosLista.add(motorista);
            // criar um atributo pra marcar funcionario como cadastrado
         // set.cadastro(cadastrado)
             //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o funcionário: " + funcionario.getNome());
