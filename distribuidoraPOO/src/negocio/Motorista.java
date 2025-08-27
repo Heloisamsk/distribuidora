@@ -3,6 +3,7 @@ package negocio;
 public class Motorista extends Funcionario{
     private String CNH;
     private Caminhao caminhaoResponsavel;
+    private boolean cadastrado = false;
 
     public Motorista(String CNH, Caminhao caminhaoResponsavel, String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String matricula){
         super(cargo, salario, nome, idade, cpf, telefone, endereco, email, matricula);
@@ -24,7 +25,12 @@ public class Motorista extends Funcionario{
     public String getCNH() {
         return CNH;
     }
-
+    public boolean isCadastrado() {
+        return cadastrado;
+    }
+    public void setCadastrado(boolean cadastrado) {
+        this.cadastrado = cadastrado;
+    }
     /*
     public void dirigirCaminhao(Caminhao caminhaoResponsavel) {
         if (caminhaoResponsavel == null) {

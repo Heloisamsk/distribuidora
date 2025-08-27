@@ -1,4 +1,5 @@
 package negocio;
+import negocio.exceptions.CaminhaoNaoCadastradoException;
 import negocio.exceptions.CpfJaExistenteException;
 import negocio.exceptions.ProdutoJaExistenteException;
 import negocio.exceptions.CaminhaoJaExisteException;
@@ -50,11 +51,10 @@ public class AuxiliarAdm extends Funcionario {
                 throw new CpfJaExistenteException("O CPF já está cadastrado.");
             }
         }
-            funcionariosLista.add(motorista);
-           // criar um atributo pra marcar funcionario como cadastrado
-        // set.cadastro(cadastrado)
-            //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o funcionário: " + funcionario.getNome());
-            //print na ui
+            if(funcionariosLista.add(motorista)){
+                System.out.println("func cadastrado");
+                motorista.setCadastrado(true);
+            }
     }
     public void cadastrarCaminhao(Caminhao caminhao) {
         if(!loginCadastro.equals(this.login)){
@@ -68,9 +68,11 @@ public class AuxiliarAdm extends Funcionario {
                 throw new CaminhaoJaExisteException("Caminhao com essa placa ja cadastrado");
             }
         }
-        caminhoesLista.add(caminhao);
-        //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão com placa: " + caminhao.getPlaca());
-        //print na ui
+        if(caminhoesLista.add(caminhao)){
+            caminhao.setCadastrado(true);
+            System.out.println("caminhao cadastrado");
+             //print na ui
+        }
     }
     // funcionando
     public void cadastrarCliente(Cliente cliente) {
@@ -87,9 +89,8 @@ public class AuxiliarAdm extends Funcionario {
         }
         if(clientesLista.add(cliente)){
             System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o cliente: " + cliente.getNome());
-        //esse print eh na ui
+            cliente.setCadastrado(true);
         }
-        cliente.setCadastrado(true);
     }
 
     public void cadastrarProduto(Produto produto, Estoque estoque){
@@ -104,8 +105,8 @@ public class AuxiliarAdm extends Funcionario {
         //esse print é só p mostrar e ele coloca na ui
     }
 
-    public void permitirEntrada(String login, Caminhao caminhao, Patio patio) {
-        if(!loginCadastro.equals(login)){
+    public void permitirEntrada(Caminhao caminhao, Patio patio) {
+        if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas administradores com autorizacao podem permitir a entrada de caminhoes");
         }
         if (caminhao == null){
@@ -114,10 +115,11 @@ public class AuxiliarAdm extends Funcionario {
         if(patio == null){
             throw new IllegalArgumentException("Patio inválido.");
         }
-
-        patio.adicionarCaminhao(caminhao); // só executa a ação e o if e else faz na ui com os prints
-
-        if(patio.adicionarCaminhao(caminhao)){
+        if(!caminhao.getCadastrado()){
+            throw new CaminhaoNaoCadastradoException("caminhao nao esta cadastrado");
+        }
+        boolean entrou = patio.adicionarCaminhao(caminhao);
+        if(entrou){
             System.out.println("caminhao entrou no patio.");
 
         }else{
@@ -126,8 +128,8 @@ public class AuxiliarAdm extends Funcionario {
     }
     //funcionando
     // primeiro tem que add na fila de saida e depois permitir a saida
-    public void adicionarNaFilaSaida(String login, Caminhao caminhao, Patio patio){
-        if(!loginCadastro.equals(login)){
+    public void adicionarNaFilaSaida(Caminhao caminhao, Patio patio){
+        if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas administradores com autorizacao podem permitir a saida de caminhoes");
         }
         if (caminhao == null){
@@ -148,8 +150,8 @@ public class AuxiliarAdm extends Funcionario {
 
     }
     // funcionando
-    public void permitirSaida(String login, Caminhao caminhao, Patio patio){
-        if(!loginCadastro.equals(login)){
+    public void permitirSaida(Caminhao caminhao, Patio patio){
+        if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas administradores com autorizacao podem permitir a saida de caminhoes");
         }
         if (caminhao == null){
@@ -170,6 +172,7 @@ public class AuxiliarAdm extends Funcionario {
             throw new IllegalArgumentException("O produto não pode custar 0");
         }
         produto.setPreco(novoPreco);
+        System.out.println("novo: " + novoPreco);
     }
 
     public void ponto(String matricula){

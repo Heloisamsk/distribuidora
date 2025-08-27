@@ -35,6 +35,7 @@ public class TelaPrincipal {
         adm.cadastrarCliente(cliente);
 
 
+
         // Cliente realiza pedido
         cliente.realizarPedido(listaProdutos, estoque);
 
@@ -53,6 +54,20 @@ public class TelaPrincipal {
         estoque.listarProdutos();
 
         System.out.println("\nSistema finalizado.");
+
+        adm.cadastrarMotorista(motorista);
+
+        Caminhao caminhao1 = new Caminhao("ab12");
+        Patio patio2 = new Patio(5);
+
+        adm.cadastrarCaminhao(caminhao1);
+        adm.permitirEntrada(caminhao1, patio2);
+        patio2.listarCaminhoes();
+        adm.adicionarNaFilaSaida(caminhao1, patio2);
+        adm.permitirSaida(caminhao1, patio2);
+        patio2.listarCaminhoes();
+        adm.ponto("1234");
+        adm.atualizarPreco(biscoito, 3.00);
     }
 
 
