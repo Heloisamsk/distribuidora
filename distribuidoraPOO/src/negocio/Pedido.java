@@ -79,7 +79,7 @@ public class Pedido {
             throw new ProdutoNaoEncontradoException("Produto nao encontrado.");
         }
     }
-
+    // nao testei
     public boolean removerProduto(Produto produto) {
         if (this.produtos.contains(produto)) {
             return produtos.remove(produto);
