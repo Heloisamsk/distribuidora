@@ -4,6 +4,7 @@ import negocio.exceptions.ClienteInvalidoException;
 import negocio.exceptions.ClienteNaoExisteException;
 import negocio.exceptions.PagamentoException;
 import negocio.exceptions.StatusInvalidoException;
+import negocio.Estoque;
 
 
 import java.util.ArrayList;
@@ -31,11 +32,6 @@ public class Cliente extends Pessoa {
         }
         this.tipo = tipo;
     }
-    /*public Cliente(String nome, String cpf){
-        this.nome = nome;
-        this.cpf = cpf;
-    }*/
-
     public boolean isCadastrado() {
         return cadastrado;
     }
@@ -44,44 +40,73 @@ public class Cliente extends Pessoa {
         this.cadastrado = cadastrado;
     }
 
-    public void realizarPedido(ArrayList<Produto> produtos) {
+    public void realizarPedido(ArrayList<Produto> produtosDesejados, Estoque estoque) {
         if (!cadastrado) {
             throw new ClienteNaoExisteException("Cliente não cadastrado.");
         }
-        if (produtos == null || produtos.isEmpty()) {
+        if (produtosDesejados == null || produtosDesejados.isEmpty()) {
             throw new IllegalArgumentException("A lista de produtos não pode ser vazia.");
         }
-        Pedido novoPedido = new Pedido(produtos);
+
+        ArrayList<Produto> produtosParaPedido = new ArrayList<>();
+
+        for (Produto produtoDesejado : produtosDesejados) {
+            Produto produtoEstoque = estoque.consultarProduto(produtoDesejado.getCodigo());
+
+            if (produtoEstoque.getQuantidade() < produtoDesejado.getQuantidade()) {
+                throw new RuntimeException(
+                        "Estoque insuficiente para o produto: " + produtoDesejado.getNome());
+            }
+
+            // Adiciona o produto "real" do estoque ao pedido
+            produtosParaPedido.add(new Produto(
+                    produtoEstoque.getCodigo(),
+                    produtoEstoque.getNome(),
+                    produtoEstoque.getDescricao(),
+                    produtoEstoque.getPreco(),
+                    produtoDesejado.getQuantidade()
+            ));
+        }
+
+        Pedido novoPedido = new Pedido(produtosParaPedido);
         pedidos.add(novoPedido);
+
         System.out.println("Cliente " + getNome() + " iniciou o pedido de número: " + novoPedido.getNumero());
         System.out.println("Total: R$ " + novoPedido.getValorTotal());
     }
 
-    public void realizarPagamento(Pedido pedido, double valor, String metodo) {
-        Objects.requireNonNull(pedido, "O pedido não pode ser nulo.");
 
-        if (valor <= 0) {
-            throw new PagamentoException("O valor do pagamento deve ser maior que zero.");
+    public void realizarPagamento(Pedido pedido, double valorPago, Estoque estoque) {
+        if (!cadastrado) {
+            throw new ClienteNaoExisteException("Cliente não cadastrado.");
         }
-        if (metodo == null || metodo.trim().isEmpty()) {
-            throw new PagamentoException("O método de pagamento não pode ser vazio.");
+        if (pedido == null || !pedidos.contains(pedido)) {
+            throw new IllegalArgumentException("Pedido inválido ou não pertence a este cliente.");
         }
-
-        if ("PAGO".equalsIgnoreCase(pedido.getStatus())) {
-            throw new StatusInvalidoException("O pedido já foi pago.");
+        if ("Pago".equalsIgnoreCase(pedido.getStatus())) {
+            throw new IllegalStateException("Pedido já foi pago.");
         }
-        if ("CANCELADO".equalsIgnoreCase(pedido.getStatus())) {
-            throw new StatusInvalidoException("Não é possível pagar um pedido cancelado.");
+        if ("Cancelado".equalsIgnoreCase(pedido.getStatus())) {
+            throw new IllegalStateException("Não é possível pagar um pedido cancelado.");
         }
-
-        /*if (valor == pedido.getValorTotal()) {
-            pedido.alterarStatus("Pago");
-        } else {
-            throw new PagamentoException("Valor do pagamento (R$ " + valor + ") é insuficiente para quitar o pedido (R$ " + pedido.getValorTotal() + ").");
+        if (valorPago < pedido.getValorTotal()) {
+            throw new IllegalArgumentException(
+                    "Valor pago insuficiente. Total do pedido: R$ " + pedido.getValorTotal());
         }
 
-         */
+        // Muda o status do pedido
+        pedido.setStatus("Pago");
+
+        // Atualiza o estoque
+        for (Produto produtoPedido : pedido.getProdutos()) {
+            Produto produtoEstoque = estoque.consultarProduto(produtoPedido.getCodigo());
+            produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() - produtoPedido.getQuantidade());
+        }
+
+        System.out.println("Pagamento realizado com sucesso! Pedido #" + pedido.getNumero() +
+                " agora está com status: " + pedido.getStatus());
     }
+
 
     public void status() {
         System.out.println("Nome: " + getNome());
@@ -92,6 +117,10 @@ public class Cliente extends Pessoa {
 
     public String getTipo() {
         return tipo;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
     }
 
     public void setTipo(String tipo) {
