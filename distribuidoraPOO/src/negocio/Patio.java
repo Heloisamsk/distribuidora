@@ -112,6 +112,12 @@ public class Patio {
         return true;
     }
 
+    /*metodo para listar os caminhoes do patio
+    public ArrayList<Caminhao> listarCaminhoesPatio(){
+        return new ArrayList<>(caminhoesPatioLista);
+    }
+
+
     public void listarCaminhoes(){
         System.out.println("caminhoes no patio: ");
         for(Caminhao caminhao : caminhoesPatioLista){
@@ -119,6 +125,16 @@ public class Patio {
         }
 
     }
+    //pra ver se a lista ta vazia eh na ui e essa eh p/ mostrar a lista de netrada
+    public ArrayList<Caminhao> listarFilaEntrada() {
+        return new ArrayList<>(filaEntrada); // retorna uma cópia da lista
+    }
+
+    public ArrayList<Caminhao> listarFilaSaida() {
+    return new ArrayList<>(filaSaida); // retorna uma cópia da lista
+    }
+
+
     public void listarFilas(){
         if (filaEntrada == null || filaEntrada.isEmpty()){
             System.out.println("A fila de entrada do patio esta vazia.");
@@ -138,7 +154,7 @@ public class Patio {
             }
         }
     }
-
+*/
     public ArrayList<Caminhao> getCaminhoesPatioLista() {
         return caminhoesPatioLista;
     }

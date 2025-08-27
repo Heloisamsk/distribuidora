@@ -58,6 +58,34 @@ public class NotaFiscal {
                 ", valorTotal=" + valorTotal +
                 '}';
     }
+    //metodo gerarNota sem print
+   /*public String gerarNota() throws NotaFiscalException {
+        if (produtos == null || produtos.isEmpty()) {
+            throw new NotaFiscalException("A lista de produtos está vazia.");
+        }
+        if (valorTotal <= 0) {
+            throw new NotaFiscalException("Valor total inválido para nota fiscal.");
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("=================================\n");
+        sb.append("          NOTA FISCAL            \n");
+        sb.append("=================================\n");
+        sb.append("Número: ").append(numero).append("\n");
+        sb.append("Data:   ").append(data).append("\n");
+        sb.append("---------------------------------\n");
+        sb.append("Produtos:\n");
+
+        for (Produto p : produtos) {
+            sb.append(" - ").append(p).append("\n");
+        }
+
+        sb.append("---------------------------------\n");
+        sb.append("Valor Total: R$ ").append(valorTotal).append("\n");
+        sb.append("=================================\n");
+
+        return sb.toString();
+    }
 
     public void gerarNota() throws NotaFiscalException {
         if(produtos == null){
@@ -81,5 +109,5 @@ public class NotaFiscal {
         System.out.println("---------------------------------");
         System.out.println("Valor Total: R$ " + valorTotal);
         System.out.println("=================================");
-    }
+    }*/
 }
