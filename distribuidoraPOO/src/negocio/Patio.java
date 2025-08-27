@@ -111,6 +111,12 @@ public class Patio {
         }
         return true;
     }
+    public void listarCaminhoes(){
+        System.out.println("caminhoes no patio: ");
+        for(Caminhao caminhao : caminhoesPatioLista){
+            System.out.println("-" + caminhao);
+        }
+    }
 
     /*metodo para listar os caminhoes do patio
     public ArrayList<Caminhao> listarCaminhoesPatio(){
