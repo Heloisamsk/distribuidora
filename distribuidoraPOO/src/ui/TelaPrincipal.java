@@ -1,5 +1,6 @@
 package ui;
 import negocio.*;
+import negocio.exceptions.ClienteNaoExisteException;
 import negocio.exceptions.PontoException;
 
 import java.util.ArrayList;
@@ -12,31 +13,47 @@ public class TelaPrincipal {
         Motorista motorista = new Motorista();
         motorista.setMatricula("7856");
 
+        Produto biscoito = new Produto("001", "Biscoito", "Chocolate", 2.50, 3);
+        Produto arroz = new Produto("002", "Arroz", "Tipo 1", 5.00, 2);
 
-
-        Produto biscoito = new Produto("012","bisoito", "chocolat", 2.50, 3);
-        Produto arroz = new Produto("012","bisoito", "chocolat", 2.50, 3);
         ArrayList<Produto> listaProdutos = new ArrayList<>();
         listaProdutos.add(biscoito);
         listaProdutos.add(arroz);
-        //Pedido pedido = new Pedido();
-        //pedido.adicionarProduto(biscoito);
 
-        //Estoque estoque = new Estoque();
-        //estoque.adicionarProduto(biscoito);
-        //estoque.listarProdutos();
-        System.out.println("\n");
-        //estoque.consultarProduto("012");
-        Pedido pedido = new Pedido(listaProdutos);
-        System.out.println("Total do pedido: R$ " + pedido.getValorTotal());
-        AuxiliarAdm adm = new AuxiliarAdm("adm", 800.00, "luicas", 35, "789549", "879985664", "rua f", "licas@gmail", "adm2025", "1234");
-        Cliente cliente = new Cliente("helo", 25, "87895", "7854699", "rua 2", "helo@", "cpf");
-        //Cliente cliente1 = new Cliente("ola", "789556");
+
+        Estoque estoque = new Estoque();
+
+        AuxiliarAdm adm = new AuxiliarAdm("adm", 800.00, "Luicas", 35, "789549", "879985664",
+                "Rua F", "licas@gmail.com", "adm2025", "1234");
+        adm.cadastrarProduto(biscoito, estoque);
+        adm.cadastrarProduto(arroz, estoque);
+
+        System.out.println("\nEstoque inicial:");
+        estoque.listarProdutos();
+
+        Cliente cliente = new Cliente("Helo", 25, "87895", "7854699", "Rua 2", "helo@", "CPF");
         adm.cadastrarCliente(cliente);
-        cliente.realizarPedido(listaProdutos);
-        cliente.realizarPedido(listaProdutos);
 
 
+        // Cliente realiza pedido
+        cliente.realizarPedido(listaProdutos, estoque);
+
+        // Obter o último pedido realizado
+        Pedido ultimoPedido = cliente.getPedidos().get(cliente.getPedidos().size() - 1);
+
+        // Cliente realiza pagamento
+        try {
+            cliente.realizarPagamento(ultimoPedido, ultimoPedido.getValorTotal(), estoque);
+        } catch (ClienteNaoExisteException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+
+        // Listar estoque após pagamento
+        System.out.println("\nEstoque após pagamento:");
+        estoque.listarProdutos();
+
+        System.out.println("\nSistema finalizado.");
+    }
 
 
         /*AuxiliarAdm auxiliar = new AuxiliarAdm();
@@ -83,9 +100,4 @@ public class TelaPrincipal {
 
       }
       */
-
-
-        System.out.println("continua rodando");
-
-    }
 }
