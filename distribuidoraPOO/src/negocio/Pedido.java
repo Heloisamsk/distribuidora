@@ -16,12 +16,15 @@ public class Pedido {
         this.valorTotal = calcularTotal();
         this.status = status;
     }
-    public Pedido(ArrayList<Produto> produtos){
-        this.produtos = produtos;
+    public Pedido(ArrayList<Produto> produtos) {
+        if (produtos == null) {
+            this.produtos = new ArrayList<>();
+        } else {
+            this.produtos = new ArrayList<>(produtos); // copia os produtos
+        }
         this.valorTotal = calcularTotal();
-        this.status = "pendente";
-        this.produtos = new ArrayList<>();
-        this.numero = contador++;
+        this.status = "Pendente"; // status inicial
+        this.numero = ++contador;
     }
 
     public Pedido(){
@@ -35,14 +38,6 @@ public class Pedido {
         this.numero = numero;
     }
 
-    /*public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-    */
     public double getValorTotal() {
         return valorTotal;
     }
@@ -53,6 +48,10 @@ public class Pedido {
 
     public String getStatus() {
         return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public ArrayList<Produto> getProdutos() {
@@ -68,8 +67,8 @@ public class Pedido {
         for (Produto produto : produtos) {
             total += produto.getPreco() * produto.getQuantidade();
         }
+        this.valorTotal = total; // garante que o atributo valorTotal seja atualizado
         return total;
-
     }
 
     public boolean adicionarProduto(Produto produto) {
@@ -89,19 +88,7 @@ public class Pedido {
         }
     }
 
-       /* public void alterarStatus (String status){
-            if (status.equalsIgnoreCase("Em andamento") ||
-                    status.equalsIgnoreCase("Concluído") ||
-                    status.equalsIgnoreCase("Cancelado")) {
-                this.status = status;
-            } else {
-                throw new IllegalArgumentException("Status inválido!");
-            }
-        } */
-
-
-        /*
-        *@Override
+        /*@Override
         public String toString () {
             StringBuilder sb = new StringBuilder();
             sb.append("Pedido número: ").append(numero).append("\n");
@@ -117,6 +104,8 @@ public class Pedido {
             return sb.toString();
 
         }
+
          */
+
     }
 
