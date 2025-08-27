@@ -10,27 +10,24 @@ public class AuxiliarAdm extends Funcionario {
     private ArrayList<Funcionario> funcionariosLista;
     private ArrayList<Caminhao> caminhoesLista;
     private ArrayList<Produto> produtosLista;
-    private Patio patio;
+    //private Patio patio;
     private static final String loginCadastro = "adm2025";
     private Produto produto;
 
-    public AuxiliarAdm(Patio patio, String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String login, String matricula) {
+    public AuxiliarAdm(String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String login, String matricula){
         super(cargo, salario, nome, idade, cpf, telefone, endereco, email, matricula);
         this.login = login;
-        this.patio = patio;
-
+        //this.patio = patio;
         this.clientesLista = new ArrayList<>();
         this.funcionariosLista = new ArrayList<>();
         this.caminhoesLista = new ArrayList<>();
         this.produtosLista = new ArrayList<>();
     }
-    public AuxiliarAdm(String nome, String login){
+    public AuxiliarAdm(){
         this.clientesLista = new ArrayList<>();
         this.funcionariosLista = new ArrayList<>();
         this.caminhoesLista = new ArrayList<>();
         this.produtosLista = new ArrayList<>();
-        this.nome = nome;
-        this.login = login;
     }
 
     public String getLogin() {
@@ -75,7 +72,7 @@ public class AuxiliarAdm extends Funcionario {
     }
 
     public void cadastrarCliente(Cliente cliente) {
-        if(!loginCadastro.equals(login)){
+        if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas o administrador pode cadastrar novos clientes");
         }
         if (cliente == null){
@@ -86,10 +83,11 @@ public class AuxiliarAdm extends Funcionario {
                 throw new CpfJaExistenteException("Cliente já cadastrado");
             }
         }
-        clientesLista.add(cliente);
-        cliente.setCadastrado(true);
-        //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o cliente: " + cliente.getNome());
+        if(clientesLista.add(cliente)){
+            System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o cliente: " + cliente.getNome());
         //esse print eh na ui
+        }
+        cliente.setCadastrado(true);
     }
 
     public void cadastrarProduto(String login,Produto produto) throws ProdutoJaExistenteException {
