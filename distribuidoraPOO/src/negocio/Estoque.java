@@ -47,7 +47,7 @@ public class Estoque {
     public Produto consultarProduto(String codigo) throws ProdutoNaoEncontradoException {
         for (Produto produto : produtos) {
             if (produto.getCodigo().equals(codigo)) {
-                System.out.println("Produto encontrado: " + produto.getNome());
+                //System.out.println("Produto encontrado: " + produto.getNome());
                 return produto;
             }
         }
@@ -67,7 +67,7 @@ public class Estoque {
             throw new ErrosGeralEstoque("Lista de produtos não inicializada.");
         }
 
-        System.out.println("=== STATUS DOS PRODUTOS ===");
+        //System.out.println("=== STATUS DOS PRODUTOS ===");
         for (Produto p : produtos) {
             String status;
 
@@ -79,10 +79,10 @@ public class Estoque {
                 status = "EM ESTOQUE";
             }
 
-            System.out.println("Código: " + p.getCodigo() +
-                    " | Nome: " + p.getNome() +
-                    " | Quantidade: " + p.getQuantidade() +
-                    " | Status: " + status);
+            String infoProduto = "Código: " + p.getCodigo() +
+                                 " | Nome: " + p.getNome() +
+                                 " | Quantidade: " + p.getQuantidade() +
+                                 " | Status: " + status;
         }
     }
 
@@ -108,7 +108,7 @@ public class Estoque {
                 throw new EstoqueInsuficienteException("Estoque insuficiente.");
             }
             p.setQuantidade(p.getQuantidade() - produtoPedido.getQuantidade());
-            System.out.println("Estoque atualizado: " + p.getNome());
+            //System.out.println("Estoque atualizado: " + p.getNome());
         }
     }
 }

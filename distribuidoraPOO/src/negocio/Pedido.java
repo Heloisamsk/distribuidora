@@ -62,14 +62,14 @@ public class Pedido {
             total += produto.getPreco() * produto.getQuantidade();
         }
         this.valorTotal = total;
-        System.out.println("Total: " + total);
+        //System.out.println("Total: " + total);  - pode so remover esse print, pq a logica do metodo continua a mesma
         return total;
 
     }
 
     public boolean adicionarProduto(Produto produto) {
         if (this.produtos.add(produto)) {
-            System.out.println("add");
+            //System.out.println("add");
             return produtos.add(produto);
         } else {
             throw new ProdutoNaoEncontradoException("Produto nao encontrado.");

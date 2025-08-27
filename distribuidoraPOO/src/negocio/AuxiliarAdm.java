@@ -54,8 +54,8 @@ public class AuxiliarAdm extends Funcionario {
             }
         }
             funcionariosLista.add(funcionario);
-            System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o funcionário: " + funcionario.getNome());
-
+            //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o funcionário: " + funcionario.getNome());
+            //print na ui
     }
     public void cadastrarCaminhao(String login, Caminhao caminhao) {
         if(!loginCadastro.equals(login)){
@@ -70,7 +70,8 @@ public class AuxiliarAdm extends Funcionario {
             }
         }
         caminhoesLista.add(caminhao);
-        System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão com placa: " + caminhao.getPlaca());
+        //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o caminhão com placa: " + caminhao.getPlaca());
+        //print na ui
     }
 
     public void cadastrarCliente(Cliente cliente) {
@@ -87,7 +88,8 @@ public class AuxiliarAdm extends Funcionario {
         }
         clientesLista.add(cliente);
         cliente.setCadastrado(true);
-        System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o cliente: " + cliente.getNome());
+        //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o cliente: " + cliente.getNome());
+        //esse print eh na ui
     }
 
     public void cadastrarProduto(String login,Produto produto) throws ProdutoJaExistenteException {
@@ -103,7 +105,8 @@ public class AuxiliarAdm extends Funcionario {
             }
         }
         produtosLista.add(produto);
-        System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o produto: " + produto.getNome());
+        //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o produto: " + produto.getNome());
+        //esse print é só p mostrar e ele coloca na ui
     }
 
     public void permitirEntrada(String login, Caminhao caminhao, Patio patio) {
@@ -116,6 +119,9 @@ public class AuxiliarAdm extends Funcionario {
         if(patio == null){
             throw new IllegalArgumentException("Patio inválido.");
         }
+
+        patio.adicionarCaminhao(caminhao); // só executa a ação e o if e else faz na ui com os prints
+
         if(patio.adicionarCaminhao(caminhao)){
             System.out.println("caminhao entrou no patio.");
 
@@ -134,10 +140,15 @@ public class AuxiliarAdm extends Funcionario {
         if(patio == null){
             throw new IllegalArgumentException("Patio inválido.");
         }
-        boolean filaSaida = patio.adicionarFilaSaida(caminhao);
+
+        // Adiciona o caminhão na fila de saída e nao usa o print, logo nao precisa usar o boolean
+        patio.adicionarFilaSaida(caminhao);
+   // }
+
+        /*boolean filaSaida = patio.adicionarFilaSaida(caminhao);
         if(filaSaida){
             System.out.println("caminhao esta na fila de saida");
-        }
+        }*/
 
     }
     public void permitirSaida(String login, Caminhao caminhao, Patio patio){

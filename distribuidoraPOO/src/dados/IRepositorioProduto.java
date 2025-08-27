@@ -1,4 +1,4 @@
-/*ackage dados;
+/*package dados;
 
 import negocio.Produto;
 import java.util.ArrayList;
