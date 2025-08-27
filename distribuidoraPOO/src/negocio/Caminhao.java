@@ -8,6 +8,7 @@ public class Caminhao {
     private Motorista motorista;
     private String status;
     private Patio patio;
+    private boolean cadastrado = false;
 
     public Caminhao(String placa, String modelo, int capacidade, String status, Patio patio, Motorista motorista) {
         this.placa = placa;
@@ -47,6 +48,14 @@ public class Caminhao {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public boolean getCadastrado() {
+        return cadastrado;
+    }
+
+    public void setCadastrado(boolean cadastrado) {
+        this.cadastrado = cadastrado;
     }
 
     public void entrarPatio(Patio patio, Caminhao caminhao) throws VagaInsuficienteException {
