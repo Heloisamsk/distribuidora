@@ -25,6 +25,7 @@ public class Venda {
         this.notaFiscal = notaFiscal;
     }
 
+    // fazer usar em alg lugar
     public void finalizarPedido(){
         if (pedido.getProdutos().isEmpty()){
             throw new IllegalArgumentException("Não é possivel finalizar um pedido vazio.");
