@@ -15,9 +15,11 @@ public class Estoque {
         this.pedido = pedido;
         this.produtos = new ArrayList<>();
     }
+
     public Estoque() {
         this.produtos = new ArrayList<>();
     }
+
 
     public ArrayList<Produto> getProdutos() {
         return produtos;
@@ -32,10 +34,10 @@ public class Estoque {
         this.pedido = pedido;
     }
 
-
-
-    public void adicionarProduto(Produto produto) {
+    protected void cadastrarProduto(Produto produto) {
+        if (produto == null) throw new IllegalArgumentException("Produto não pode ser nulo.");
         produtos.add(produto);
+        System.out.println("Produto cadastrado: " + produto.getNome() + " - Quantidade: " + produto.getQuantidade());
     }
 
     public void removerProduto(Produto produto) {
@@ -44,14 +46,13 @@ public class Estoque {
 
     // se o produto estiver com menos de 50 unidades, está em estoque baixo!!!
 
-    public Produto consultarProduto(String codigo) throws ProdutoNaoEncontradoException {
-        for (Produto produto : produtos) {
-            if (produto.getCodigo().equals(codigo)) {
-                //System.out.println("Produto encontrado: " + produto.getNome());
-                return produto;
+    public Produto consultarProduto(String codigo) {
+        for (Produto p : produtos) {
+            if (p.getCodigo().equals(codigo)) {
+                return p;
             }
         }
-        throw new ProdutoNaoEncontradoException("Produto não encontrado.");
+        throw new RuntimeException("Produto não encontrado no estoque: " + codigo);
     }
 
 
@@ -62,53 +63,27 @@ public class Estoque {
         return produtos;
     }
 
-    public void listarProdutos() throws ErrosGeralEstoque {
-        if (produtos == null) {
-            throw new ErrosGeralEstoque("Lista de produtos não inicializada.");
-        }
-
-        //System.out.println("=== STATUS DOS PRODUTOS ===");
+    public void listarProdutos() {
+        System.out.println("=== Estoque Atual ===");
         for (Produto p : produtos) {
-            String status;
-
-            if (p.getQuantidade() == 0) {
-                status = "EM FALTA";
-            } else if (p.getQuantidade() < 50) {
-                status = "ESTOQUE BAIXO";
-            } else {
-                status = "EM ESTOQUE";
-            }
-
-            String infoProduto = "Código: " + p.getCodigo() +
-                                 " | Nome: " + p.getNome() +
-                                 " | Quantidade: " + p.getQuantidade() +
-                                 " | Status: " + status;
+            System.out.println(p.getNome() + " | Código: " + p.getCodigo() + " | Quantidade: " + p.getQuantidade());
         }
     }
-
-    public void atualizarEstoquePedido(Pedido pedido)
-            throws EstoqueInsuficienteException, ProdutoNaoEncontradoException, PedidoNaoPagoException {
-
+    public void atualizarEstoquePedido(Pedido pedido) {
         if (pedido == null || pedido.getProdutos() == null) {
-            throw new IllegalArgumentException("O pedido e sua lista de produtos não podem ser nulos.");
+            throw new IllegalArgumentException("Pedido ou lista de produtos inválidos.");
         }
-
-        if (!pedido.getStatus().equals("PAGO")) {
-            throw new PedidoNaoPagoException("O pedido " + pedido.getNumero() + " não pode ser processado pois não está pago.");
+        if (!"Pago".equalsIgnoreCase(pedido.getStatus())) {
+            throw new RuntimeException("Pedido não pode ser processado: ainda não foi pago.");
         }
 
         for (Produto produtoPedido : pedido.getProdutos()) {
-            if(produtoPedido.getQuantidade() < 0){
-                throw new IllegalArgumentException("A quantidade de produto não pode ser negativa.");
-            }
+            Produto estoqueProduto = consultarProduto(produtoPedido.getCodigo());
 
-            Produto p = this.consultarProduto(produtoPedido.getCodigo());
-
-            if (p.getQuantidade() < produtoPedido.getQuantidade()) {
-                throw new EstoqueInsuficienteException("Estoque insuficiente.");
+            if (estoqueProduto.getQuantidade() < produtoPedido.getQuantidade()) {
+                throw new RuntimeException("Estoque insuficiente para o produto: " + produtoPedido.getNome());
             }
-            p.setQuantidade(p.getQuantidade() - produtoPedido.getQuantidade());
-            //System.out.println("Estoque atualizado: " + p.getNome());
+            estoqueProduto.setQuantidade(estoqueProduto.getQuantidade() - produtoPedido.getQuantidade());
         }
     }
 }
