@@ -72,6 +72,7 @@ public class Cliente extends Pessoa {
         pedidos.add(novoPedido);
 
         System.out.println("Cliente " + getNome() + " iniciou o pedido de número: " + novoPedido.getNumero());
+        // gerar nota fiscal
         System.out.println("Total: R$ " + novoPedido.getValorTotal());
     }
 
