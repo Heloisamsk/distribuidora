@@ -11,6 +11,7 @@ public class Funcionario extends Pessoa {
     private String matricula;
     private LocalDateTime ultimaEntrada;
     private LocalDateTime ultimaSaida;
+    private boolean cadastrado = false;
 
     public Funcionario(String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String matricula) {
         super(nome, idade, cpf, telefone, endereco, email);
