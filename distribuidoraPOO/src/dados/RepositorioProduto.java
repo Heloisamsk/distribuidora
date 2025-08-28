@@ -93,4 +93,46 @@ public class RepositorioProduto implements IRepositorioProduto {
             e.printStackTrace();
         }
     }
+
+    //rep que tava no cod de heloisa
+    /*private ArrayList<Produto> produtos;
+
+    public RepositorioProduto() {
+        this.produtos = new ArrayList<>();
+    }
+
+    public void cadastrarProduto(Produto produto) {
+        produtos.add(produto);
+    }
+
+    public Produto buscarPorCodigo(String codigo) {
+        for (Produto p : produtos) {
+            if (p.getCodigo().equals(codigo)) return p;
+        }
+        return null;
+    }
+
+    public ArrayList<Produto> listarTodos() {
+        return new ArrayList<>(produtos);
+    }
+
+    public boolean remover(String codigo) {
+        Produto p = buscarPorCodigo(codigo);
+        if (p != null) {
+            produtos.remove(p);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean atualizar(Produto produto) {
+        for (int i = 0; i < produtos.size(); i++) {
+            if (produtos.get(i).getCodigo().equals(produto.getCodigo())) {
+                produtos.set(i, produto);
+                return true;
+            }
+        }
+        return false;
+    }*/
+
 }

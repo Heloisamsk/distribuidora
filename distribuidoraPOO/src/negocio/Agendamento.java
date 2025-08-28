@@ -20,7 +20,7 @@ public class Agendamento {
             throw new IllegalArgumentException("O agendamento não pode ser confirmado, pois seu status atual é: " + this.status);
         }
         this.status = StatusAgendamento.CONFIRMADO;
-        }
+    }
 
     public void cancelarAgendamento() {
         if (this.status != StatusAgendamento.CONFIRMADO){

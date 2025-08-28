@@ -22,6 +22,13 @@ public class Funcionario extends Pessoa {
     public Funcionario(){
 
     }
+    public void setCadastrado(boolean cadastrado) {
+        this.cadastrado = cadastrado;
+    }
+
+    public boolean isCadastrado() {
+        return cadastrado;
+    }
 
     public String getCargo() {
         return cargo;
@@ -30,6 +37,7 @@ public class Funcionario extends Pessoa {
     public double getSalario() {
         return salario;
     }
+    public double setSalario(double v) { return salario; }
 
     public String getMatricula() {
         return matricula;
@@ -81,6 +89,6 @@ public class Funcionario extends Pessoa {
         }
         else{
             return baterPontoSaida(matricula);
- }
-}
+        }
+    }
 }
