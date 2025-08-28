@@ -6,10 +6,10 @@ import negocio.exceptions.PagamentoException;
 import negocio.exceptions.StatusInvalidoException;
 import negocio.Estoque;
 
-
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.List;
+
 public class Cliente extends Pessoa {
     private String tipo;
     private boolean cadastrado = false;

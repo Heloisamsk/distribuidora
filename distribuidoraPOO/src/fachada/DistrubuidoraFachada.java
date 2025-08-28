@@ -1,14 +1,14 @@
 package fachada;
-import negocio.Cliente;
-import negocio.Estoque;
-import negocio.Pedido;
-import negocio.Produto;
+import negocio.*;
 import negocio.exceptions.ClienteNaoExisteException;
+import dados.RepositorioCliente;
+import dados.*;
 
 import java.util.ArrayList;
 
 public class DistrubuidoraFachada {
-/* Pacote : fachada
+
+    /* Pacote : fachada
 Responsabilidade: Servir de intermediário entre UI e as camadas internas.
 
 DistribuidoraFachada
@@ -25,20 +25,31 @@ agendarEntradaCaminhao(Agendamento a)
 
 Chama Comunicação e Negócios.
 */
-    //metodos de cliente.java
-    public void realizarPedido(String cpfCliente, ArrayList<Produto> produtosDesejados, Estoque estoque) {
-        /*Cliente cliente = RepositorioCliente.buscarPorCpf(cpfCliente);
-        /* nao precisa desse if c a exception so se quiser uma segunda verificação
-        if (cliente == null || !cliente.isCadastrado()) {
-            throw new ClienteNaoExisteException("Cliente não cadastrado.");
+        //cliente ok
+        private final RepositorioCliente repositorioCliente = new RepositorioCliente();
+
+        public void realizarPedido(String cpfCliente, ArrayList<Produto> produtosDesejados, Estoque estoque) {
+            Cliente cliente = repositorioCliente.buscarPorCpf(cpfCliente);
+            if (cliente == null || !cliente.isCadastrado()) {
+                throw new ClienteNaoExisteException("Cliente não cadastrado.");
+            }
+            cliente.realizarPedido(produtosDesejados, estoque);
         }
-            cliente.realizarPedido(produtosDesejados, estoque);*/
-    }
 
-    public void realizarPagamento (String cpfCliente, Pedido pedido, double valorPago, Estoque estoque) {
-        /*Cliente cliente = RepositorioCliente.buscarPorCpf (cpfCliente);
+        public void realizarPagamento(String cpfCliente, Pedido pedido, double valorPago, Estoque estoque) {
+            Cliente cliente = repositorioCliente.buscarPorCpf(cpfCliente);
+            if (cliente == null || !cliente.isCadastrado()) {
+                throw new ClienteNaoExisteException("Cliente não cadastrado.");
+            }
+            cliente.realizarPagamento(pedido, valorPago, estoque);
+        }
 
-        cliente.realizarPagamento(pedido, valorPago, estoque);*/
-    }
+        //AuxiliarAdm
+        public void cadastrarMotorista (Motorista motorista){
+
+        }
+
+
+
 
 }
