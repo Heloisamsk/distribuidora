@@ -25,7 +25,7 @@ public abstract class Pessoa {
         return nome;
     }
 
-   public int getIdade(){
+    public int getIdade(){
         return idade;
     }
 

@@ -24,7 +24,7 @@ adicionarProdutoEstoque(Produto p)
 agendarEntradaCaminhao(Agendamento a)
 
 Chama Comunicação e Negócios.
-*/
+
         //cliente ok
         private final RepositorioCliente repositorioCliente = new RepositorioCliente();
 
@@ -47,9 +47,21 @@ Chama Comunicação e Negócios.
         //AuxiliarAdm
         public void cadastrarMotorista (Motorista motorista){
 
+        }*/
+
+    public void realizarPedido(String cpfCliente, ArrayList<Produto> produtosDesejados, Estoque estoque) {
+        /*Cliente cliente = RepositorioCliente.buscarPorCpf(cpfCliente);
+        /* nao precisa desse if c a exception so se quiser uma segunda verificação
+        if (cliente == null || !cliente.isCadastrado()) {
+            throw new ClienteNaoExisteException("Cliente não cadastrado.");
         }
+            cliente.realizarPedido(produtosDesejados, estoque);*/
+    }
 
+    public void realizarPagamento (String cpfCliente, Pedido pedido, double valorPago, Estoque estoque) {
+        /*Cliente cliente = RepositorioCliente.buscarPorCpf (cpfCliente);
 
-
+        cliente.realizarPagamento(pedido, valorPago, estoque);*/
+    }
 
 }

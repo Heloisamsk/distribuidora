@@ -35,7 +35,7 @@ public class Patio {
     public void setFilaEntrada(ArrayList<Caminhao> filaEntrada) {
         this.filaEntrada = filaEntrada;
     }
-//
+    //
     public ArrayList<Caminhao> getFilaSaida() {
         return filaSaida;
     }
