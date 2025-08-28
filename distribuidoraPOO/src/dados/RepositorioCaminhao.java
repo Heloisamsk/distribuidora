@@ -1,4 +1,4 @@
-/*package dados;
+package dados;
 
 import negocio.Caminhao;
 import java.util.ArrayList;
@@ -6,20 +6,20 @@ import java.util.List;
 
 public class RepositorioCaminhao {
 
-    private List<Caminhao> caminhoes;
+    private List<Caminhao> caminhoes = new ArrayList<>();
 
-    public RepositorioCaminhao() {
+    /*public RepositorioCaminhao() {
         this.caminhoes = new ArrayList<>();
-    }
+    }*/
 
     public void adicionar(Caminhao caminhao) {
-        if(caminhao == null) {
+        /*if(caminhao == null) {
             throw new IllegalArgumentException("Caminhão nulo");
         }
 
         if(buscarPorPlaca(caminhao.getPlaca()) != null) {
             throw new IllegalArgumentException("Caminhão já cadastrado com esta placa");
-        }
+        }*/
 
         caminhoes.add(caminhao);
     }
@@ -39,12 +39,13 @@ public class RepositorioCaminhao {
         caminhoes.remove(caminhao);
     }
 
-    public void entrarPatio(Caminhao caminhao, negocio.Patio patio) {
+    //eh no rep de patio
+    /*public void entrarPatio(Caminhao caminhao, negocio.Patio patio) {
         if(caminhao == null || patio == null) {
             throw new IllegalArgumentException("Caminhão ou pátio nulo");
         }
 
-        boolean entrou = patio.adicionarCaminhao(caminhao);
+        /*boolean entrou = patio.adicionarCaminhao(caminhao);
         if(entrou) {
             caminhao.setStatus("NO PATIO");
         } else {
@@ -55,14 +56,10 @@ public class RepositorioCaminhao {
     public void sairPatio(Caminhao caminhao, negocio.Patio patio) {
         if(caminhao == null || patio == null) {
             throw new IllegalArgumentException("Caminhão ou pátio nulo");
-        }
+        }*/
 
-        boolean removido = patio.removerCaminhao(caminhao);
-        if(removido) {
+        //boolean removido = patio.removerCaminhao(caminhao);
+        /*if(removido) {
             caminhao.setStatus("FORA DO PATIO");
-        }
-    }
+        }*/
 }
-
-
- */

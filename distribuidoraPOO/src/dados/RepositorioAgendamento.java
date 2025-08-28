@@ -1,4 +1,4 @@
-/*package dados;
+package dados;
 
 import negocio.Agendamento;
 import java.util.ArrayList;
@@ -40,5 +40,3 @@ public class RepositorioAgendamento {
         agendamentos.remove(agendamento);
     }
 }
-
- */

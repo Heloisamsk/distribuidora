@@ -1,16 +1,26 @@
 package negocio;
+import dados.RepositorioCaminhao;
+import dados.RepositorioCliente;
+import dados.RepositorioFuncionario;
+import dados.RepositorioProduto;
+import negocio.exceptions.MatriculaJaExistenteException;
 import negocio.exceptions.CaminhaoNaoCadastradoException;
 import negocio.exceptions.CpfJaExistenteException;
 import negocio.exceptions.ProdutoJaExistenteException;
 import negocio.exceptions.CaminhaoJaExisteException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AuxiliarAdm extends Funcionario {
     private String login;
-    private ArrayList<Cliente> clientesLista;
-    private ArrayList<Funcionario> funcionariosLista;
-    private ArrayList<Caminhao> caminhoesLista;
-    private ArrayList<Produto> produtosLista;
+    //private ArrayList<Cliente> clientesLista;
+    private final RepositorioCliente repositorioCliente = new RepositorioCliente();
+    //private ArrayList<Funcionario> funcionariosLista;
+    private final RepositorioFuncionario repositorioFuncionario = new RepositorioFuncionario();
+    //private ArrayList<Caminhao> caminhoesLista;
+    private final RepositorioCaminhao repositorioCaminhao = new RepositorioCaminhao();
+    //private ArrayList<Produto> produtosLista;
+    private final RepositorioProduto repositorioProduto = new RepositorioProduto();
     //private Patio patio;
     private static final String loginCadastro = "adm2025";
     private Produto produto;
@@ -19,16 +29,17 @@ public class AuxiliarAdm extends Funcionario {
         super(cargo, salario, nome, idade, cpf, telefone, endereco, email, matricula);
         this.login = login;
         //this.patio = patio;
-        this.clientesLista = new ArrayList<>();
+        /*this.clientesLista = new ArrayList<>();
         this.funcionariosLista = new ArrayList<>();
         this.caminhoesLista = new ArrayList<>();
-        this.produtosLista = new ArrayList<>();
+        this.produtosLista = new ArrayList<>();*/
     }
     public AuxiliarAdm(){
-        this.clientesLista = new ArrayList<>();
+       //construtor vazio
+        /*this.clientesLista = new ArrayList<>();
         this.funcionariosLista = new ArrayList<>();
         this.caminhoesLista = new ArrayList<>();
-        this.produtosLista = new ArrayList<>();
+        this.produtosLista = new ArrayList<>();*/
     }
 
     public String getLogin() {
@@ -46,7 +57,13 @@ public class AuxiliarAdm extends Funcionario {
         if (motorista == null) {
             throw new IllegalArgumentException("O funcionário a ser cadastrado não pode ser nulo.");
         }
-        for (Funcionario f : funcionariosLista){
+        if(repositorioFuncionario.buscarPorMatricula(motorista.getMatricula()) != null){
+            throw new MatriculaJaExistenteException("Matricula já cadastrada");
+        }
+
+        repositorioFuncionario.adicionar(motorista);
+        motorista.setCadastrado(true);
+        /*for (Funcionario f : funcionariosLista){
             if (f.getCpf().equals(motorista.getCpf())){
                 throw new CpfJaExistenteException("O CPF já está cadastrado.");
             }
@@ -54,8 +71,17 @@ public class AuxiliarAdm extends Funcionario {
             if(funcionariosLista.add(motorista)){
                 System.out.println("func cadastrado");
                 motorista.setCadastrado(true);
-            }
+            }*/
     }
+
+    public List<Funcionario> listarFuncionarios(){
+        return repositorioFuncionario.listarTodos();
+    }
+
+    public void removerFuncionario(Funcionario funcionario){
+        repositorioFuncionario.remover(funcionario);
+    }
+
     public void cadastrarCaminhao(Caminhao caminhao) {
         if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas o adminitrador com permissao pode cadastrar caminhoes");
@@ -63,7 +89,13 @@ public class AuxiliarAdm extends Funcionario {
         if(caminhao == null){
             throw new IllegalArgumentException("O funcionario a ser cadastrado nao pode ser null");
         }
-        for(Caminhao c : caminhoesLista){
+        if(repositorioCaminhao.buscarPorPlaca(caminhao.getPlaca()) != null){
+            throw new CaminhaoJaExisteException("Caminhão já cadastrado");
+        }
+
+        repositorioCaminhao.adicionar(caminhao);
+
+        /*for(Caminhao c : caminhoesLista){
             if(c.getPlaca().equals(caminhao.getPlaca())){
                 throw new CaminhaoJaExisteException("Caminhao com essa placa ja cadastrado");
             }
@@ -72,8 +104,17 @@ public class AuxiliarAdm extends Funcionario {
             caminhao.setCadastrado(true);
             System.out.println("caminhao cadastrado");
              //print na ui
-        }
+        }*/
     }
+
+    public List<Caminhao> listarCaminhao(Caminhao caminhao){
+        return repositorioCaminhao.listarTodos();
+    }
+
+    public void removerCaminhao(Caminhao caminhao){
+        repositorioCaminhao.remover(caminhao);
+    }
+
     // funcionando
     public void cadastrarCliente(Cliente cliente) {
         if(!loginCadastro.equals(this.login)){
@@ -82,7 +123,12 @@ public class AuxiliarAdm extends Funcionario {
         if (cliente == null){
             throw new IllegalArgumentException("Cliente invalido.");
         }
-        for (Cliente c : clientesLista){
+        if(repositorioCliente.buscarPorCpf(cliente.getCpf()) != null){
+            throw new CpfJaExistenteException("CPF já cadastrado");
+        }
+        repositorioCliente.adicionar(cliente);
+
+        /*for (Cliente c : clientesLista){
             if (c.getCpf().equals(cliente.getCpf())){
                 throw new CpfJaExistenteException("Cliente já cadastrado");
             }
@@ -90,7 +136,15 @@ public class AuxiliarAdm extends Funcionario {
         if(clientesLista.add(cliente)){
             System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o cliente: " + cliente.getNome());
             cliente.setCadastrado(true);
-        }
+        }*/
+    }
+
+    public List<Cliente> listarClientes(){
+        return repositorioCliente.listarTodos();
+    }
+
+    public void removerCliente(Cliente cliente){
+        repositorioCliente.remover(cliente);
     }
 
     public void cadastrarProduto(Produto produto, Estoque estoque){
@@ -100,9 +154,24 @@ public class AuxiliarAdm extends Funcionario {
         if (produto== null){
             throw new IllegalArgumentException("Produto inváido");
         }
-        estoque.cadastrarProduto(produto);
+        if (repositorioProduto.buscarPorCodigo(produto.getCodigo()) != null) {
+            throw new ProdutoJaExistenteException("Produto já cadastrado");
+        }
+        repositorioProduto.cadastrarProduto(produto);
+
+        //estoque.cadastrarProduto(produto);
         //System.out.println("AuxiliarAdm " + this.getNome() + " cadastrou o produto: " + produto.getNome());
         //esse print é só p mostrar e ele coloca na ui
+    }
+
+    public List<Produto> listarProdutos(){
+        return repositorioProduto.listarTodos();
+    }
+
+    public void removerProduto(Produto produto){
+        if(produto != null) {
+            repositorioProduto.remover(produto.getCodigo());
+        }
     }
 
     public void permitirEntrada(Caminhao caminhao, Patio patio) {

@@ -1,4 +1,4 @@
-/*package dados;
+package dados;
 
 import negocio.Cliente;
 import java.util.ArrayList;
@@ -6,21 +6,21 @@ import java.util.List;
 
 public class RepositorioCliente {
 
-    private final List<Cliente> clientes;
+    private final List<Cliente> clientes = new ArrayList<>();
 
-    public RepositorioCliente() {
+    /*public RepositorioCliente() {
         this.clientes = new ArrayList<>();
-    }
+    }*/
 
     public void adicionar(Cliente cliente) {
-        if (cliente == null) {
+        /*if (cliente == null) {
             throw new IllegalArgumentException("Cliente nulo");
         }
 
         // opcional: impedir CPF duplicado
         if (buscarPorCpf(cliente.getCpf()) != null) {
             throw new IllegalArgumentException("Já existe um cliente com este CPF");
-        }
+        }*/
 
         clientes.add(cliente);
     }
@@ -44,5 +44,3 @@ public class RepositorioCliente {
         clientes.remove(cliente);
     }
 }
-
- */
