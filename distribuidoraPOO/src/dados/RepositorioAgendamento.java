@@ -1,42 +1,57 @@
+<<<<<<< HEAD
+package dados;
+=======
+>>>>>>> main
+
 package dados;
 
-import negocio.Agendamento;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import negocio.Agendamento;
 
 public class RepositorioAgendamento {
+    private ArrayList<Agendamento> agendamentos = new ArrayList();
 
-    private final List<Agendamento> agendamentos;
-
-    public RepositorioAgendamento() {
-        this.agendamentos = new ArrayList<>();
+    public void cadastrar(Agendamento agendamento) {
+        this.agendamentos.add(agendamento);
+        System.out.println("Agendamento cadastrado para pedido: " + agendamento.getPedido().getNumero());
     }
 
-    public void adicionar(Agendamento agendamento) {
-        if (agendamento == null) {
-            throw new IllegalArgumentException("Agendamento nulo");
+    public Agendamento buscarPorPedido(int numeroPedido) {
+        for(Agendamento a : this.agendamentos) {
+            if (a.getPedido().getNumero() == numeroPedido) {
+                return a;
+            }
         }
 
-        if (buscarPorPedidoEData(agendamento.getPedido(), agendamento.getDataHoraPrevista()) != null) {
-            throw new IllegalArgumentException("Já existe um agendamento para esse pedido na mesma data");
+        return null;
+    }
+
+    public ArrayList<Agendamento> listarTodos() {
+        return new ArrayList(this.agendamentos);
+    }
+
+    public boolean atualizar(Agendamento agendamento) {
+        for(int i = 0; i < this.agendamentos.size(); ++i) {
+            if (((Agendamento)this.agendamentos.get(i)).getPedido().getNumero() == agendamento.getPedido().getNumero()) {
+                this.agendamentos.set(i, agendamento);
+                return true;
+            }
         }
 
-        agendamentos.add(agendamento);
+        return false;
     }
 
-    public List<Agendamento> listarTodos() {
-        return new ArrayList<>(agendamentos); // retorna cópia da lista
+    public boolean remover(int numeroPedido) {
+        Agendamento a = this.buscarPorPedido(numeroPedido);
+        if (a != null) {
+            this.agendamentos.remove(a);
+            return true;
+        } else {
+            return false;
+        }
     }
-
-    public Agendamento buscarPorPedidoEData(negocio.Pedido pedido, Date dataHora) {
-        return agendamentos.stream()
-                .filter(a -> a.getPedido().equals(pedido) && a.getDataHoraPrevista().equals(dataHora))
-                .findFirst()
-                .orElse(null);
-    }
-
-    public void remover(Agendamento agendamento) {
-        agendamentos.remove(agendamento);
-    }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

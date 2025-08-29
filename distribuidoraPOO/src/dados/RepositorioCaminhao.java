@@ -1,11 +1,21 @@
+<<<<<<< HEAD
+=======
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+>>>>>>> main
 package dados;
 
-import negocio.Caminhao;
 import java.util.ArrayList;
-import java.util.List;
+import negocio.Caminhao;
+import negocio.Cliente;
 
 public class RepositorioCaminhao {
+    private ArrayList<Caminhao> caminhoes = new ArrayList();
 
+<<<<<<< HEAD
     private List<Caminhao> caminhoes = new ArrayList<>();
 
     /*public RepositorioCaminhao() {
@@ -26,19 +36,31 @@ public class RepositorioCaminhao {
 
     public List<Caminhao> listarTodos() {
         return new ArrayList<>(caminhoes); // devolve cópia da lista
+=======
+    public boolean cadastrar(Caminhao caminhao) {
+        if(this.caminhoes.add(caminhao)){
+            System.out.println("Caminhão cadastrado: " + caminhao.getPlaca());
+            return true;
+        }
+        return false;
+>>>>>>> main
     }
 
     public Caminhao buscarPorPlaca(String placa) {
-        return caminhoes.stream()
-                .filter(c -> c.getPlaca().equalsIgnoreCase(placa))
-                .findFirst()
-                .orElse(null);
+        for(Caminhao c : this.caminhoes) {
+            if (c.getPlaca().equals(placa)) {
+                return c;
+            }
+        }
+        return null;
     }
 
-    public void remover(Caminhao caminhao) {
-        caminhoes.remove(caminhao);
+
+    public ArrayList<Caminhao> listarTodos() {
+        return new ArrayList(this.caminhoes);
     }
 
+<<<<<<< HEAD
     //eh no rep de patio
     /*public void entrarPatio(Caminhao caminhao, negocio.Patio patio) {
         if(caminhao == null || patio == null) {
@@ -63,3 +85,26 @@ public class RepositorioCaminhao {
             caminhao.setStatus("FORA DO PATIO");
         }*/
 }
+=======
+    public boolean atualizar(Caminhao caminhao) {
+        for(int i = 0; i < this.caminhoes.size(); ++i) {
+            if (((Caminhao)this.caminhoes.get(i)).getPlaca().equals(caminhao.getPlaca())) {
+                this.caminhoes.set(i, caminhao);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean remover(String placa) {
+        Caminhao c = this.buscarPorPlaca(placa);
+        if (c != null) {
+            this.caminhoes.remove(c);
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+>>>>>>> main

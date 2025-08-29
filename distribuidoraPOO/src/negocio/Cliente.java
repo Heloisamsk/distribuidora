@@ -14,6 +14,7 @@ public class Cliente extends Pessoa {
     private String tipo;
     private boolean cadastrado = false;
     private List<Pedido> pedidos = new ArrayList<>();
+    private Venda venda = new Venda();
 
     public Cliente(String nome, int idade, String cpf, String telefone, String endereco, String email, String tipo) {
         super(nome, idade, cpf, telefone, endereco, email);
@@ -40,7 +41,7 @@ public class Cliente extends Pessoa {
         this.cadastrado = cadastrado;
     }
 
-    public void realizarPedido(ArrayList<Produto> produtosDesejados, Estoque estoque) {
+    public Pedido realizarPedido(ArrayList<Produto> produtosDesejados, Estoque estoque) {
         if (!cadastrado) {
             throw new ClienteNaoExisteException("Cliente não cadastrado.");
         }
@@ -67,13 +68,14 @@ public class Cliente extends Pessoa {
                     produtoDesejado.getQuantidade()
             ));
         }
-
+        //System.out.println("Criando pedido...");
         Pedido novoPedido = new Pedido(produtosParaPedido);
         pedidos.add(novoPedido);
 
         System.out.println("Cliente " + getNome() + " iniciou o pedido de número: " + novoPedido.getNumero());
         // gerar nota fiscal
         System.out.println("Total: R$ " + novoPedido.getValorTotal());
+        return novoPedido;
     }
 
 
@@ -94,18 +96,14 @@ public class Cliente extends Pessoa {
             throw new IllegalArgumentException(
                     "Valor pago insuficiente. Total do pedido: R$ " + pedido.getValorTotal());
         }
-
-        // Muda o status do pedido
-        pedido.setStatus("Pago");
+        System.out.println("pagando...");
+        venda.finalizarPedido(pedido);
 
         // Atualiza o estoque
         for (Produto produtoPedido : pedido.getProdutos()) {
             Produto produtoEstoque = estoque.consultarProduto(produtoPedido.getCodigo());
             produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() - produtoPedido.getQuantidade());
         }
-
-        System.out.println("Pagamento realizado com sucesso! Pedido #" + pedido.getNumero() +
-                " agora está com status: " + pedido.getStatus());
     }
 
 

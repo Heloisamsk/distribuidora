@@ -11,7 +11,7 @@ public class Pedido {
     private String status;
 
     public Pedido(int numero,double valorTotal, String status, ArrayList<Produto> produtos) {
-        this.numero = ++contador;
+        this.numero = contador++;
         this.produtos = new ArrayList<>();
         this.valorTotal = calcularTotal();
         this.status = status;
@@ -24,7 +24,7 @@ public class Pedido {
         }
         this.valorTotal = calcularTotal();
         this.status = "Pendente"; // status inicial
-        this.numero = ++contador;
+        this.numero = contador++;
     }
 
     public Pedido(){
@@ -71,6 +71,7 @@ public class Pedido {
         return total;
     }
 
+
     public boolean adicionarProduto(Produto produto) {
         if (this.produtos.add(produto)) {
             //System.out.println("add");
@@ -88,24 +89,6 @@ public class Pedido {
         }
     }
 
-        /*@Override
-        public String toString () {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Pedido número: ").append(numero).append("\n");
-            sb.append("Cliente: ").append(cliente.getNome()).append("\n");
-            sb.append("Produtos:\n");
-            for (Produto p : produtos) {
-                sb.append(" - ").append(p.getNome())
-                        .append(" x").append(p.getQuantidade())
-                        .append(" R$").append(p.getPreco()).append("\n");
-            }
-            sb.append("Valor total: R$").append(valorTotal).append("\n");
-            sb.append("Status: ").append(status);
-            return sb.toString();
-
-        }
-
-         */
 
     }
 

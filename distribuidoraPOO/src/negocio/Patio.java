@@ -8,19 +8,21 @@ public class Patio {
     private int vagasDisponiveis;
     private int qtdVagas = 20;
 
-    public Patio( int vagasDisponiveis, int qtdVagas) {
+    public Patio(int vagasDisponiveis, int qtdVagas) {
         this.filaEntrada = new ArrayList<>();
         this.filaSaida = new ArrayList<>();
         this.vagasDisponiveis = vagasDisponiveis;
         this.caminhoesPatioLista = new ArrayList<>();
         this.qtdVagas = qtdVagas;
     }
-    public Patio(){
+
+    public Patio() {
         this.filaEntrada = new ArrayList<>();
         this.filaSaida = new ArrayList<>();
         this.caminhoesPatioLista = new ArrayList<>();
     }
-    public Patio(int qtdVagas){
+
+    public Patio(int qtdVagas) {
         this.qtdVagas = qtdVagas;
         this.vagasDisponiveis = qtdVagas;
         this.filaEntrada = new ArrayList<>();
@@ -35,7 +37,8 @@ public class Patio {
     public void setFilaEntrada(ArrayList<Caminhao> filaEntrada) {
         this.filaEntrada = filaEntrada;
     }
-//
+
+    //
     public ArrayList<Caminhao> getFilaSaida() {
         return filaSaida;
     }
@@ -65,21 +68,24 @@ public class Patio {
                 '}';
     }
 
-    protected boolean adicionarCaminhao(Caminhao caminhao){
-        if(caminhao == null){
+    public boolean adicionarCaminhao(Caminhao caminhao) {
+        if (caminhao == null) {
             throw new IllegalArgumentException("O caminhao informado eh nulo");
         }
-        if(caminhoesPatioLista.size() < vagasDisponiveis){
-            caminhoesPatioLista.add(caminhao);
-            //System.out.println("Caminhao adicionado - " + caminhao.getPlaca());
-            vagasDisponiveis--;
-            return true;
-        }else{
-            //System.out.println("O patio esta cheio aguarde na fila.");
+
+        if (caminhoesPatioLista.size() < vagasDisponiveis) {
+            boolean add = caminhoesPatioLista.add(caminhao);
+            if (add) {
+                vagasDisponiveis--;
+            }
+            return add; // garante retorno mesmo que add seja false
+        } else {
             filaEntrada.add(caminhao);
             return false;
         }
     }
+
+
 
     protected boolean adicionarFilaSaida(Caminhao caminhao){
         if (caminhao == null){

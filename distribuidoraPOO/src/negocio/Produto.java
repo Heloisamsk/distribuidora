@@ -6,13 +6,21 @@ public class Produto {
     private String descricao;
     private double preco;
     private int quantidade;
-
+    private boolean cadastrado = false;
     public Produto(String codigo, String nome, String descricao, double preco, int quantidade) {
         this.codigo = codigo;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.quantidade = quantidade;
+    }
+
+    public boolean isCadastrado() {
+        return cadastrado;
+    }
+
+    public void setCadastrado(boolean cadastrado) {
+        this.cadastrado = cadastrado;
     }
 
     public String getCodigo() {
