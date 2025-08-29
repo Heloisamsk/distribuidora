@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+package dados;
+=======
+>>>>>>> main
 
 package dados;
 
@@ -46,4 +50,8 @@ public class RepositorioAgendamento {
             return false;
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

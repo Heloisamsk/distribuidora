@@ -1,6 +1,6 @@
 package negocio;
 import negocio.exceptions.NotaFiscalException;
-
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -12,6 +12,13 @@ public class NotaFiscal {
     private ArrayList<Produto> produtos;
     private double valorTotal;
 
+<<<<<<< HEAD
+    public NotaFiscal(int numero, Date data, double valorTotal, ArrayList<Produto> produtos) {
+        this.numero = numero;
+        this.data = data;
+        this.valorTotal = valorTotal;
+        this.produtos = new ArrayList<>();
+=======
 
     public NotaFiscal(ArrayList<Produto> produtos, Pedido pedido){
        this.numero = pedido.getNumero();
@@ -20,6 +27,7 @@ public class NotaFiscal {
     }
     public NotaFiscal(){
         produtos = new ArrayList<>();
+>>>>>>> main
     }
 
     public int getNumero() {
@@ -57,12 +65,16 @@ public class NotaFiscal {
     @java.lang.Override
     public java.lang.String toString() {
         return "NotaFiscal{" +
-                "numero=" + numero +
-                ", data=" + data +
-                ", produtos=" + produtos +
-                ", valorTotal=" + valorTotal +
+                "Número=" + numero +
+                ", Data=" + data +
+                ", Produtos=" + produtos +
+                ", Valor Total=" + valorTotal +
                 '}';
     }
+<<<<<<< HEAD
+    //metodo gerarNota sem print
+
+=======
     public void gerarNotaFiscal(ArrayList<Produto> produtos, Pedido pedido) throws NotaFiscalException {
         if (produtos.isEmpty()) {
             throw new NotaFiscalException("Não é possível gerar nota fiscal sem produtos.");
@@ -84,5 +96,6 @@ public class NotaFiscal {
         System.out.println("Valor Total: R$ " + valorTotal);
         System.out.println("=======================");
     }
+>>>>>>> main
 
 }

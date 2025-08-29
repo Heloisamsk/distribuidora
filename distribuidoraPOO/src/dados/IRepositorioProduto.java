@@ -1,4 +1,4 @@
-/*package dados;
+package dados;
 
 import negocio.Produto;
 import java.util.ArrayList;
@@ -11,4 +11,3 @@ public interface IRepositorioProduto {
     void atualizar(Produto produto);
 }
 
- */
