@@ -6,6 +6,8 @@ import dados.RepositorioEstoque;
 import dados.RepositorioPatio;
 import negocio.*;
 import negocio.AuxiliarAdm;
+import negocio.exceptions.VagaInsuficienteException;
+
 import java.util.List;
 import java.util.ArrayList;
 public class DistribuidoraFachada {
@@ -62,7 +64,7 @@ public class DistribuidoraFachada {
 
 
     // FUNCIONALIDADES
-    public void permitirEntrada(Caminhao caminhao, Patio patio){
+    public void permitirEntrada(Caminhao caminhao, Patio patio) throws VagaInsuficienteException {
         adm.permitirEntrada(caminhao, patio);
     }
     public void adicionarFilaSaida(Caminhao caminhao, Patio patio){
