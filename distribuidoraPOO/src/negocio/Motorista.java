@@ -10,9 +10,7 @@ public class Motorista extends Funcionario{
         this.CNH = CNH;
         this.caminhaoResponsavel = caminhaoResponsavel;
     }
-    public Motorista(){
 
-    }
 
     public Caminhao getCaminhaoResponsavel() {
         return caminhaoResponsavel;

@@ -19,8 +19,8 @@ public class Funcionario extends Pessoa {
         this.salario = salario;
         this.matricula = matricula;
     }
-    public Funcionario(){
-
+    public Funcionario(String matricula){
+    this.matricula = matricula;
     }
 
     public boolean getCadastrado() {

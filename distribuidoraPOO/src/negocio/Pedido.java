@@ -11,7 +11,7 @@ public class Pedido {
     private String status;
 
     public Pedido(int numero,double valorTotal, String status, ArrayList<Produto> produtos) {
-        this.numero = ++contador;
+        this.numero = contador++;
         this.produtos = new ArrayList<>();
         this.valorTotal = calcularTotal();
         this.status = status;
@@ -24,7 +24,7 @@ public class Pedido {
         }
         this.valorTotal = calcularTotal();
         this.status = "Pendente"; // status inicial
-        this.numero = ++contador;
+        this.numero = contador++;
     }
 
     public Pedido(){

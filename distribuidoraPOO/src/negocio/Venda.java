@@ -28,13 +28,13 @@ public class Venda {
         this.notaFiscal = notaFiscal;
     }
 
-    // fazer usar em alg lugar
+
     public void finalizarPedido(Pedido pedido){
         if (pedido.getProdutos().isEmpty()){
             throw new IllegalArgumentException("Não é possivel finalizar um pedido vazio.");
         }
-        pedido.setStatus("pago");
-        System.out.println("Status do pedido: " + pedido.getNumero() + ": " + pedido.getStatus());
+        pedido.setStatus("PAGO");
+        System.out.println("Status do pedido: " + pedido.getNumero()+ pedido.getStatus());
 
     }
 }

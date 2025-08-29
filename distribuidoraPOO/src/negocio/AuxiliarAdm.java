@@ -4,6 +4,8 @@ import negocio.exceptions.CaminhaoNaoCadastradoException;
 import negocio.exceptions.CpfJaExistenteException;
 import negocio.exceptions.CaminhaoJaExisteException;
 import java.util.ArrayList;
+import negocio.Funcionario;
+import negocio.exceptions.VagaInsuficienteException;
 
 public class AuxiliarAdm extends Funcionario {
     private String login;
@@ -31,7 +33,10 @@ public class AuxiliarAdm extends Funcionario {
         this.produtosLista = new ArrayList<>();
     }
 
-    public AuxiliarAdm(){
+    public AuxiliarAdm(String login, String matricula){
+        super(matricula);
+        this.login = login;
+        matricula = matricula;
         this.clientesLista = new ArrayList<>();
        // this.caminhoesLista = new ArrayList<>();
         this.produtosLista = new ArrayList<>();
@@ -118,7 +123,7 @@ public class AuxiliarAdm extends Funcionario {
         }
     }
 
-    public void permitirEntrada(Caminhao caminhao, Patio patio) {
+    public void permitirEntrada(Caminhao caminhao, Patio patio) throws VagaInsuficienteException {
         if(!loginCadastro.equals(this.login)){
             throw new SecurityException("Apenas administradores com autorizacao podem permitir a entrada de caminhoes");
         }
@@ -135,6 +140,7 @@ public class AuxiliarAdm extends Funcionario {
 
         if(entrou){
             System.out.println("caminhao entrou no patio.");
+            caminhao.entrarPatio(patio, caminhao);
 
         }else{
             System.out.println("o caminhao foi pra fila de espera de entrada no patio");
@@ -166,6 +172,7 @@ public class AuxiliarAdm extends Funcionario {
             throw new IllegalArgumentException("Patio inválido.");
         }
         if(patio.liberarSaida(caminhao)){
+            caminhao.sairPatio(patio);
             System.out.println("caminhao saiu do patio.");
 
         }
@@ -178,7 +185,6 @@ public class AuxiliarAdm extends Funcionario {
             throw new IllegalArgumentException("O produto não pode custar 0");
         }
         produto.setPreco(novoPreco);
-        System.out.println("novo: " + novoPreco);
     }
 
     public void ponto(String matricula){

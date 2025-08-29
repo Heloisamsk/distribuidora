@@ -6,8 +6,8 @@ import java.util.Date;
 import java.util.Random;
 
 public class NotaFiscal {
-    Random random = new Random();
-    private int numero = random.nextInt(10);
+    private int numero = 0;
+    private static int contador = 0;
     private Date data;
     private ArrayList<Produto> produtos;
     private double valorTotal;
@@ -63,7 +63,7 @@ public class NotaFiscal {
                 ", valorTotal=" + valorTotal +
                 '}';
     }
-    public void gerarNotaFiscal(ArrayList<Produto> produtos) throws NotaFiscalException {
+    public void gerarNotaFiscal(ArrayList<Produto> produtos, Pedido pedido) throws NotaFiscalException {
         if (produtos.isEmpty()) {
             throw new NotaFiscalException("Não é possível gerar nota fiscal sem produtos.");
         }
@@ -75,7 +75,7 @@ public class NotaFiscal {
 
         // imprime nota (bem simples)
         System.out.println("===== NOTA FISCAL =====");
-        System.out.println("Número: " + numero);
+        System.out.println("Número: " + pedido.getNumero() + 1);
         System.out.println("Data: " + data);
         System.out.println("Produtos:");
         for (Produto p : produtos) {

@@ -14,6 +14,7 @@ public class DistribuidoraFachada {
     private RepositorioFuncionario repFuncionario = new RepositorioFuncionario();
     private RepositorioPatio repPatio = new RepositorioPatio();
     private NotaFiscal notaFiscal = new NotaFiscal();
+
     AuxiliarAdm adm = new AuxiliarAdm("adm", 800.00, "Luicas", 35, "789549", "879985664",
             "Rua F", "licas@gmail.com", "adm2025", "1234", repositorioCliente, repositorioEstoque, repPatio);
 
@@ -73,11 +74,16 @@ public class DistribuidoraFachada {
     public void baterPonto(Funcionario funcionario){
         funcionario.baterPonto(funcionario.getMatricula());
     }
-
+    public void atualizarPreco(Produto produto, double novoPreco){
+        adm.atualizarPreco(produto,novoPreco);
+    }
     public Pedido criarPedido(Cliente cliente, ArrayList<Produto> produtosDesejados, Estoque estoque) {
+
+        Pedido pedido = new Pedido(produtosDesejados);
         cliente.realizarPedido(produtosDesejados, estoque);
         List<Pedido> pedidos = cliente.getPedidos();
-        notaFiscal.gerarNotaFiscal(produtosDesejados);
+        System.out.println("Gerando nota fiscal...");
+        notaFiscal.gerarNotaFiscal(produtosDesejados, pedido);
         return (Pedido)pedidos.get(pedidos.size() - 1);
     }
 
