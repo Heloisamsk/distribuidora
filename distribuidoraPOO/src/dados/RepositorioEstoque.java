@@ -39,7 +39,7 @@ public class RepositorioEstoque {
        }
         System.out.println("Produtos: ");
        for(Produto p : this.produtos){
-           System.out.println(p.getNome());
+           System.out.println("Nome: " + p.getNome() + " | Quantidade: " + p.getQuantidade());
 
        }
     }

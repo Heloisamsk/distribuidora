@@ -3,17 +3,22 @@ import negocio.exceptions.NotaFiscalException;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 public class NotaFiscal {
-    private int numero;
+    Random random = new Random();
+    private int numero = random.nextInt(10);
     private Date data;
     private ArrayList<Produto> produtos;
     private double valorTotal;
 
-    public NotaFiscal(int numero, Date data, double valorTotal){
-        this.numero = numero;
-        this.data = data;
+
+    public NotaFiscal(ArrayList<Produto> produtos, Pedido pedido){
+       this.numero = pedido.getNumero();
         this.valorTotal = valorTotal;
+        this.produtos = new ArrayList<>();
+    }
+    public NotaFiscal(){
         produtos = new ArrayList<>();
     }
 
@@ -58,56 +63,26 @@ public class NotaFiscal {
                 ", valorTotal=" + valorTotal +
                 '}';
     }
-    //metodo gerarNota sem print
-   /*public String gerarNota() throws NotaFiscalException {
-        if (produtos == null || produtos.isEmpty()) {
-            throw new NotaFiscalException("A lista de produtos está vazia.");
+    public void gerarNotaFiscal(ArrayList<Produto> produtos) throws NotaFiscalException {
+        if (produtos.isEmpty()) {
+            throw new NotaFiscalException("Não é possível gerar nota fiscal sem produtos.");
         }
-        if (valorTotal <= 0) {
-            throw new NotaFiscalException("Valor total inválido para nota fiscal.");
-        }
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("=================================\n");
-        sb.append("          NOTA FISCAL            \n");
-        sb.append("=================================\n");
-        sb.append("Número: ").append(numero).append("\n");
-        sb.append("Data:   ").append(data).append("\n");
-        sb.append("---------------------------------\n");
-        sb.append("Produtos:\n");
-
+        double soma = 0;
         for (Produto p : produtos) {
-            sb.append(" - ").append(p).append("\n");
+            soma += p.getPreco() * p.getQuantidade();
         }
+        this.valorTotal = soma;
 
-        sb.append("---------------------------------\n");
-        sb.append("Valor Total: R$ ").append(valorTotal).append("\n");
-        sb.append("=================================\n");
-
-        return sb.toString();
+        // imprime nota (bem simples)
+        System.out.println("===== NOTA FISCAL =====");
+        System.out.println("Número: " + numero);
+        System.out.println("Data: " + data);
+        System.out.println("Produtos:");
+        for (Produto p : produtos) {
+            System.out.println("- " + p.getNome() + " | R$ " + p.getPreco());
+        }
+        System.out.println("Valor Total: R$ " + valorTotal);
+        System.out.println("=======================");
     }
 
-    public void gerarNota() throws NotaFiscalException {
-        if(produtos == null){
-            throw new NotaFiscalException("A lista de produtos esta vazia.");
-        }
-        if(valorTotal <= 0){
-            throw new NotaFiscalException("Valor total invalido para nota fiscal.");
-        }
-        System.out.println("=================================");
-        System.out.println("          NOTA FISCAL            ");
-        System.out.println("=================================");
-        System.out.println("Número: " + numero);
-        System.out.println("Data:   " + data);
-        System.out.println("---------------------------------");
-        System.out.println("Produtos:");
-
-        for (Produto p : produtos) {
-            System.out.println(" - " + p);
-        }
-
-        System.out.println("---------------------------------");
-        System.out.println("Valor Total: R$ " + valorTotal);
-        System.out.println("=================================");
-    }*/
 }

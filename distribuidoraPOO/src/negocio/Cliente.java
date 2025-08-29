@@ -14,6 +14,7 @@ public class Cliente extends Pessoa {
     private String tipo;
     private boolean cadastrado = false;
     private List<Pedido> pedidos = new ArrayList<>();
+    private Venda venda = new Venda();
 
     public Cliente(String nome, int idade, String cpf, String telefone, String endereco, String email, String tipo) {
         super(nome, idade, cpf, telefone, endereco, email);
@@ -94,9 +95,7 @@ public class Cliente extends Pessoa {
             throw new IllegalArgumentException(
                     "Valor pago insuficiente. Total do pedido: R$ " + pedido.getValorTotal());
         }
-
-        // Muda o status do pedido
-        pedido.setStatus("Pago");
+        venda.finalizarPedido(pedido);
 
         // Atualiza o estoque
         for (Produto produtoPedido : pedido.getProdutos()) {

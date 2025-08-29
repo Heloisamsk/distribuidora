@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class TelaPrincipal {
     public static void main(String[] args) {
+        System.out.println("=== Sistema da Distribuidora ===");
 
         DistribuidoraFachada fachada = new DistribuidoraFachada();
 
@@ -23,18 +24,34 @@ public class TelaPrincipal {
 
         fachada.cadastrarProduto(p1, estoque);
         fachada.cadastrarMotorista(motorista);
+        Patio patio2 = new Patio(5);
+        fachada.cadastrarCaminhao(caminhao, patio2);
+        fachada.listarCaminhoesPatio();
+        fachada.permitirEntrada(caminhao, patio2);
+        System.out.println(patio2.getVagasDisponiveis());
+        fachada.adicionarFilaSaida(caminhao, patio2);
+        fachada.permirSaida(caminhao, patio2);
+        System.out.println(patio2.getVagasDisponiveis());
         //fachada.cadastrarMotorista(motorista1); erro nome nulo
 
         fachada.listarClientes();
         fachada.listarProdutos();
-        fachada.cadastrarCaminhao(caminhao);
+
+        fachada.baterPonto(motorista);
+        fachada.baterPonto(motorista);
+
+        ArrayList<Produto> listaProdutos = new ArrayList<>();
+        listaProdutos.add(p1);
+         Pedido pedido = fachada.criarPedido(c1, listaProdutos, estoque);
+         fachada.pagarPedido(c1, pedido, 250.00, estoque);
+         fachada.listarProdutos();
 
 
 
 
 
-    /*// Essas classes chamam métodos da Fachada para executar ações, sem lógica de negócio.
-        System.out.println("=== Sistema da Distribuidora ===");
+    /*
+
         Motorista motorista = new Motorista();
         motorista.setMatricula("7856");
 

@@ -1,12 +1,9 @@
 package negocio;
+import dados.*;
 import negocio.exceptions.CaminhaoNaoCadastradoException;
 import negocio.exceptions.CpfJaExistenteException;
 import negocio.exceptions.CaminhaoJaExisteException;
 import java.util.ArrayList;
-import dados.RepositorioCliente;
-import dados.RepositorioEstoque;
-import dados.RepositorioCaminhao;
-import dados.RepositorioFuncionario;
 
 public class AuxiliarAdm extends Funcionario {
     private String login;
@@ -17,16 +14,18 @@ public class AuxiliarAdm extends Funcionario {
     private RepositorioCaminhao repCaminhao = new RepositorioCaminhao();
     private RepositorioEstoque repEstoque = new RepositorioEstoque();
     private RepositorioFuncionario repFuncionario = new RepositorioFuncionario();
+    private RepositorioPatio repPatio = new RepositorioPatio();
     private RepositorioCliente repCliente;
     private RepositorioEstoque repositorioEstoque;
     private static final String loginCadastro = "adm2025";
     private Produto produto;
 
-    public AuxiliarAdm(String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String login, String matricula, RepositorioCliente repCliente, RepositorioEstoque repEstoque){
+    public AuxiliarAdm(String cargo, double salario, String nome, int idade, String cpf, String telefone, String endereco, String email, String login, String matricula, RepositorioCliente repCliente, RepositorioEstoque repEstoque, RepositorioPatio repPatio){
         super(cargo, salario, nome, idade, cpf, telefone, endereco, email, matricula);
         this.login = login;
         this.repCliente = repCliente;
         this.repEstoque = repEstoque;
+        this.repPatio = repPatio;
         this.clientesLista = new ArrayList<>();
        // this.caminhoesLista = new ArrayList<>();
         this.produtosLista = new ArrayList<>();
@@ -75,6 +74,20 @@ public class AuxiliarAdm extends Funcionario {
             caminhao.setCadastrado(true);
         }
     }
+    public void cadastrarCaminhaoPatio(Caminhao caminhao, Patio patio){
+        if(!loginCadastro.equals(this.login)){
+            throw new SecurityException("Apenas o adminitrador com permissao pode cadastrar caminhoes");
+        }
+        if(caminhao == null || patio == null){
+            throw new IllegalArgumentException("Caminhao ou patio nao podem ser nulos");
+        }
+        if (repPatio.buscarPorPlaca(caminhao.getPlaca()) != null){
+            throw new CaminhaoJaExisteException("Caminhao ja cadastrado");
+        }
+        repPatio.cadastrarCaminhaoPatio(caminhao);
+
+
+    }
     // funcionando
     public void cadastrarCliente(Cliente cliente) {
         if(!loginCadastro.equals(this.login)){
@@ -119,6 +132,7 @@ public class AuxiliarAdm extends Funcionario {
             throw new CaminhaoNaoCadastradoException("caminhao nao esta cadastrado");
         }
         boolean entrou = patio.adicionarCaminhao(caminhao);
+
         if(entrou){
             System.out.println("caminhao entrou no patio.");
 
@@ -138,16 +152,7 @@ public class AuxiliarAdm extends Funcionario {
         if(patio == null){
             throw new IllegalArgumentException("Patio inválido.");
         }
-
-        // Adiciona o caminhão na fila de saída e nao usa o print, logo nao precisa usar o boolean
         patio.adicionarFilaSaida(caminhao);
-   // }
-
-        /*boolean filaSaida = patio.adicionarFilaSaida(caminhao);
-        if(filaSaida){
-            System.out.println("caminhao esta na fila de saida");
-        }*/
-
     }
     // funcionando
     public void permitirSaida(Caminhao caminhao, Patio patio){
@@ -162,6 +167,7 @@ public class AuxiliarAdm extends Funcionario {
         }
         if(patio.liberarSaida(caminhao)){
             System.out.println("caminhao saiu do patio.");
+
         }
     }
 

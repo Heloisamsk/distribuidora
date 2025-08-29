@@ -1,64 +1,35 @@
-/*package dados;
+package dados;
+import negocio.*;
 
-import negocio.Patio;
-import negocio.Caminhao;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioPatio {
-    private Patio patio;
 
-    public RepositorioPatio(int qtdVagas) {
-        // Cria um pátio com quantidade de vagas definida
-        this.patio = new Patio(qtdVagas);
-    }
+    private ArrayList<Caminhao> caminhoesPatio = new ArrayList();
 
-    public RepositorioPatio() {
-        // Cria um pátio padrão
-        this.patio = new Patio();
-    }
-
-    // 🔹 Retorna o pátio atual
-    public Patio getPatio() {
-        return patio;
-    }
-
-    // 🔹 Adiciona um caminhão ao pátio
-    public boolean adicionarCaminhao(Caminhao caminhao) {
-        if (caminhao == null) {
-            throw new IllegalArgumentException("Caminhão informado é nulo");
+    public boolean cadastrarCaminhaoPatio(Caminhao caminhao){
+        if(this.caminhoesPatio.add(caminhao)){
+            return true;
         }
-
-        return patio.adicionarCaminhao(caminhao);
+        return false;
     }
-
-    // 🔹 Remove um caminhão do pátio
-    public boolean removerCaminhao(Caminhao caminhao) {
-        if (caminhao == null) {
-            throw new IllegalArgumentException("Caminhão informado é nulo");
+    public Caminhao buscarPorPlaca(String placa) {
+        for(Caminhao c : this.caminhoesPatio) {
+            if (c.getPlaca().equals(placa)) {
+                return c;
+            }
         }
-
-        return patio.removerCaminhao(caminhao);
+        return null;
     }
-
-    public List<Caminhao> listarCaminhoesPatio() {
-        return new ArrayList<>(patio.getCaminhoesPatioLista());
-    }
-
-    public List<Caminhao> listarFilaEntrada() {
-        return new ArrayList<>(patio.getFilaEntrada());
-    }
-
-    public List<Caminhao> listarFilaSaida() {
-        return new ArrayList<>(patio.getFilaSaida());
-    }
-
-    public int getVagasDisponiveis() {
-        return patio.getVagasDisponiveis();
-    }
-
-    public void setVagasDisponiveis(int vagas) {
-        patio.setVagasDisponiveis(vagas);
+    public void listarTodos() {
+        if (this.caminhoesPatio.isEmpty()) {
+            System.out.println("Não há caminhoes cadastrados no patio.");
+            return;
+        }
+        System.out.println("Caminhoes: ");
+        for (Caminhao c : this.caminhoesPatio) {
+            System.out.println(c.getPlaca());
+        }
     }
 }
-*/

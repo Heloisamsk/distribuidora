@@ -8,6 +8,9 @@ public class Venda {
         this.pedido = pedido;
         this.notaFiscal = notaFiscal;
     }
+    public Venda(){
+
+    }
 
     public Pedido getPedido() {
         return pedido;
@@ -26,14 +29,12 @@ public class Venda {
     }
 
     // fazer usar em alg lugar
-    public void finalizarPedido(){
+    public void finalizarPedido(Pedido pedido){
         if (pedido.getProdutos().isEmpty()){
             throw new IllegalArgumentException("Não é possivel finalizar um pedido vazio.");
         }
-        /*double total = pedido.calcularTotal();
-        pedido.alterarStatus("Finalizado!");
-        System.out.println("Valor total: R$ "+ total);
+        pedido.setStatus("pago");
+        System.out.println("Status do pedido: " + pedido.getNumero() + ": " + pedido.getStatus());
 
-         */
     }
 }

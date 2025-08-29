@@ -3,6 +3,7 @@ package fachada;
 import dados.RepositorioCliente;
 import dados.RepositorioFuncionario;
 import dados.RepositorioEstoque;
+import dados.RepositorioPatio;
 import negocio.*;
 import negocio.AuxiliarAdm;
 import java.util.List;
@@ -11,8 +12,10 @@ public class DistribuidoraFachada {
     private RepositorioCliente repositorioCliente = new RepositorioCliente();
     private RepositorioEstoque repositorioEstoque = new RepositorioEstoque();
     private RepositorioFuncionario repFuncionario = new RepositorioFuncionario();
+    private RepositorioPatio repPatio = new RepositorioPatio();
+    private NotaFiscal notaFiscal = new NotaFiscal();
     AuxiliarAdm adm = new AuxiliarAdm("adm", 800.00, "Luicas", 35, "789549", "879985664",
-            "Rua F", "licas@gmail.com", "adm2025", "1234", repositorioCliente, repositorioEstoque);
+            "Rua F", "licas@gmail.com", "adm2025", "1234", repositorioCliente, repositorioEstoque, repPatio);
 
     // CADASTROS
     public void cadastrarMotorista(Motorista motorista){
@@ -24,12 +27,12 @@ public class DistribuidoraFachada {
     public void cadastrarProduto(Produto produto, Estoque estoque) {
         adm.cadastrarProduto(produto, estoque);
     }
-    public void cadastrarCaminhao(Caminhao caminhao){
+    public void cadastrarCaminhao(Caminhao caminhao, Patio patio){
         adm.cadastrarCaminhao(caminhao);
+        adm.cadastrarCaminhaoPatio(caminhao, patio);
     }
-    public void cadastrarMotorista(AuxiliarAdm adm, Motorista motorista){
-        adm.cadastrarMotorista(motorista);
-    }
+
+
 
     // BUSCAR
     public Cliente buscarClientePorCpf(String cpf) {
@@ -45,6 +48,7 @@ public class DistribuidoraFachada {
     public void listarClientes() {
         this.repositorioCliente.listarTodos();
     }
+    public void listarCaminhoesPatio(){this.repPatio.listarTodos();}
 
     // REMOVER
     public boolean removerCliente(String cpf) {
@@ -56,22 +60,29 @@ public class DistribuidoraFachada {
     }
 
 
+    // FUNCIONALIDADES
+    public void permitirEntrada(Caminhao caminhao, Patio patio){
+        adm.permitirEntrada(caminhao, patio);
+    }
+    public void adicionarFilaSaida(Caminhao caminhao, Patio patio){
+        adm.adicionarNaFilaSaida(caminhao, patio);
+    }
+    public void permirSaida(Caminhao caminhao, Patio patio){
+        adm.permitirSaida(caminhao, patio);
+    }
+    public void baterPonto(Funcionario funcionario){
+        funcionario.baterPonto(funcionario.getMatricula());
+    }
 
     public Pedido criarPedido(Cliente cliente, ArrayList<Produto> produtosDesejados, Estoque estoque) {
         cliente.realizarPedido(produtosDesejados, estoque);
         List<Pedido> pedidos = cliente.getPedidos();
+        notaFiscal.gerarNotaFiscal(produtosDesejados);
         return (Pedido)pedidos.get(pedidos.size() - 1);
     }
 
     public void pagarPedido(Cliente cliente, Pedido pedido, double valorPago, Estoque estoque) {
         cliente.realizarPagamento(pedido, valorPago, estoque);
+
     }
-
-    public Venda registrarVenda(Pedido pedido, NotaFiscal notaFiscal) {
-        Venda venda = new Venda(pedido, notaFiscal);
-        venda.finalizarPedido();
-        return venda;
-    }
-
-
 }
