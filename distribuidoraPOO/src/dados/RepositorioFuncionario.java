@@ -1,42 +1,52 @@
-/*package dados;
 
-import negocio.Funcionario;
+package dados;
+
 import java.util.ArrayList;
-import java.util.List;
+import negocio.Funcionario;
 
 public class RepositorioFuncionario {
+    private ArrayList<Funcionario> funcionarios = new ArrayList();
 
-    private List<Funcionario> funcionarios;
-
-    public RepositorioFuncionario() {
-        this.funcionarios = new ArrayList<>();
-    }
-
-    public void adicionar(Funcionario f) {
-        if(f == null) {
-            throw new IllegalArgumentException("Funcionário nulo");
+    public boolean cadastrar(Funcionario funcionario) {
+        if(this.funcionarios.add(funcionario)){
+            System.out.println("Funcionário cadastrado: " + funcionario.getNome());
+            return true;
         }
-
-        if(buscarPorMatricula(f.getMatricula()) != null) {
-            throw new IllegalArgumentException("Funcionário já cadastrado com esta matrícula");
-        }
-
-        funcionarios.add(f);
-    }
-
-    public List<Funcionario> listarTodos() {
-        return new ArrayList<>(funcionarios); // devolve cópia da lista
+        return false;
     }
 
     public Funcionario buscarPorMatricula(String matricula) {
-        return funcionarios.stream()
-                .filter(f -> f.getMatricula().equalsIgnoreCase(matricula))
-                .findFirst()
-                .orElse(null);
+        for(Funcionario f : this.funcionarios) {
+            if (f.getMatricula().equals(matricula)) {
+                return f;
+            }
+        }
+
+        return null;
     }
 
-    public void remover(Funcionario f) {
-        funcionarios.remove(f);
+    public ArrayList<Funcionario> listarTodos() {
+        return new ArrayList(this.funcionarios);
+    }
+
+    public boolean remover(String matricula) {
+        Funcionario f = this.buscarPorMatricula(matricula);
+        if (f != null) {
+            this.funcionarios.remove(f);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean atualizar(Funcionario funcionario) {
+        for(int i = 0; i < this.funcionarios.size(); ++i) {
+            if (((Funcionario)this.funcionarios.get(i)).getMatricula().equals(funcionario.getMatricula())) {
+                this.funcionarios.set(i, funcionario);
+                return true;
+            }
+        }
+
+        return false;
     }
 }
-*/

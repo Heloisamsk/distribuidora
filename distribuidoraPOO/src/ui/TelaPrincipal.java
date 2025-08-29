@@ -1,14 +1,39 @@
 package ui;
+import fachada.DistribuidoraFachada;
+import fachada.DistribuidoraFachada;
 import negocio.*;
 import negocio.exceptions.ClienteNaoExisteException;
 import negocio.exceptions.PontoException;
-
+import negocio.Patio;
 import java.util.ArrayList;
 
 
 public class TelaPrincipal {
-    // Essas classes chamam métodos da Fachada para executar ações, sem lógica de negócio.
     public static void main(String[] args) {
+
+        DistribuidoraFachada fachada = new DistribuidoraFachada();
+
+        Caminhao caminhao = new Caminhao("1233");
+        Cliente c1 = new Cliente("Lucas", 25, "123456", "9999-0000", "Rua A", "lucas@email.com", "Pessoa Física");
+        fachada.cadastrarCliente(c1);
+        Produto p1 = new Produto("001", "Arroz", "Pacote 5kg", (double) 25.0F, 10);
+        Estoque estoque = new Estoque();
+        Motorista motorista = new Motorista("12599", caminhao, "motorista", 4000.00 , "Joao", 30, "1234879", "8788987", "rua f", "@joao", "7989898" );
+        Motorista motorista1 = new Motorista();
+
+        fachada.cadastrarProduto(p1, estoque);
+        fachada.cadastrarMotorista(motorista);
+        //fachada.cadastrarMotorista(motorista1); erro nome nulo
+
+        fachada.listarClientes();
+        fachada.listarProdutos();
+        fachada.cadastrarCaminhao(caminhao);
+
+
+
+
+
+    /*// Essas classes chamam métodos da Fachada para executar ações, sem lógica de negócio.
         System.out.println("=== Sistema da Distribuidora ===");
         Motorista motorista = new Motorista();
         motorista.setMatricula("7856");
@@ -21,10 +46,7 @@ public class TelaPrincipal {
         listaProdutos.add(arroz);
 
 
-        Estoque estoque = new Estoque();
 
-        AuxiliarAdm adm = new AuxiliarAdm("adm", 800.00, "Luicas", 35, "789549", "879985664",
-                "Rua F", "licas@gmail.com", "adm2025", "1234");
         adm.cadastrarProduto(biscoito, estoque);
         adm.cadastrarProduto(arroz, estoque);
 
@@ -115,4 +137,5 @@ public class TelaPrincipal {
 
       }
       */
+    }
 }

@@ -1,48 +1,58 @@
-/*package dados;
 
-import negocio.Cliente;
+package dados;
+
 import java.util.ArrayList;
-import java.util.List;
+import negocio.Cliente;
 
 public class RepositorioCliente {
+    private ArrayList<Cliente> clientes = new ArrayList();
 
-    private final List<Cliente> clientes;
-
-    public RepositorioCliente() {
-        this.clientes = new ArrayList<>();
-    }
-
-    public void adicionar(Cliente cliente) {
-        if (cliente == null) {
-            throw new IllegalArgumentException("Cliente nulo");
+    public boolean cadastrar(Cliente cliente) {
+        if(this.clientes.add(cliente)) {
+            return true;
         }
-
-        // opcional: impedir CPF duplicado
-        if (buscarPorCpf(cliente.getCpf()) != null) {
-            throw new IllegalArgumentException("Já existe um cliente com este CPF");
-        }
-
-        clientes.add(cliente);
-    }
-
-    public List<Cliente> listarTodos() {
-        return new ArrayList<>(clientes); // retorna cópia da lista
+        return false;
     }
 
     public Cliente buscarPorCpf(String cpf) {
-        if (cpf == null || cpf.trim().isEmpty()) {
-            return null;
+        for (Cliente c : this.clientes) {
+            if (c.getCpf().equals(cpf)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public void listarTodos() {
+        if (this.clientes.isEmpty()) {
+            System.out.println("Não há clientes cadastrados.");
+            return;
+        }
+        System.out.println("Clientes: ");
+        for (Cliente c : this.clientes) {
+            System.out.println(c.getNome());
+        }
+    }
+
+    public boolean remover(String cpf) {
+        Cliente c = this.buscarPorCpf(cpf);
+        if (c != null) {
+            this.clientes.remove(c);
+            c.setCadastrado(false);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean atualizar(Cliente cliente) {
+        for(int i = 0; i < this.clientes.size(); ++i) {
+            if (((Cliente)this.clientes.get(i)).getCpf().equals(cliente.getCpf())) {
+                this.clientes.set(i, cliente);
+                return true;
+            }
         }
 
-        return clientes.stream()
-                .filter(c -> c.getCpf().equals(cpf))
-                .findFirst()
-                .orElse(null);
-    }
-
-    public void remover(Cliente cliente) {
-        clientes.remove(cliente);
+        return false;
     }
 }
-
- */

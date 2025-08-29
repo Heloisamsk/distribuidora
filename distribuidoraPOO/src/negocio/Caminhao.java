@@ -17,12 +17,13 @@ public class Caminhao {
         this.patio = patio;
         this.motorista = motorista;
     }
-    public Caminhao(String placa){
-        this.placa = placa;
-    }
     public Caminhao(){
 
     }
+    public Caminhao(String placa){
+        this.placa = placa;
+    }
+
 
     public String getPlaca() {
         return placa;

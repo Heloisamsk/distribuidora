@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>TelaPrincipal.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #ed864a;}
+.s1 { color: #ebebeb;}
+.s2 { color: #ed864a; font-weight: bold;}
+.s3 { color: #7ec3e6;}
+.s4 { color: #54b33e;}
+.s5 { color: #33ccff; font-weight: bold;}
+</style>
+</head>
+<body bgcolor="#131314">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+TelaPrincipal.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">ui</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">negocio.*</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">negocio.exceptions.ClienteNaoExisteException</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">negocio.exceptions.PontoException</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">negocio.Patio</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s2">;</span>
+
+
+<span class="s0">public class </span><span class="s1">TelaPrincipal {</span>
+    <span class="s3">// Essas classes chamam métodos da Fachada para executar ações, sem lógica de negócio.</span>
+    <span class="s0">public static void </span><span class="s1">main(String[] args) {</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;=== Sistema da Distribuidora ===&quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">Motorista motorista = </span><span class="s0">new </span><span class="s1">Motorista()</span><span class="s2">;</span>
+        <span class="s1">motorista.setMatricula(</span><span class="s4">&quot;7856&quot;</span><span class="s1">)</span><span class="s2">;</span>
+
+        <span class="s1">Produto biscoito = </span><span class="s0">new </span><span class="s1">Produto(</span><span class="s4">&quot;001&quot;</span><span class="s2">, </span><span class="s4">&quot;Biscoito&quot;</span><span class="s2">, </span><span class="s4">&quot;Chocolate&quot;</span><span class="s2">, </span><span class="s5">2.50</span><span class="s2">, </span><span class="s5">3</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">Produto arroz = </span><span class="s0">new </span><span class="s1">Produto(</span><span class="s4">&quot;002&quot;</span><span class="s2">, </span><span class="s4">&quot;Arroz&quot;</span><span class="s2">, </span><span class="s4">&quot;Tipo 1&quot;</span><span class="s2">, </span><span class="s5">5.00</span><span class="s2">, </span><span class="s5">2</span><span class="s1">)</span><span class="s2">;</span>
+
+        <span class="s1">ArrayList&lt;Produto&gt; listaProdutos = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s2">;</span>
+        <span class="s1">listaProdutos.add(biscoito)</span><span class="s2">;</span>
+        <span class="s1">listaProdutos.add(arroz)</span><span class="s2">;</span>
+
+
+        <span class="s1">Estoque estoque = </span><span class="s0">new </span><span class="s1">Estoque()</span><span class="s2">;</span>
+
+        <span class="s1">AuxiliarAdm adm = </span><span class="s0">new </span><span class="s1">AuxiliarAdm(</span><span class="s4">&quot;adm&quot;</span><span class="s2">, </span><span class="s5">800.00</span><span class="s2">, </span><span class="s4">&quot;Luicas&quot;</span><span class="s2">, </span><span class="s5">35</span><span class="s2">, </span><span class="s4">&quot;789549&quot;</span><span class="s2">, </span><span class="s4">&quot;879985664&quot;</span><span class="s2">,</span>
+                <span class="s4">&quot;Rua F&quot;</span><span class="s2">, </span><span class="s4">&quot;licas@gmail.com&quot;</span><span class="s2">, </span><span class="s4">&quot;adm2025&quot;</span><span class="s2">, </span><span class="s4">&quot;1234&quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">adm.cadastrarProduto(biscoito</span><span class="s2">, </span><span class="s1">estoque)</span><span class="s2">;</span>
+        <span class="s1">adm.cadastrarProduto(arroz</span><span class="s2">, </span><span class="s1">estoque)</span><span class="s2">;</span>
+
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">Estoque inicial:&quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">estoque.listarProdutos()</span><span class="s2">;</span>
+
+        <span class="s1">Cliente cliente = </span><span class="s0">new </span><span class="s1">Cliente(</span><span class="s4">&quot;Helo&quot;</span><span class="s2">, </span><span class="s5">25</span><span class="s2">, </span><span class="s4">&quot;87895&quot;</span><span class="s2">, </span><span class="s4">&quot;7854699&quot;</span><span class="s2">, </span><span class="s4">&quot;Rua 2&quot;</span><span class="s2">, </span><span class="s4">&quot;helo@&quot;</span><span class="s2">, </span><span class="s4">&quot;CPF&quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">adm.cadastrarCliente(cliente)</span><span class="s2">;</span>
+
+
+
+        <span class="s3">// Cliente realiza pedido</span>
+        <span class="s1">cliente.realizarPedido(listaProdutos</span><span class="s2">, </span><span class="s1">estoque)</span><span class="s2">;</span>
+
+        <span class="s3">// Obter o último pedido realizado</span>
+        <span class="s1">Pedido ultimoPedido = cliente.getPedidos().get(cliente.getPedidos().size() - </span><span class="s5">1</span><span class="s1">)</span><span class="s2">;</span>
+
+        <span class="s3">// Cliente realiza pagamento</span>
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s1">cliente.realizarPagamento(ultimoPedido</span><span class="s2">, </span><span class="s1">ultimoPedido.getValorTotal()</span><span class="s2">, </span><span class="s1">estoque)</span><span class="s2">;</span>
+        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(ClienteNaoExisteException e) {</span>
+            <span class="s1">System.out.println(</span><span class="s4">&quot;Erro: &quot; </span><span class="s1">+ e.getMessage())</span><span class="s2">;</span>
+        <span class="s1">}</span>
+
+        <span class="s3">// Listar estoque após pagamento</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">Estoque após pagamento:&quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">estoque.listarProdutos()</span><span class="s2">;</span>
+
+        <span class="s1">System.out.println(</span><span class="s4">&quot;</span><span class="s0">\n</span><span class="s4">Sistema finalizado.&quot;</span><span class="s1">)</span><span class="s2">;</span>
+
+        <span class="s1">adm.cadastrarMotorista(motorista)</span><span class="s2">;</span>
+
+        <span class="s1">Caminhao caminhao1 = </span><span class="s0">new </span><span class="s1">Caminhao(</span><span class="s4">&quot;ab12&quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">Patio patio2 = </span><span class="s0">new </span><span class="s1">Patio(</span><span class="s5">5</span><span class="s1">)</span><span class="s2">;</span>
+
+        <span class="s1">adm.cadastrarCaminhao(caminhao1)</span><span class="s2">;</span>
+        <span class="s1">adm.permitirEntrada(caminhao1</span><span class="s2">, </span><span class="s1">patio2)</span><span class="s2">;</span>
+        <span class="s1">patio2.listarCaminhoes()</span><span class="s2">;</span>
+        <span class="s1">adm.adicionarNaFilaSaida(caminhao1</span><span class="s2">, </span><span class="s1">patio2)</span><span class="s2">;</span>
+        <span class="s1">adm.permitirSaida(caminhao1</span><span class="s2">, </span><span class="s1">patio2)</span><span class="s2">;</span>
+        <span class="s1">patio2.listarCaminhoes()</span><span class="s2">;</span>
+        <span class="s1">adm.ponto(</span><span class="s4">&quot;1234&quot;</span><span class="s1">)</span><span class="s2">;</span>
+        <span class="s1">adm.atualizarPreco(biscoito</span><span class="s2">, </span><span class="s5">3.00</span><span class="s1">)</span><span class="s2">;</span>
+    <span class="s1">}</span>
+
+
+        <span class="s3">/*AuxiliarAdm auxiliar = new AuxiliarAdm(); 
+        auxiliar.setMatricula(&quot;0123&quot;); 
+ 
+        Caminhao caminhao1 = new Caminhao(&quot;ab12&quot;); 
+        Caminhao caminhao2 = new Caminhao(&quot;ab13&quot;); 
+        Caminhao caminhao3 = new Caminhao(&quot;ab14&quot;); 
+        Caminhao caminhao4 = new Caminhao(&quot;ab15&quot;); 
+        Caminhao caminhao5 = new Caminhao(&quot;ab16&quot;); 
+        Caminhao caminhao6 = new Caminhao(&quot;ab17&quot;); 
+ 
+        Patio patio2 = new Patio(5); 
+ 
+ 
+ 
+        patio2.adicionarCaminhao(caminhao1); 
+        patio2.adicionarCaminhao(caminhao2); 
+        patio2.adicionarCaminhao(caminhao3); 
+        patio2.adicionarCaminhao(caminhao4); 
+        patio2.adicionarCaminhao(caminhao5); 
+        patio2.adicionarCaminhao(caminhao6); 
+ 
+        patio2.listarCaminhoes(); 
+        patio2.listarFilas(); 
+ 
+ 
+ 
+      try { 
+          motorista.ponto(motorista.getMatricula()); 
+          motorista.ponto(motorista.getMatricula()); 
+ 
+          motorista.ponto(motorista.getMatricula()); 
+          motorista.baterEntrada(motorista.getMatricula()); // vai dar erro 
+ 
+      }catch (PontoException e) { 
+          System.out.println(&quot;Erro ao registrar ponto: &quot; + e.getMessage()); 
+      } 
+      try { 
+          auxiliar.baterEntrada(auxiliar.getMatricula()); 
+          auxiliar.baterEntrada(auxiliar.getMatricula()); // vai dar erro 
+      } catch (PontoException e){ 
+          System.out.println(&quot;Erro ao registrar ponto: &quot; + e.getMessage()); 
+ 
+      } 
+      */</span>
+<span class="s1">}</span></pre>
+</body>
+</html>

@@ -1,68 +1,57 @@
-/*package dados;
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
 
-import negocio.Caminhao;
+package dados;
+
 import java.util.ArrayList;
-import java.util.List;
+import negocio.Caminhao;
+import negocio.Cliente;
 
 public class RepositorioCaminhao {
+    private ArrayList<Caminhao> caminhoes = new ArrayList();
 
-    private List<Caminhao> caminhoes;
-
-    public RepositorioCaminhao() {
-        this.caminhoes = new ArrayList<>();
-    }
-
-    public void adicionar(Caminhao caminhao) {
-        if(caminhao == null) {
-            throw new IllegalArgumentException("Caminhão nulo");
+    public boolean cadastrar(Caminhao caminhao) {
+        if(this.caminhoes.add(caminhao)){
+            System.out.println("Caminhão cadastrado: " + caminhao.getPlaca());
+            return true;
         }
-
-        if(buscarPorPlaca(caminhao.getPlaca()) != null) {
-            throw new IllegalArgumentException("Caminhão já cadastrado com esta placa");
-        }
-
-        caminhoes.add(caminhao);
-    }
-
-    public List<Caminhao> listarTodos() {
-        return new ArrayList<>(caminhoes); // devolve cópia da lista
+        return false;
     }
 
     public Caminhao buscarPorPlaca(String placa) {
-        return caminhoes.stream()
-                .filter(c -> c.getPlaca().equalsIgnoreCase(placa))
-                .findFirst()
-                .orElse(null);
+        for(Caminhao c : this.caminhoes) {
+            if (c.getPlaca().equals(placa)) {
+                return c;
+            }
+        }
+        return null;
     }
 
-    public void remover(Caminhao caminhao) {
-        caminhoes.remove(caminhao);
+
+    public ArrayList<Caminhao> listarTodos() {
+        return new ArrayList(this.caminhoes);
     }
 
-    public void entrarPatio(Caminhao caminhao, negocio.Patio patio) {
-        if(caminhao == null || patio == null) {
-            throw new IllegalArgumentException("Caminhão ou pátio nulo");
+    public boolean atualizar(Caminhao caminhao) {
+        for(int i = 0; i < this.caminhoes.size(); ++i) {
+            if (((Caminhao)this.caminhoes.get(i)).getPlaca().equals(caminhao.getPlaca())) {
+                this.caminhoes.set(i, caminhao);
+                return true;
+            }
         }
 
-        boolean entrou = patio.adicionarCaminhao(caminhao);
-        if(entrou) {
-            caminhao.setStatus("NO PATIO");
+        return false;
+    }
+
+    public boolean remover(String placa) {
+        Caminhao c = this.buscarPorPlaca(placa);
+        if (c != null) {
+            this.caminhoes.remove(c);
+            return true;
         } else {
-            caminhao.setStatus("NA FILA");
-        }
-    }
-
-    public void sairPatio(Caminhao caminhao, negocio.Patio patio) {
-        if(caminhao == null || patio == null) {
-            throw new IllegalArgumentException("Caminhão ou pátio nulo");
-        }
-
-        boolean removido = patio.removerCaminhao(caminhao);
-        if(removido) {
-            caminhao.setStatus("FORA DO PATIO");
+            return false;
         }
     }
 }
-
-
- */

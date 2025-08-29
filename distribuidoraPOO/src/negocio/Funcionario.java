@@ -23,6 +23,14 @@ public class Funcionario extends Pessoa {
 
     }
 
+    public boolean getCadastrado() {
+        return cadastrado;
+    }
+
+    public void setCadastrado(boolean cadastrado) {
+        this.cadastrado = cadastrado;
+    }
+
     public String getCargo() {
         return cargo;
     }

@@ -34,7 +34,7 @@ public class Estoque {
         this.pedido = pedido;
     }
 
-    protected void cadastrarProduto(Produto produto) {
+    public void cadastrarProduto(Produto produto) {
         if (produto == null) throw new IllegalArgumentException("Produto não pode ser nulo.");
         produtos.add(produto);
         System.out.println("Produto cadastrado: " + produto.getNome() + " - Quantidade: " + produto.getQuantidade());
